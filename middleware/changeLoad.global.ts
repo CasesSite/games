@@ -1,9 +1,6 @@
-import { defineNuxtRouteMiddleware, useNuxtApp } from '#app';
-import { useGlobalStore } from '~/stores/useGlobalStore';
+import { defineNuxtRouteMiddleware, useNuxtApp } from "#app";
+import { useGlobalStore, useGlobalStoreRefs } from "~/stores/useGlobalStore";
 
 export default defineNuxtRouteMiddleware(() => {
-  const globalStore = useGlobalStore();
-  
-  // Вызов метода changeLoad
-  globalStore.changeLoad();
+  const { load } = useGlobalStoreRefs();
 });

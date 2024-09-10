@@ -9,41 +9,37 @@ $point_8: 320px;
 
 $page_width: 192rem;
 
-
 $white: #fff;
 $black: #000;
+$dark-blue: #14194d;
 $color_text_base: $white;
-$body_bg: $white;
-
-$light: #F3E4E0;
-$rose: #F3E4E0;
-
-
-
+$body_bg: $dark-blue;
+$linear: linear-gradient(180deg, rgb(54, 88, 247), rgb(85, 65, 194) 100%);
+$blue: #387be6;
+$light: #9bc8ff;
+$rose: #b24892;
 $header: 17.7rem;
 $footer: 11.3rem;
 
-
 $font_path: "@/assets/fonts/";
 
-$font_1: 'Exo2-Light';
-$font_2: 'Exo2-Regular';
-$font_3: 'Exo2-Medium';
-$font_4: 'Exo2-SemiBold';
-$font_5: 'Exo2-Bold';
+$font_1: "Exo2-Light";
+$font_2: "Exo2-Regular";
+$font_3: "Exo2-Medium";
+$font_4: "Exo2-SemiBold";
+$font_5: "Exo2-Bold";
+$font_6: "Exo2-Black";
 
 $font_size_base: 1.6rem;
-
 
 .container {
     max-width: $page_width;
     padding: 0 2rem;
     margin: 0 auto;
-    @media(max-width: 1024px) {
+    @media (max-width: 1024px) {
         padding: 0 4.5rem;
     }
-    @media(max-width: 480px) {
+    @media (max-width: 480px) {
         padding: 0 2rem;
     }
 }
-

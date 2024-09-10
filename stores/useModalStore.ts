@@ -1,11 +1,11 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
 interface ModalsState {
   burger: boolean;
-  search: boolean
+  search: boolean;
 }
 
-export const useModalStore = defineStore('modal', {
+export const useModalStore = defineStore("modal", {
   state: (): { modals: ModalsState } => ({
     modals: {
       burger: false,
@@ -21,6 +21,5 @@ export const useModalStore = defineStore('modal', {
     },
   },
 });
-
 
 export const useModalStoreRefs = () => storeToRefs(useModalStore());

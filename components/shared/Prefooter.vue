@@ -45,4 +45,40 @@ const prefooter = ref<any>([
 ]);
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.prefooter {
+  position: relative;
+  top: -5rem;
+}
+.prefooter_main {
+  @include flex-space;
+  max-width: 175rem;
+  margin: 0 auto;
+
+  gap: 7.6rem;
+}
+
+.prefooter_item {
+  background-color: $blue;
+  border-radius: 2rem;
+  @include flex-start;
+  gap: 3rem;
+  padding: 2rem 4rem;
+  height: 14.1rem;
+}
+
+.prefooter_item__img {
+}
+
+.prefooter_item__content {
+  h6 {
+    font-size: 4.4rem;
+    font-family: $font_5;
+  }
+  p {
+    color: $light;
+    font-size: 1.7rem;
+    font-family: $font_4;
+  }
+}
+</style>
