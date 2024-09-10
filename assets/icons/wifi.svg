@@ -1,0 +1,27 @@
+<svg width="23.919922" height="18.232422" viewBox="0 0 23.9199 18.2324" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<linearGradient x1="11.960001" y1="0.000000" x2="11.960001" y2="6.792499" id="paint_linear_177_8_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#6EE130"/>
+			<stop offset="1.000000" stop-color="#5BA01D"/>
+		</linearGradient>
+		<linearGradient x1="11.894646" y1="5.199707" x2="11.894646" y2="10.432207" id="paint_linear_177_9_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#6EE130"/>
+			<stop offset="1.000000" stop-color="#5BA01D"/>
+		</linearGradient>
+		<linearGradient x1="11.960156" y1="10.432129" x2="11.960156" y2="14.202128" id="paint_linear_177_10_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#6EE130"/>
+			<stop offset="1.000000" stop-color="#5BA01D"/>
+		</linearGradient>
+		<linearGradient x1="11.960155" y1="15.632324" x2="11.960155" y2="18.232325" id="paint_linear_177_11_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#6EE130"/>
+			<stop offset="1.000000" stop-color="#5BA01D"/>
+		</linearGradient>
+	</defs>
+	<path id="Vector" d="M0 4.97L1.82 6.79C7.41 1.2 16.5 1.2 22.09 6.79L23.91 4.97C17.29 -1.66 6.62 -1.66 0 4.97Z" fill="url(#paint_linear_177_8_0)" fill-opacity="1.000000" fill-rule="nonzero"/>
+	<path id="Vector" d="M3.63 8.61L5.45 10.43C8.96 6.92 14.81 6.92 18.33 10.43L20.14 8.61C15.72 4.06 8.18 4.06 3.63 8.61Z" fill="url(#paint_linear_177_9_0)" fill-opacity="1.000000" fill-rule="nonzero"/>
+	<path id="Vector" d="M7.41 12.38L9.23 14.2C10.79 12.64 13.25 12.64 14.69 14.2L16.5 12.38C14.04 9.78 9.87 9.78 7.41 12.38Z" fill="url(#paint_linear_177_10_0)" fill-opacity="1.000000" fill-rule="nonzero"/>
+	<path id="Vector" d="M13.25 16.93C13.25 17.65 12.67 18.23 11.96 18.23C11.24 18.23 10.66 17.65 10.66 16.93C10.66 16.21 11.24 15.63 11.96 15.63C12.67 15.63 13.25 16.21 13.25 16.93Z" fill="url(#paint_linear_177_11_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+</svg>

@@ -1,0 +1,49 @@
+$point_1: 1200px;
+$point_2: 1024px;
+$point_3: 1023px;
+$point_4: 768px;
+$point_5: 640px;
+$point_6: 480px;
+$point_7: 375px;
+$point_8: 320px;
+
+$page_width: 192rem;
+
+
+$white: #fff;
+$black: #000;
+$color_text_base: $white;
+$body_bg: $white;
+
+$light: #F3E4E0;
+$rose: #F3E4E0;
+
+
+
+$header: 17.7rem;
+$footer: 11.3rem;
+
+
+$font_path: "@/assets/fonts/";
+
+$font_1: 'Exo2-Light';
+$font_2: 'Exo2-Regular';
+$font_3: 'Exo2-Medium';
+$font_4: 'Exo2-SemiBold';
+$font_5: 'Exo2-Bold';
+
+$font_size_base: 1.6rem;
+
+
+.container {
+    max-width: $page_width;
+    padding: 0 2rem;
+    margin: 0 auto;
+    @media(max-width: 1024px) {
+        padding: 0 4.5rem;
+    }
+    @media(max-width: 480px) {
+        padding: 0 2rem;
+    }
+}
+
