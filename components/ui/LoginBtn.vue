@@ -18,18 +18,7 @@
   height: 100%;
   cursor: pointer;
   position: relative;
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content: "";
-    background-image: url("../../assets/img/decorator/auth-btn.png");
-    background-position: center center;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
+
   p {
     font-size: 1.9rem;
     text-transform: uppercase;
@@ -40,13 +29,9 @@
 
 .login-btn {
   border-radius: 1rem;
-  box-shadow: inset 0 -0.3rem 0 0 rgba(0, 0, 0, 0.25),
-    0 1.33rem 1.33rem 0 rgba(0, 0, 0, 0.15);
-  background: linear-gradient(
-    180deg,
-    rgb(241, 141, 114),
-    rgb(199, 68, 163) 100%
-  );
+  background: linear-gradient(180deg, #f18d72 0%, #c744a3 100%);
+  box-shadow: 0px -3px 0px 0px rgba(0, 0, 0, 0.25) inset;
+
   transition: all 0.3s ease-in-out;
   &:hover {
     box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0.25),

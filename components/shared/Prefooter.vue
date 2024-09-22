@@ -23,22 +23,22 @@
 <script setup lang="ts">
 const prefooter = ref<any>([
   {
-    img: "/assets/img/prefooter/pre-1.png",
+    img: "/assets/img/prefooter/prefooter-4.svg",
     title: "9.780",
     txt: "Всего открыто кейсов",
   },
   {
-    img: "/assets/img/prefooter/pre-2.png",
+    img: "/assets/img/prefooter/prefooter-1.svg",
     title: "10.450",
     txt: "Всего открыто кейсов",
   },
   {
-    img: "/assets/img/prefooter/pre-3.png",
+    img: "/assets/img/prefooter/prefooter-2.svg",
     title: "179.345",
     txt: "Сделано апгрейдов",
   },
   {
-    img: "/assets/img/prefooter/pre-4.png",
+    img: "/assets/img/prefooter/prefooter-3.svg",
     title: "20.851",
     txt: "Создано контрактов",
   },
@@ -59,7 +59,7 @@ const prefooter = ref<any>([
 }
 
 .prefooter_item {
-  background-color: $blue;
+  background: linear-gradient(180deg, #3270fb 0%, #573dc0 100%);
   border-radius: 2rem;
   @include flex-start;
   gap: 3rem;

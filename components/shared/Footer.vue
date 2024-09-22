@@ -64,10 +64,12 @@ import Socials from "./Socials.vue";
 
 <style scoped lang="scss">
 .footer {
-  background-image: url("../../assets/img/footer.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  // background-image: url("../../assets/img/footer.png");
+  // background-repeat: no-repeat;
+  // background-position: center center;
+  // background-size: cover;
+  background: linear-gradient(180deg, #141949 0%, #2f389f 82.94%);
+
   position: relative;
   padding-bottom: 5.5rem;
   padding-top: 12rem;
@@ -110,7 +112,7 @@ import Socials from "./Socials.vue";
 
   li {
     a {
-      color: #86b5ff;
+      color: rgba(134, 181, 255, 1);
       transition: all 0.3s ease-in-out;
       font-family: $font_3;
       &:hover {
@@ -147,11 +149,8 @@ import Socials from "./Socials.vue";
 .footer_work__btn {
   @include flex-start;
   gap: 1.5rem;
-  background: linear-gradient(
-    180deg,
-    rgb(218, 118, 208),
-    rgb(102, 51, 225) 100%
-  );
+  background: linear-gradient(180deg, #3658f7 0%, #5541c2 100%);
+
   padding: 1.9rem 2.4rem;
   border-radius: 1.5rem;
   font-size: 1.8rem;

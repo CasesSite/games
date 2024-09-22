@@ -5,36 +5,32 @@
         <div class="hero_img">
           <img src="../assets/img/hero.png" alt="" />
         </div>
-        <!-- <div class="hero_socials">
-          <Socials />
-        </div> -->
         <div class="hero_btn">
           <div class="rounde"></div>
           <NuxtLink to="/"> Попробовать </NuxtLink>
         </div>
       </div>
     </section>
-    <section class="popular">
+    <section class="popular first">
       <sectionHead
         class="small-title"
-        title="/assets/img/title-1.png"
+        title="ПОПУЛЯРНЫЕ КЕЙСЫ"
         subtitle="Забери AWP Asimov за минуту"
       />
       <ul class="card_product__list">
-        <li v-for="(item, i) in 5" :key="'popular-item-' + i">
-          <CardProduct />
+        <li v-for="(item, i) in cards" :key="'popular-item-' + i">
+          <CardProduct :card="item" />
         </li>
       </ul>
     </section>
-    <section class="popular hero_custom">
+    <section class="popular">
       <sectionHead
-        class="big-title"
-        title="/assets/img/title-2.png"
+        title="ГЕРОИЧЕСКИЕ НАБОРЫ"
         subtitle="Забери AWP Asimov за минуту"
       />
       <ul class="card_product__list">
-        <li v-for="(item, i) in 10" :key="'popular-item-' + i">
-          <CardProduct />
+        <li v-for="(item, i) in doubledCards" :key="'popular-item-' + i">
+          <CardProduct :card="item" />
         </li>
       </ul>
     </section>
@@ -44,7 +40,41 @@
 <script setup lang="ts">
 import sectionHead from "~/components/head/section-head.vue";
 import CardProduct from "~/components/cards/CardProduct.vue";
-import Socials from "~/components/shared/Socials.vue";
+
+const cards = ref([
+  {
+    img: "/assets/img/card-1.png",
+    name: "Мрачный ронин",
+    price: "53000",
+    oldprice: "55000",
+  },
+  {
+    img: "/assets/img/card-2.png",
+    name: "Мрачный ронин",
+    price: "53000",
+    oldprice: "55000",
+  },
+  {
+    img: "/assets/img/card-3.png",
+    name: "Мрачный ронин",
+    price: "53000",
+    oldprice: "55000",
+  },
+  {
+    img: "/assets/img/card-4.png",
+    name: "Мрачный ронин",
+    price: "53000",
+    oldprice: "55000",
+  },
+  {
+    img: "/assets/img/card-5.png",
+    name: "Мрачный ронин",
+    price: "53000",
+    oldprice: "55000",
+  },
+]);
+
+const doubledCards = ref([...cards.value, ...cards.value]);
 </script>
 
 <style scoped lang="scss">
@@ -139,28 +169,10 @@ import Socials from "~/components/shared/Socials.vue";
 
 .popular {
   position: relative;
-  background-image: url("../assets/img/decorator/section.png");
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding-bottom: 20rem;
-}
-.hero_custom {
-  position: relative;
-  background-image: url("../assets/img/hero-bg.jpg");
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding-bottom: 3.1rem;
-  padding-bottom: 25rem;
-  margin-bottom: -20rem;
+  margin-bottom: 14rem;
 
-  :deep(.section-head) {
-    top: -17rem;
-  }
-
-  .card_product__list {
-    margin-top: -16rem;
+  &.first {
+    margin-bottom: 10rem;
   }
 }
 

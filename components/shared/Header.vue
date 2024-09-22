@@ -41,18 +41,20 @@
               :key="'header-nav-item-' + i"
             >
               <div class="nav_icon">
-                <Icon :name="'custom:' + item.icon" />
+                <Icon :name="'custom:' + item.icon" :size="36" />
               </div>
+
               <p>{{ item.name }}</p>
             </NuxtLink>
           </nav>
+          <Socials />
+
           <LoginBtn />
         </div>
       </div>
     </div>
-    <div class="header_socials">
-      <Socials />
-    </div>
+    <!-- <div class="header_socials">
+    </div> -->
   </header>
 </template>
 
@@ -138,13 +140,13 @@ const list = ref<any>([
 ]);
 
 const nav = ref<any>([
-  { name: "Кейсы", icon: "nav-icon-1", link: "" },
-  { name: "бонусы", icon: "nav-icon-2", link: "" },
-  { name: "барабан", icon: "nav-icon-3", link: "" },
-  { name: "апгрейд", icon: "nav-icon-4", link: "" },
-  { name: "контракты", icon: "nav-icon-5", link: "" },
-  { name: "квесты", icon: "nav-icon-6", link: "" },
-  { name: "crash", icon: "nav-icon-7", link: "" },
+  { name: "Кейсы", icon: "nav-1", link: "" },
+  { name: "бонусы", icon: "nav-2", link: "" },
+  { name: "барабан", icon: "nav-3", link: "" },
+  { name: "апгрейд", icon: "nav-4", link: "" },
+  { name: "контракты", icon: "nav-5", link: "" },
+  { name: "квесты", icon: "nav-6", link: "" },
+  { name: "crash", icon: "nav-7", link: "" },
 ]);
 </script>
 
@@ -274,21 +276,26 @@ const nav = ref<any>([
   @include flex-space;
   gap: 3rem;
   padding: 3rem 2rem;
-  &:before {
-    position: absolute;
-    top: -2.4rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 23rem;
-    content: "";
-    background-image: url("../../assets/img/decorator/nav.png");
-    background-size: 100% 103%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    pointer-events: none;
-    z-index: -1;
-  }
+  background: linear-gradient(180deg, #3658f7 0%, #5541c2 100%);
+  box-shadow: 0px 7px 0px 0px #4a3399;
+  border-bottom-left-radius: 2.5rem;
+  border-bottom-right-radius: 2.5rem;
+
+  // &:before {
+  //   position: absolute;
+  //   top: -2.4rem;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   width: 100%;
+  //   height: 23rem;
+  //   content: "";
+  //   background-image: url("../../assets/img/decorator/nav.png");
+  //   background-size: 100% 103%;
+  //   background-repeat: no-repeat;
+  //   background-position: center center;
+  //   pointer-events: none;
+  //   z-index: -1;
+  // }
 }
 .header_nav {
   @include flex-start;

@@ -34,5 +34,6 @@
 
 .online_icon {
   @include flex-center;
+  width: 2.3rem;
 }
 </style>

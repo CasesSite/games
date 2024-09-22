@@ -15,6 +15,7 @@ $dark-blue: #14194d;
 $color_text_base: $white;
 $body_bg: $dark-blue;
 $linear: linear-gradient(180deg, rgb(54, 88, 247), rgb(85, 65, 194) 100%);
+$lrose: linear-gradient(180deg, #f18d72 0%, #c744a3 100%);
 $blue: #387be6;
 $light: #9bc8ff;
 $rose: #b24892;
@@ -33,13 +34,13 @@ $font_6: "Exo2-Black";
 $font_size_base: 1.6rem;
 
 .container {
-    max-width: $page_width;
+  max-width: $page_width;
+  padding: 0 2rem;
+  margin: 0 auto;
+  @media (max-width: 1024px) {
+    padding: 0 4.5rem;
+  }
+  @media (max-width: 480px) {
     padding: 0 2rem;
-    margin: 0 auto;
-    @media (max-width: 1024px) {
-        padding: 0 4.5rem;
-    }
-    @media (max-width: 480px) {
-        padding: 0 2rem;
-    }
+  }
 }

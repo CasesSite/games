@@ -79,22 +79,22 @@ const isColor = computed(() => {
     z-index: 0;
     pointer-events: none;
   }
-  &:after {
-    position: absolute;
-    top: 64%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translate(-50%, -50%);
-    content: "";
-    background-image: url("../../assets/img/prize/prize-after-blue.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: -1;
-    pointer-events: none;
-    transition: all 0.3s ease-in-out;
-  }
+  // &:after {
+  //   position: absolute;
+  //   top: 64%;
+  //   left: 50%;
+  //   width: 100%;
+  //   height: 100%;
+  //   transform: translate(-50%, -50%);
+  //   content: "";
+  //   background-image: url("../../assets/img/prize/prize-after-blue.png");
+  //   background-position: center center;
+  //   background-repeat: no-repeat;
+  //   background-size: contain;
+  //   z-index: -1;
+  //   pointer-events: none;
+  //   transition: all 0.3s ease-in-out;
+  // }
   &.color_violet {
     &:before {
       background-image: url("../../assets/img/prize/prize-before-violet.png");
