@@ -1,37 +1,39 @@
 <template>
-  <div class="inventory">
-    <div class="container">
-      <userHead />
-      <Tabs />
-      <div class="inventory_main">
-        <!-- Навигация -->
-        <div class="inventory-nav">
-          <button>Мой инвентарь</button>
-          <button>Апгрейды</button>
-          <button>Контракты</button>
-          <button>Crash</button>
-          <div>
-            <label>Можно продать</label>
-            <input type="checkbox" />
-          </div>
-          <button>ВЫВЕСТИ</button>
-          <button>ПРОДАТЬ ВСЕ</button>
-        </div>
+  <div class="wrapper">
+    <div class="inventory">
+      <div class="container">
+        <userHead />
+        <Tabs />
+        <div class="inventory_main">
+          <!-- Навигация -->
+          <!-- <div class="inventory-nav">
+            <button>Мой инвентарь</button>
+            <button>Апгрейды</button>
+            <button>Контракты</button>
+            <button>Crash</button>
+            <div>
+              <label>Можно продать</label>
+              <input type="checkbox" />
+            </div>
+            <button>ВЫВЕСТИ</button>
+            <button>ПРОДАТЬ ВСЕ</button>
+          </div> -->
 
-        <!-- Контент инвентаря -->
-        <div class="inventory-content">
-          <div class="inventory-item" v-for="item in items" :key="item.id">
-            <div class="item-image">
-              <img :src="item.image" :alt="item.name" />
-            </div>
-            <div class="item-details">
-              <p class="item-name">{{ item.name }}</p>
-              <p class="item-description">{{ item.description }}</p>
-            </div>
-            <div class="item-actions">
-              <p class="item-price">{{ item.price }} Р</p>
-              <button>Продать</button>
-              <button>Вывести</button>
+          <!-- Контент инвентаря -->
+          <div class="inventory-content">
+            <div class="inventory-item" v-for="item in items" :key="item.id">
+              <div class="item-image">
+                <img :src="item.image" :alt="item.name" />
+              </div>
+              <div class="item-details">
+                <p class="item-name">{{ item.name }}</p>
+                <p class="item-description">{{ item.description }}</p>
+              </div>
+              <div class="item-actions">
+                <p class="item-price">{{ item.price }} Р</p>
+                <button>Продать</button>
+                <button>Вывести</button>
+              </div>
             </div>
           </div>
         </div>

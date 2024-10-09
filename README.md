@@ -73,3 +73,6 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+### 10.10.2024 00:07
+> Верстка информационного блока профиля на странице Инвентарь (75%)
