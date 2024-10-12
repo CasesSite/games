@@ -52,10 +52,10 @@
       ID: "687980",
       copy: "/assets/img/profile/copy.svg",
       creditsIcon: "/assets/img/profile/credits.svg",
-      credits: "91.750",
+      credits: 91750,
       star: "/assets/img/profile/star.svg",
       gemsIcon: "/assets/img/profile/gem.svg",
-      gems: "20"
+      gems: 20
     }
   ]);
 
