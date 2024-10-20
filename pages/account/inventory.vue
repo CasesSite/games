@@ -1,8 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="inventory">
-      <div class="container">
-        <userHead />
+      <userHead />
         <Tabs />
         <div class="inventory_main">
           <!-- Навигация -->
@@ -37,7 +36,7 @@
             </div>
           </div>
         </div>
-      </div>
+
     </div>
   </div>
 </template>

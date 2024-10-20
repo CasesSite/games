@@ -36,7 +36,39 @@
           </div>
         </div>
       </div>
-      <div class="userHead_info__achieves"></div>
+      <div class="userHead_info__achieves">
+
+        <div class="userHead_profile__fav">
+            <div class="userHead_fav__ammo userHead__fav">
+              <div class="userHead_fav__title userHead_ammo__tltle">Лучший дроп</div>
+              <div class="userHead_ammo__img">
+                <img :src="item.dropImg">
+              </div>
+              <div class="userHead_ammo__foot">
+                <div class="userHead_ammo__info">
+                  <div class="userHead_info__weapon">
+                    {{ item.dropWeapon }}
+                  </div>
+                  <div class="userHead_info__nickname">
+                    {{ item.dropName }}
+                  </div>
+                </div>
+                <div class="userHead_ammo__rate">
+                  {{ item.dropRate }}
+                  <img :src="item.dropIcon">
+                </div>
+              </div>
+            </div>
+            <div class="userHead_fav__case userHead__fav">
+              <div class="userHead_fav__title userHead_case__title">Любимый кейс</div>
+              <div class="userHead_fav__name"> {{ item.favName }}</div>
+              <div class="userHead_fav__img">
+                <img :src="item.favCase">
+              </div>
+              <button class="button userHead_fav_button">Открыть</button>
+            </div>
+          </div>
+      </div>
     </div>
 
   </div>
@@ -55,7 +87,14 @@
       credits: 91750,
       star: "/assets/img/profile/star.svg",
       gemsIcon: "/assets/img/profile/gem.svg",
-      gems: 20
+      gems: 20,
+      dropImg: "/assets/img/profile/best-drop.png",
+      dropWeapon: "АК-74",
+      dropName: "Soul Dreamer",
+      dropRate: 970.5,
+      dropIcon: "/assets/img/profile/ratedrop.svg",
+      favName: "Palpatine",
+      favCase: "/assets/img/profile/fav-case.png"
     }
   ]);
 
@@ -204,5 +243,89 @@
 {
   right: 2.1rem;
 }
+.userHead__info {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  grid: gap;
+  gap: 2.5rem;
+}
+.userHead_profile__fav {
+  display: flex;
+  grid: gap;
+  gap: 2.5rem;
+}
+.userHead__fav {
+  width: 29rem;
+  padding: 2.5rem 2.5rem 2.0rem 2.5rem;
+  border-radius: 2rem;
+}
+.userHead_fav__ammo {
+  background: linear-gradient(135.02deg, #1B65B7 0%, #212669 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userHead_fav__case {
+  background: linear-gradient(135.02deg, #2E2B6E 0%, #C1356A 100%);
 
+}
+.userHead_fav__title {
+  font-size: 2rem;
+  font-family: "Exo2-Medium";
+  line-height: 2rem;
+}
+.userHead_ammo__tltle {
+  margin-bottom: 2.3rem;
+}
+.userHead_ammo__img {
+  width: 20rem;
+}
+.userHead_ammo__img img {
+  width: 100%;
+}
+.userHead_ammo__foot {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+.userHead_ammo__info {
+  display: flex;
+  flex-direction: column;
+}
+.userHead_info__weapon {
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+  font-family: "Exo2-bold", sans-serif;
+}
+.userHead_fav__case {
+  position: relative;
+}
+.userHead_fav__img {
+  position: absolute;
+  bottom: -2rem;
+  right: -3.3rem;
+}
+.userHead_fav__case:after {
+  position: absolute;
+  content: '';
+  width: 18rem;
+  height: 100%;
+  background: url('/assets/img/profile/fav-back.png');
+  bottom: 0;
+  right: 0;
+  z-index: -0;
+}
+.userHead_case__title {
+  margin-bottom: 1rem;
+}
+.userHead_fav__name {
+  font-size: 1.8rem;
+  line-height: 1.8rem;
+  font-family: "Exo2-Medium";
+  text-transform: uppercase;
+  font-style: italic;
+  margin-bottom: 6.7rem;
+}
 </style>
