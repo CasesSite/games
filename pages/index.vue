@@ -3,7 +3,7 @@
     <section class="hero">
       <div class="hero_main">
         <div class="hero_img">
-          <img src="../assets/img/hero.png" alt="" />
+          <img src="../assets/img/hero.png" />
         </div>
         <div class="hero_btn">
           <div class="rounde"></div>

@@ -10,17 +10,17 @@
               /></NuxtLink>
             </div>
             <div class="header_btn__group">
-              <div class="button">
-                <button type="button" class="primary">
-                  <Icon name="custom:crown" />
-                  <p>топ</p>
-                </button>
+              <div class="btn">
+                <div class="icon-btn">
+                  <img src="@/assets/icons/crown.svg" />
+                </div>
+                <p>топ</p>
               </div>
-              <div class="button">
-                <button type="button" class="secondary">
-                  <Icon name="custom:area" />
-                  <p>все</p>
-                </button>
+              <div class="btn">
+                <div class="icon-btn">
+                  <img src="@/assets/icons/square.svg" />
+                </div>
+                <p>все</p>
               </div>
             </div>
           </div>
@@ -47,6 +47,9 @@
               <p>{{ item.name }}</p>
             </NuxtLink>
           </nav>
+          <NuxtLink class="rocket-link" to="/">
+            <img src="@/assets/img/rocket.png" class="full" />
+          </NuxtLink>
           <Socials />
 
           <LoginBtn />
@@ -172,65 +175,33 @@ const nav = ref<any>([
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  .button {
-    &:last-child {
-      &:after {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
-  }
 
-  button {
-    @include flex-center;
-    color: $white;
-    gap: 0.5rem;
-    padding: 1.7rem 1.9rem;
-    cursor: pointer;
-    width: 100%;
-    p {
-      font-size: 1.5rem;
-      font-family: $font_5;
-      text-transform: uppercase;
+  .btn {
+    &:nth-child(1) {
+      background: $linear;
     }
-  }
-
-  .iconify {
-    min-width: 2.4rem;
+    &:nth-child(2) {
+      border: 0.2rem solid $blue;
+    }
   }
 }
-
-.button {
+.btn {
   position: relative;
-  z-index: 1;
+  @include flex-start;
+  padding: 1.1rem 1.7rem;
+  gap: 0.5rem;
   border-radius: 0.5rem;
-  overflow: hidden;
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content: "";
-    background: $linear;
-    pointer-events: none;
-    z-index: -1;
-    border-radius: 0.5rem;
+  cursor: pointer;
+
+  .icon-btn {
+    width: 2.7rem;
+    @include flex-center;
   }
-  &:after {
-    position: absolute;
-    width: 95%;
-    height: 93%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: $dark-blue;
-    content: "";
-    border-radius: 0.5rem;
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0;
-    visibility: hidden;
+
+  p {
+    color: $white;
+    font-size: 1.5rem;
+    font-family: $font_3;
   }
 }
 
@@ -275,27 +246,11 @@ const nav = ref<any>([
   z-index: 2;
   @include flex-space;
   gap: 3rem;
-  padding: 3rem 2rem;
+  padding: 1.7rem 2rem;
   background: linear-gradient(180deg, #3658f7 0%, #5541c2 100%);
-  box-shadow: 0px 7px 0px 0px #4a3399;
+  box-shadow: 0px 0.7rem 0px 0px #4a3399;
   border-bottom-left-radius: 2.5rem;
   border-bottom-right-radius: 2.5rem;
-
-  // &:before {
-  //   position: absolute;
-  //   top: -2.4rem;
-  //   left: 50%;
-  //   transform: translateX(-50%);
-  //   width: 100%;
-  //   height: 23rem;
-  //   content: "";
-  //   background-image: url("../../assets/img/decorator/nav.png");
-  //   background-size: 100% 103%;
-  //   background-repeat: no-repeat;
-  //   background-position: center center;
-  //   pointer-events: none;
-  //   z-index: -1;
-  // }
 }
 .header_nav {
   @include flex-start;
@@ -432,5 +387,12 @@ header {
   width: 100%;
   right: 5.2rem;
   top: calc(100% + 3.2rem);
+}
+
+.rocket-link {
+  max-width: 24rem;
+  margin: -1.8rem 0 -2.4rem 0;
+  @include flex-center;
+  // height: 10.7rem;
 }
 </style>
