@@ -64,15 +64,9 @@ import Socials from "./Socials.vue";
 
 <style scoped lang="scss">
 .footer {
-  // background-image: url("../../assets/img/footer.png");
-  // background-repeat: no-repeat;
-  // background-position: center center;
-  // background-size: cover;
-  background: linear-gradient(180deg, #141949 0%, #2f389f 82.94%);
-
+  background: linear-gradient(180deg, #090d31 0%, #2f389f 100%);
   position: relative;
   padding-bottom: 5.5rem;
-  padding-top: 12rem;
   :deep(.socials) {
     justify-content: flex-end;
   }
@@ -89,9 +83,9 @@ import Socials from "./Socials.vue";
 .footer_bottom {
   @include flex-space;
   gap: 3rem;
-  background: rgba(46, 35, 117, 0.28);
+  // background: rgba(46, 35, 117, 0.28);
   border-radius: 2.5rem;
-  padding: 2.3rem 4.1rem;
+  // padding: 2.3rem 4.1rem;
 }
 
 .footer__copyright {

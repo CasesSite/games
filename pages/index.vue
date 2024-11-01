@@ -112,7 +112,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   left: 50%;
   transform: translate(-50%, -50%);
   border-top: 0.4rem solid rgb(254, 128, 255);
-  border-radius: 5rem;
+  border-radius: 2rem;
   z-index: 2;
   min-width: 28.9rem;
 
@@ -152,7 +152,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   width: 30.7rem;
   height: 8.8rem;
   background-color: rgba(255, 255, 255, 0.31);
-  border-radius: 10rem;
+  border-radius: 2rem;
   z-index: -1;
   &:before {
     position: absolute;
@@ -163,7 +163,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
     height: 10.3rem;
     content: "";
     background-color: rgba(255, 255, 255, 0.09);
-    border-radius: 10rem;
+    border-radius: 2rem;
   }
 }
 
