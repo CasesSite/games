@@ -88,6 +88,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 |-  [x] - Апгрейды \
 |-  [x] - Контракты \
 |-  [x] - поведение при отстутствии \
+|-  [x] - Сделать страницу оплаты (с баннером)
 [ ] - расписать ui по элементам @KotoFeelGood72 \
 [ ] - Наполнить статейные статьи \
 |-  [ ] - Бонусы \
