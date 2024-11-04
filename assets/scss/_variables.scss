@@ -13,7 +13,7 @@ $white: #fff;
 $black: #000;
 $dark-blue: #14194d;
 $color_text_base: $white;
-$body_bg: #090d31;
+$body_bg: $dark-blue;
 $linear: linear-gradient(180deg, rgb(54, 88, 247), rgb(85, 65, 194) 100%);
 $lrose: linear-gradient(180deg, #f18d72 0%, #c744a3 100%);
 $blue: #387be6;
@@ -21,6 +21,7 @@ $light: #9bc8ff;
 $rose: #b24892;
 $header: 17.7rem;
 $footer: 11.3rem;
+
 
 $font_path: "@/assets/fonts/";
 
@@ -44,3 +45,6 @@ $font_size_base: 1.6rem;
     padding: 0 2rem;
   }
 }
+
+$sell: linear-gradient(180deg, #E171E3 0%, #8332ED 100%);
+$out: linear-gradient(180deg, #F18D72 0%, #C744A3 100%);
