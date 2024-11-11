@@ -3,8 +3,9 @@
     <section class="hero">
       <div class="hero_main">
         <div class="hero_img">
-          <img src="../assets/img/hero.png" alt="" />
+          <img src="../assets/img/hero/hero.png" alt="hero" />
         </div>
+        <img src="../assets/img/hero/hero-try.png" alt="hero-try" class="hero-try" />
         <div class="hero_btn">
           <div class="rounde"></div>
           <NuxtLink to="/"> Попробовать </NuxtLink>
@@ -96,7 +97,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
 .hero_img {
   width: 100%;
   height: 113.5rem;
-  top: -25rem;
+  top: -11rem;
   position: absolute;
   z-index: -1;
   img {
@@ -105,22 +106,24 @@ const doubledCards = ref([...cards.value, ...cards.value]);
     object-fit: cover;
   }
 }
-
+.hero-try{
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  min-width: 1289px;
+}
 .hero_btn {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-top: 0.4rem solid rgb(254, 128, 255);
-  border-radius: 5rem;
+  border-radius: 2.5rem;
   z-index: 2;
   min-width: 28.9rem;
-
-  background: linear-gradient(
-    180deg,
-    rgb(225, 113, 227),
-    rgb(131, 50, 237) 100%
-  );
+  background: linear-gradient(180deg, #E171E3 0%, #8332ED 100%);
   font-size: 3rem;
   font-family: $font_5;
   text-transform: uppercase;
@@ -128,43 +131,17 @@ const doubledCards = ref([...cards.value, ...cards.value]);
     padding: 1.6rem 3.6rem 1.8rem 3.6rem;
     @include flex-center;
   }
-
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("../assets/img/decorator/hero-btn.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    content: "";
-    pointer-events: none;
-  }
 }
 
 .rounde {
   position: absolute;
-  top: calc(50% - 0.2rem);
+  border-radius: 3.9rem;
+  top: 50%;
   left: 50%;
+  border: 1.5rem solid rgba(255, 255, 255, 0.31);
   transform: translate(-50%, -50%);
-  width: 30.7rem;
-  height: 8.8rem;
-  background-color: rgba(255, 255, 255, 0.31);
-  border-radius: 10rem;
-  z-index: -1;
-  &:before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 32.4rem;
-    height: 10.3rem;
-    content: "";
-    background-color: rgba(255, 255, 255, 0.09);
-    border-radius: 10rem;
-  }
+  width: 31.7rem;
+  height: 10rem;
 }
 
 .popular {

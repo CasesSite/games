@@ -6,22 +6,18 @@
           <div class="header_action">
             <div class="header_logo">
               <NuxtLink to="/"
-                ><img src="@/assets/img/header-logo.png" alt=""
-              /></NuxtLink>
+                ><img src="../../assets/img/header/header-logo.svg" alt="logo"/></NuxtLink>
             </div>
             <div class="header_btn__group">
-              <div class="button">
-                <button type="button" class="primary">
+                <button type="button" class="primary button">
                   <Icon name="custom:crown" />
-                  <p>топ</p>
+                  <span>топ</span>
                 </button>
-              </div>
-              <div class="button">
-                <button type="button" class="secondary">
+                <button type="button" class="secondary button">
                   <Icon name="custom:area" />
-                  <p>все</p>
+                  <span>все</span>
                 </button>
-              </div>
+
             </div>
           </div>
           <ul class="header_prize__list">
@@ -47,8 +43,8 @@
               <p>{{ item.name }}</p>
             </NuxtLink>
           </nav>
+          <img src="@/assets/img/header/crash.svg" alt="crash" class="crash"/>
           <Socials />
-
           <LoginBtn />
         </div>
       </div>
@@ -156,8 +152,8 @@ const nav = ref<any>([
 }
 
 .header_logo {
-  width: 12rem;
-  height: 12rem;
+  width: 6.8rem;
+  height: 6.8rem;
   @include flex-center;
   margin-right: 1rem;
   position: relative;
@@ -173,6 +169,8 @@ const nav = ref<any>([
   flex-direction: column;
   gap: 0.4rem;
   .button {
+    height: 3.18rem;
+    padding: 18px;
     &:last-child {
       &:after {
         opacity: 1;
@@ -185,7 +183,7 @@ const nav = ref<any>([
     @include flex-center;
     color: $white;
     gap: 0.5rem;
-    padding: 1.7rem 1.9rem;
+    padding: 0.7rem 1.1rem;
     cursor: pointer;
     width: 100%;
     p {
@@ -239,6 +237,8 @@ const nav = ref<any>([
   gap: 0.4rem;
   position: relative;
   z-index: 2;
+  max-height: 104px;
+  height: 100%;
   &:before {
     width: 110%;
     height: 100%;
@@ -254,7 +254,7 @@ const nav = ref<any>([
 .header_prize__list {
   @include flex-start;
   flex-grow: 1;
-  gap: 0.2rem;
+  gap: 2px;
   max-width: 100%;
   overflow: hidden;
 
@@ -273,9 +273,10 @@ const nav = ref<any>([
 .header_bottom__main {
   position: relative;
   z-index: 2;
+  height: 101px;
   @include flex-space;
   gap: 3rem;
-  padding: 3rem 2rem;
+  padding: 0 2rem 8px 2rem;
   background: linear-gradient(180deg, #3658f7 0%, #5541c2 100%);
   box-shadow: 0px 7px 0px 0px #4a3399;
   border-bottom-left-radius: 2.5rem;
@@ -409,7 +410,11 @@ const nav = ref<any>([
     }
   }
 }
-
+.crash{
+  height: 108px;
+  position: relative;
+  bottom: -7px;
+}
 .nav_icon {
   width: 3.6rem;
   height: 3.6rem;

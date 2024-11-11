@@ -29,9 +29,9 @@ const isColor = computed(() => {
 
 <style scoped lang="scss">
 .cardPrize__img {
-  max-width: 10.6rem;
+  max-width: 106px;
   @include flex-center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.25rem;
   z-index: 1;
   transition: all 0.3s ease-in-out;
   img {
@@ -49,8 +49,8 @@ const isColor = computed(() => {
 .cardPrize {
   position: relative;
   z-index: 1;
-  width: 17rem;
-  height: 11rem;
+  width: 166px !important;
+  height: 104px;
   @include flex-center;
   flex-direction: column;
   cursor: pointer;

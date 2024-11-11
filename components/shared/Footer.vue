@@ -31,7 +31,7 @@
         <div class="footer_info">
           <div class="footer_logo">
             <NuxtLink>
-              <img src="@/assets/img/footer-logo.png" alt="" />
+              <img src="@/assets/img/header/header-logo.svg" alt="logo" />
               <p>StarDrop</p>
             </NuxtLink>
           </div>
@@ -68,7 +68,8 @@ import Socials from "./Socials.vue";
   // background-repeat: no-repeat;
   // background-position: center center;
   // background-size: cover;
-  background: linear-gradient(180deg, #141949 0%, #2f389f 82.94%);
+  background: linear-gradient(180deg, #090D31 0%, #2F389F 82.94%);
+
 
   position: relative;
   padding-bottom: 5.5rem;
@@ -89,9 +90,6 @@ import Socials from "./Socials.vue";
 .footer_bottom {
   @include flex-space;
   gap: 3rem;
-  background: rgba(46, 35, 117, 0.28);
-  border-radius: 2.5rem;
-  padding: 2.3rem 4.1rem;
 }
 
 .footer__copyright {
