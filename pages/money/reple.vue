@@ -33,7 +33,7 @@
       <div class="selected-method">
         <h3>Выбранный метод оплаты:</h3>
         <div class="selected-method-logo">
-          <img src="@/assets/yoomoney-logo.png" alt="Selected payment" />
+          <img src="@/assets/img/modal/yandex.svg" alt="Selected payment" />
         </div>
       </div>
 
