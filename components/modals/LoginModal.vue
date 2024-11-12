@@ -3,25 +3,25 @@
     <div class="modal-content" @click.stop>
       <button @click="$emit('close')">
         <img
-          src="~/assets/img/modal/close.svg"
-          width="20"
-          alt="close"
-          class="close-btn"
+            src="~/assets/img/modal/close.svg"
+            width="20"
+            alt="close"
+            class="close-btn"
         />
       </button>
       <img
-        src="~/assets/img/modal/vectorLogin.svg"
-        alt="Login Modal"
-        class="logo-icon"
+          src="~/assets/img/modal/vectorLogin.svg"
+          alt="Login Modal"
+          class="logo-icon"
       />
       <div v-if="step === 'email'" class="modal-singIn-wrapper">
         <h2 class="modal-text">Войдите или создайте аккаунт</h2>
         <input
-          v-bind="emailAttrs"
-          v-model="email"
-          type="email"
-          placeholder="Введите e-mail"
-          class="input-field"
+            v-bind="emailAttrs"
+            v-model="email"
+            type="email"
+            placeholder="Введите e-mail"
+            class="input-field"
         />
         <button class="action-btn" @click="goToPassword">ПРОДОЛЖИТЬ ›</button>
       </div>
@@ -30,16 +30,16 @@
         <h2 class="modal-text">Введите свой пароль</h2>
         <p class="modal-singIn__input">
           <input
-            v-model="password"
-            :type="showPassword ? 'text' : 'password'"
-            placeholder="Не менее 8 символов"
-            class="input-field"
+              v-model="password"
+              :type="showPassword ? 'text' : 'password'"
+              placeholder="Не менее 8 символов"
+              class="input-field"
           />
           <img
-            src="~/assets/img/modal/eye.svg"
-            alt="Toggle Password Visibility"
-            class="toggle-password-icon"
-            @click="togglePasswordVisibility"
+              src="~/assets/img/modal/eye.svg"
+              alt="Toggle Password Visibility"
+              class="toggle-password-icon"
+              @click="togglePasswordVisibility"
           />
         </p>
         <p class="modal-singIn__input">
@@ -52,16 +52,16 @@
         <h2 class="modal-text">Придумайте пароль</h2>
         <p class="modal-singIn__input">
           <input
-            v-model="password"
-            :type="showPassword ? 'text' : 'password'"
-            placeholder="Не менее 8 символов"
-            class="input-field"
+              v-model="password"
+              :type="showPassword ? 'text' : 'password'"
+              placeholder="Не менее 8 символов"
+              class="input-field"
           />
           <img
-            src="~/assets/img/modal/eye.svg"
-            alt="Toggle Password Visibility"
-            class="toggle-password-icon"
-            @click="togglePasswordVisibility"
+              src="~/assets/img/modal/eye.svg"
+              alt="Toggle Password Visibility"
+              class="toggle-password-icon"
+              @click="togglePasswordVisibility"
           />
         </p>
         <button class="action-btn" @click="createAccount">
@@ -71,7 +71,9 @@
 
       <div class="social-login">
         <p>Войти с помощью:</p>
-        <div class="social-icons"><SocialsInLogin /></div>
+        <div class="social-icons">
+          <SocialsInLogin/>
+        </div>
       </div>
       <footer class="footer-text">
         Прочел и согласен с Политика конфиденциальности и Пользовательское
@@ -82,28 +84,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import {ref} from "vue";
 import axios from "axios";
 import SocialsInLogin from "~/components/shared/SocialsInLogin.vue";
-import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
-import { z } from "zod";
+import {useForm} from "vee-validate";
+import {toTypedSchema} from "@vee-validate/zod";
+import {z} from "zod";
+
 const showPassword = ref(false);
 const isOpen = ref(true);
 const step = ref("email");
 const password = ref("");
-const { values, defineField } = useForm();
+const {values, defineField} = useForm();
 const [email, emailAttrs] = defineField("email");
 
 const schema = toTypedSchema(
-  z.object({
-    email: z.string().nonempty().email(),
-  }),
+    z.object({
+      email: z.string().nonempty().email(),
+    }),
 );
 
 function togglePasswordVisibility() {
   showPassword.value = !showPassword.value;
 }
+
 function closeModal() {
   isOpen.value = false;
 }
@@ -111,7 +115,7 @@ function closeModal() {
 async function goToPassword() {
   try {
     const response = await axios.get(
-      `https://dev.24cases.ru/v1/exists/${email.value}`,
+        `https://dev.24cases.ru/v1/exists/${email.value}`,
     );
     if (response.data === true) {
       step.value = "password";
@@ -122,16 +126,17 @@ async function goToPassword() {
     console.error("Error checking email:", error);
   }
 }
+
 async function createAccount() {
   if (password.value.length >= 8) {
     try {
       const response = await axios.post(
-        "https://dev.24cases.ru/v1/auth/register",
-        {
-          email: email.value,
-          password: password.value,
-          role: "User",
-        },
+          "https://dev.24cases.ru/v1/auth/register",
+          {
+            email: email.value,
+            password: password.value,
+            role: "User",
+          },
       );
 
       console.log("Account created successfully:", response.data);
@@ -141,15 +146,16 @@ async function createAccount() {
     }
   }
 }
+
 async function login() {
   if (password.value.length >= 8) {
     try {
       const response = await axios.post(
-        "https://dev.24cases.ru/v1/auth/login",
-        {
-          email: email.value,
-          password: password.value,
-        },
+          "https://dev.24cases.ru/v1/auth/login",
+          {
+            email: email.value,
+            password: password.value,
+          },
       );
       console.log("login created successfully:", response.data);
       closeModal();
@@ -173,6 +179,7 @@ async function login() {
   justify-content: center;
   z-index: 1000;
 }
+
 .modal-text {
   font-family: $font_2;
   font-size: 35px;
@@ -182,6 +189,7 @@ async function login() {
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
 }
+
 .modal-content {
   background-color: $dark-blue-modal-bg;
   padding: 5.1875rem 6.375rem 3rem 6.375rem;
@@ -202,17 +210,20 @@ async function login() {
   gap: 35px;
   max-width: 527px;
   width: 100%;
+
   .toggle-password-icon {
     position: absolute;
     right: 20px;
     top: 45%;
     cursor: pointer;
   }
+
   .modal-singIn__input {
     position: relative;
     width: 100%;
   }
 }
+
 .logo-icon {
   position: absolute;
   left: 300px;
@@ -220,6 +231,7 @@ async function login() {
   max-width: 156px;
   width: 100%;
 }
+
 .close-btn {
   position: absolute;
   right: 25px;
@@ -228,6 +240,7 @@ async function login() {
   cursor: pointer;
   border: none;
 }
+
 h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
@@ -247,6 +260,7 @@ h2 {
   color: $blue-input-text;
   border: 1px solid $dark-blue-border;
   margin-top: 10px;
+
   &::placeholder {
     font-family: $font_2;
     font-size: 23px;
@@ -273,6 +287,7 @@ h2 {
 .action-btn:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
+
 .action-forgot-btn {
   font-family: $font_2;
   font-size: 16px;
@@ -282,6 +297,7 @@ h2 {
   padding-top: 11px;
   cursor: pointer;
 }
+
 .social-login {
   margin-top: 1.5rem;
   background: $dark-blue-modal-sector-bg;
@@ -291,6 +307,7 @@ h2 {
   height: 100%;
   border-radius: 20px;
   padding: 2.6875rem 0 3.4375rem 0;
+
   > p {
     font-family: $font_2;
     font-size: 19px;
@@ -299,6 +316,7 @@ h2 {
     text-align: center;
   }
 }
+
 > p {
   font-family: $font_2;
   color: $white;
@@ -307,6 +325,7 @@ h2 {
   line-height: 19px;
   text-align: center;
 }
+
 .social-icons {
   display: flex;
   gap: 1rem;
