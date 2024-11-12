@@ -28,13 +28,21 @@
 
       <div v-else-if="step === 'password'" class="modal-singIn-wrapper">
         <h2 class="modal-text">Введите свой пароль</h2>
-        <input
-          v-model="password"
-          type="password"
-          placeholder="Не менее 8 символов"
-          class="input-field"
-        />
-        <p>
+        <p class="modal-singIn__input">
+          <input
+            v-model="password"
+            :type="showPassword ? 'text' : 'password'"
+            placeholder="Не менее 8 символов"
+            class="input-field"
+          />
+          <img
+            src="~/assets/img/modal/eye.svg"
+            alt="Toggle Password Visibility"
+            class="toggle-password-icon"
+            @click="togglePasswordVisibility"
+          />
+        </p>
+        <p class="modal-singIn__input">
           <button class="action-btn" @click="login">Войти</button>
           <button class="action-forgot-btn">Забыли свой пароль?</button>
         </p>
@@ -42,12 +50,20 @@
 
       <div v-else-if="step === 'createPassword'" class="modal-singIn-wrapper">
         <h2 class="modal-text">Придумайте пароль</h2>
-        <input
-          v-model="password"
-          type="password"
-          placeholder="Не менее 8 символов"
-          class="input-field"
-        />
+        <p class="modal-singIn__input">
+          <input
+            v-model="password"
+            :type="showPassword ? 'text' : 'password'"
+            placeholder="Не менее 8 символов"
+            class="input-field"
+          />
+          <img
+            src="~/assets/img/modal/eye.svg"
+            alt="Toggle Password Visibility"
+            class="toggle-password-icon"
+            @click="togglePasswordVisibility"
+          />
+        </p>
         <button class="action-btn" @click="createAccount">
           Создать аккаунт
         </button>
@@ -72,7 +88,7 @@ import SocialsInLogin from "~/components/shared/SocialsInLogin.vue";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
-
+const showPassword = ref(false);
 const isOpen = ref(true);
 const step = ref("email");
 const password = ref("");
@@ -85,6 +101,9 @@ const schema = toTypedSchema(
   }),
 );
 
+function togglePasswordVisibility() {
+  showPassword.value = !showPassword.value;
+}
 function closeModal() {
   isOpen.value = false;
 }
@@ -176,10 +195,23 @@ async function login() {
   @include flex-col;
   gap: 35px;
 }
+
 .modal-singIn-wrapper {
   @include flex-center;
   @include flex-col;
   gap: 35px;
+  max-width: 527px;
+  width: 100%;
+  .toggle-password-icon {
+    position: absolute;
+    right: 20px;
+    top: 45%;
+    cursor: pointer;
+  }
+  .modal-singIn__input {
+    position: relative;
+    width: 100%;
+  }
 }
 .logo-icon {
   position: absolute;
