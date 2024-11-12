@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "nuxt-swiper",
     "@pinia/nuxt",
+    "@nuxt/image-edge",
     "@pinia-plugin-persistedstate/nuxt",
   ],
 

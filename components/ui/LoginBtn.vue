@@ -1,13 +1,15 @@
 <template>
-  <div class="login-btn">
+  <button class="login-btn">
     <div class="login-btn__w">
       <Icon name="custom:print" :size="25" />
       <p>ВОЙТИ</p>
     </div>
-  </div>
+  </button>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+</script>
 
 <style scoped lang="scss">
 .login-btn__w {

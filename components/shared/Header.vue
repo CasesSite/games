@@ -45,10 +45,11 @@
           </nav>
           <img src="@/assets/img/header/crash.svg" alt="crash" class="crash"/>
           <Socials />
-          <LoginBtn />
+          <LoginBtn @click="openModal"  />
         </div>
       </div>
     </div>
+    <LoginModal v-if="isModalOpen" @close="closeModal" />
     <!-- <div class="header_socials">
     </div> -->
   </header>
@@ -57,8 +58,10 @@
 <script setup lang="ts">
 import CardOnline from "../cards/CardOnline.vue";
 import MiniPrize from "../cards/MiniPrize.vue";
-import LoginBtn from "../ui/LoginBtn.vue";
 import Socials from "./Socials.vue";
+import { ref } from 'vue';
+import LoginModal from "~/components/modals/LoginModal.vue";
+import LoginBtn from "../ui/LoginBtn.vue";
 
 const list = ref<any>([
   {
@@ -134,6 +137,15 @@ const list = ref<any>([
     color: "rose",
   },
 ]);
+const isModalOpen = ref(false);
+
+function openModal() {
+  isModalOpen.value = true;
+}
+
+function closeModal() {
+  isModalOpen.value = false;
+}
 
 const nav = ref<any>([
   { name: "Кейсы", icon: "nav-1", link: "" },
