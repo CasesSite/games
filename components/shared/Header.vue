@@ -6,18 +6,18 @@
           <div class="header_action">
             <div class="header_logo">
               <NuxtLink to="/"
-                ><img src="../../assets/img/header/header-logo.svg" alt="logo"/></NuxtLink>
+                ><img src="../../assets/img/header/header-logo.svg" alt="logo"
+              /></NuxtLink>
             </div>
             <div class="header_btn__group">
-                <button type="button" class="primary button">
-                  <Icon name="custom:crown" />
-                  <span>топ</span>
-                </button>
-                <button type="button" class="secondary button">
-                  <Icon name="custom:area" />
-                  <span>все</span>
-                </button>
-
+              <button type="button" class="primary button">
+                <Icon name="custom:crown" />
+                <span>топ</span>
+              </button>
+              <button type="button" class="secondary button">
+                <Icon name="custom:area" />
+                <span>все</span>
+              </button>
             </div>
           </div>
           <ul class="header_prize__list">
@@ -43,15 +43,21 @@
               <p>{{ item.name }}</p>
             </NuxtLink>
           </nav>
-          <img src="@/assets/img/header/crash.svg" alt="crash" class="crash"/>
-          <Socials />
-          <LoginBtn @click="openModal"  />
+
+          <img
+            v-if="!isAuthorizedUser"
+            src="@/assets/img/header/crash.svg"
+            alt="crash"
+            class="crash"
+          />
+          <p class="nav_social_wrapper">
+            <Socials />
+            <LoginBtn @click="openModal" />
+          </p>
         </div>
       </div>
     </div>
     <LoginModal v-if="isModalOpen" @close="closeModal" />
-    <!-- <div class="header_socials">
-    </div> -->
   </header>
 </template>
 
@@ -59,9 +65,11 @@
 import CardOnline from "../cards/CardOnline.vue";
 import MiniPrize from "../cards/MiniPrize.vue";
 import Socials from "./Socials.vue";
-import { ref } from 'vue';
+import { ref } from "vue";
 import LoginModal from "~/components/modals/LoginModal.vue";
 import LoginBtn from "../ui/LoginBtn.vue";
+import { useGlobalStoreRefs } from "@/stores/useGlobalStore";
+const { isAuthorizedUser } = useGlobalStoreRefs();
 
 const list = ref<any>([
   {
@@ -181,8 +189,7 @@ const nav = ref<any>([
   flex-direction: column;
   gap: 0.4rem;
   .button {
-    height: 3.18rem;
-    padding: 18px;
+    height: 100%;
     &:last-child {
       &:after {
         opacity: 1;
@@ -195,9 +202,10 @@ const nav = ref<any>([
     @include flex-center;
     color: $white;
     gap: 0.5rem;
-    padding: 0.7rem 1.1rem;
     cursor: pointer;
     width: 100%;
+    height: 100%;
+    padding: 2.3rem;
     p {
       font-size: 1.5rem;
       font-family: $font_5;
@@ -209,7 +217,10 @@ const nav = ref<any>([
     min-width: 2.4rem;
   }
 }
-
+.nav_social_wrapper {
+  @include flex-center;
+  gap: 3rem;
+}
 .button {
   position: relative;
   z-index: 1;
@@ -290,25 +301,9 @@ const nav = ref<any>([
   gap: 3rem;
   padding: 0 2rem 8px 2rem;
   background: linear-gradient(180deg, #3658f7 0%, #5541c2 100%);
-  box-shadow: 0px 7px 0px 0px #4a3399;
+  box-shadow: 0 7px 0 0 #4a3399;
   border-bottom-left-radius: 2.5rem;
   border-bottom-right-radius: 2.5rem;
-
-  // &:before {
-  //   position: absolute;
-  //   top: -2.4rem;
-  //   left: 50%;
-  //   transform: translateX(-50%);
-  //   width: 100%;
-  //   height: 23rem;
-  //   content: "";
-  //   background-image: url("../../assets/img/decorator/nav.png");
-  //   background-size: 100% 103%;
-  //   background-repeat: no-repeat;
-  //   background-position: center center;
-  //   pointer-events: none;
-  //   z-index: -1;
-  // }
 }
 .header_nav {
   @include flex-start;
@@ -422,7 +417,7 @@ const nav = ref<any>([
     }
   }
 }
-.crash{
+.crash {
   height: 108px;
   position: relative;
   bottom: -7px;

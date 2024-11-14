@@ -21,13 +21,25 @@
 <style scoped lang="scss">
 .socials {
   @include flex-start;
-  gap: 15px;
+  gap: 1rem;
   &-links {
     @include flex-center;
-    width: 49px;
-    height: 49px;
+    > img > path {
+      width: 3rem;
+      height: 3rem;
+      @media (max-width: 480px) {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
     border-radius: 10px;
     background-color: $blue-bg;
+    width: 5rem;
+    height: 5rem;
+    @media (max-width: 480px) {
+      width: 4rem;
+      height: 4rem;
+    }
   }
 }
 </style>

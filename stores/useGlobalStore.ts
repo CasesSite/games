@@ -5,6 +5,7 @@ export const useGlobalStore = defineStore("main", {
   state: () => ({
     load: false as boolean,
     page: {} as any,
+    isAuthorizedUser: false,
   }),
   actions: {
     async getPages() {
@@ -19,6 +20,9 @@ export const useGlobalStore = defineStore("main", {
       } finally {
         this.load = false;
       }
+    },
+    setAuthorized(status: boolean) {
+      this.isAuthorizedUser = status;
     },
   },
   persist: true,

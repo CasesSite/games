@@ -5,7 +5,11 @@
         <div class="hero_img">
           <img src="../assets/img/hero/hero.png" alt="hero" />
         </div>
-        <img src="../assets/img/hero/hero-try.png" alt="hero-try" class="hero-try" />
+        <img
+          src="../assets/img/hero/hero-try.png"
+          alt="hero-try"
+          class="hero-try"
+        />
         <div class="hero_btn">
           <div class="rounde"></div>
           <NuxtLink to="/"> Попробовать </NuxtLink>
@@ -106,16 +110,16 @@ const doubledCards = ref([...cards.value, ...cards.value]);
     object-fit: cover;
   }
 }
-.hero-try{
+.hero-try {
   position: absolute;
   top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  min-width: 1289px;
 }
 .hero_btn {
   position: absolute;
+  cursor: pointer;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -123,7 +127,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   border-radius: 2.5rem;
   z-index: 2;
   min-width: 28.9rem;
-  background: linear-gradient(180deg, #E171E3 0%, #8332ED 100%);
+  background: linear-gradient(180deg, #e171e3 0%, #8332ed 100%);
   font-size: 3rem;
   font-family: $font_5;
   text-transform: uppercase;
