@@ -44,6 +44,9 @@ const percentage = (currentValue.value / maxValue.value) * 100;
   max-width: 32.8rem;
   margin-bottom: 0.6rem;
   position: relative;
+  @include bp($point_5) {
+    max-width: 175px;
+  }
   img {
     width: 100%;
     display: block;

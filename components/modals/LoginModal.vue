@@ -230,7 +230,6 @@ async function login() {
 }
 .logo-icon {
   position: absolute;
-  left: 18.75rem; // 300px
   top: -4.4375rem; // -71px
   max-width: 9.75rem; // 156px
   width: 100%;

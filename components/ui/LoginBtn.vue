@@ -5,23 +5,27 @@
       <p>ВОЙТИ</p>
     </div>
   </button>
-  <button v-else class="authorized-content">
-    <button>
-      <img src="@/assets/img/header/plus.svg" alt="plus" class="plus" />
-    </button>
-    <p class="coins">
-      {{ coins }}
+  <p v-else class="login-btn-mobile">
+    <img src="@/assets/img/header/plus.svg" alt="plus" class="plus-mobile" />
+    <button class="authorized-content">
+      <button>
+        <img src="@/assets/img/header/plus.svg" alt="plus" class="plus" />
+      </button>
+      <p class="coins">
+        {{ coins }}
+        <img
+          class="star-icon"
+          src="@/assets/img/header/header-logo.svg"
+          alt="Star Icon"
+        />
+      </p>
       <img
-        class="star-icon"
-        src="@/assets/img/header/header-logo.svg"
-        alt="Star Icon"
+        src="@/assets/img/header/avatar.png"
+        alt="User Avatar"
+        class="avatar-mobile"
       />
-    </p>
-
-    <p class="avatar">
-      <img src="@/assets/img/header/avatar.png" alt="User Avatar" />
-    </p>
-  </button>
+    </button>
+  </p>
 </template>
 
 <script setup lang="ts">
@@ -41,7 +45,12 @@ const coins = ref(91750);
   height: 100%;
   cursor: pointer;
   position: relative;
-
+  @include bp($point_5) {
+    padding: 9px;
+    > span {
+      font-size: 16px !important;
+    }
+  }
   p {
     font-size: 1.9rem;
     text-transform: uppercase;
@@ -55,7 +64,12 @@ const coins = ref(91750);
   background: linear-gradient(180deg, #f18d72 0%, #c744a3 100%);
   box-shadow: 0px -3px 0px 0px rgba(0, 0, 0, 0.25) inset;
   transition: all 0.3s ease-in-out;
-
+  color: $white;
+  @include bp($point_5) {
+    p {
+      font-size: 10px;
+    }
+  }
   &:hover {
     box-shadow:
       inset 0 0 0 0 rgba(0, 0, 0, 0.25),
@@ -73,7 +87,11 @@ const coins = ref(91750);
   cursor: pointer;
   background-color: #353ba8;
   border-radius: 3rem;
-
+  @include bp($point_5) {
+    padding: 5px;
+    gap: 4px;
+    border-radius: 10px;
+  }
   .avatar {
     position: relative;
     width: 5.5rem;
@@ -117,6 +135,9 @@ const coins = ref(91750);
     line-height: 24px;
     text-align: left;
     @include flex-center;
+    @include bp($point_5) {
+      font-size: 1rem;
+    }
   }
 
   .star-icon {
@@ -130,6 +151,30 @@ const coins = ref(91750);
     border: 1px;
     padding: 5px;
     background-color: #5c207cbf;
+    @include bp($point_5) {
+      display: none;
+    }
   }
+}
+.login-btn-mobile {
+  @include flex-center;
+  gap: 5px;
+}
+.plus-mobile {
+  display: none;
+  background-color: #5c207cbf;
+  height: 34px;
+  width: 34px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  @include bp($point_5) {
+    display: block;
+  }
+}
+.avatar-mobile {
+  width: 23px;
+  height: 23px;
+  border-radius: 5px;
 }
 </style>

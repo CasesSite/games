@@ -3,13 +3,9 @@
     <section class="hero">
       <div class="hero_main">
         <div class="hero_img">
-          <img src="../assets/img/hero/hero.png" alt="hero" />
+          <img :src="hero" alt="hero" />
         </div>
-        <img
-          src="../assets/img/hero/hero-try.png"
-          alt="hero-try"
-          class="hero-try"
-        />
+        <img :src="heroTryImageSrc" alt="hero-try" class="hero-try" />
         <div class="hero_btn">
           <div class="rounde"></div>
           <NuxtLink to="/"> Попробовать </NuxtLink>
@@ -45,7 +41,30 @@
 <script setup lang="ts">
 import sectionHead from "~/components/head/section-head.vue";
 import CardProduct from "~/components/cards/CardProduct.vue";
+import heroTryMobileImage from "@/assets/img/hero/hero-try-mobile.png";
+import heroTryDesktopImage from "@/assets/img/hero/hero-try.png";
+import heroMobile from "@/assets/img/hero/hero-mobile.png";
+import heroDesktop from "@/assets/img/hero/hero.png";
 
+const isMobile = ref(false);
+
+const checkScreenSize = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+
+onMounted(() => {
+  checkScreenSize();
+  window.addEventListener("resize", checkScreenSize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", checkScreenSize);
+});
+
+const heroTryImageSrc = computed(() =>
+  isMobile.value ? heroTryMobileImage : heroTryDesktopImage,
+);
+const hero = computed(() => (isMobile.value ? heroMobile : heroDesktop));
 const cards = ref([
   {
     img: "/assets/img/card-1.png",
@@ -88,6 +107,11 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   min-height: 88.5rem;
   z-index: 1;
   margin-bottom: -17.4rem;
+  @include bp($point_5) {
+    min-height: 400px;
+    margin-bottom: 0;
+    margin-top: 25px;
+  }
 }
 
 .hero_socials {
@@ -100,10 +124,13 @@ const doubledCards = ref([...cards.value, ...cards.value]);
 
 .hero_img {
   width: 100%;
-  height: 113.5rem;
+  height: 100%;
   top: -11rem;
   position: absolute;
   z-index: -1;
+  @include bp($point_5) {
+    top: 0;
+  }
   img {
     width: 100%;
     height: 100%;
@@ -116,6 +143,10 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+  @include bp($point_5) {
+    left: 57%;
+    top: 29%;
+  }
 }
 .hero_btn {
   position: absolute;
@@ -135,6 +166,17 @@ const doubledCards = ref([...cards.value, ...cards.value]);
     padding: 1.6rem 3.6rem 1.8rem 3.6rem;
     @include flex-center;
   }
+  @include bp($point_5) {
+    border-radius: 20px;
+    min-width: 0;
+    height: 55px;
+    font-size: 18px;
+    top: 77%;
+    a {
+      height: 52px;
+      padding: 1.65rem 3.6rem 1.8rem 3.65rem;
+    }
+  }
 }
 
 .rounde {
@@ -146,6 +188,12 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   transform: translate(-50%, -50%);
   width: 31.7rem;
   height: 10rem;
+  @include bp($point_5) {
+    width: 219px;
+    height: 71px;
+    border: 10px solid rgba(255, 255, 255, 0.31);
+    border-radius: 29px;
+  }
 }
 
 .popular {
@@ -164,5 +212,9 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   padding: 0 5rem;
   max-width: 182.1rem;
   margin: 0 auto;
+  @include bp($point_5) {
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+    padding: 0;
+  }
 }
 </style>

@@ -22,6 +22,11 @@
   gap: 1rem;
   padding: 1.1rem 1.6rem;
   font-family: $font_5;
+  @include bp($point_5) {
+    background: unset;
+    gap: 6px;
+    padding: 0 10px 0 0;
+  }
   p {
     font-size: 1.5rem;
     margin-bottom: -0.6rem;
@@ -35,5 +40,9 @@
 .online_icon {
   @include flex-center;
   width: 2.3rem;
+  @include bp($point_5) {
+    display: block;
+    margin-top: -0.5rem;
+  }
 }
 </style>

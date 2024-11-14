@@ -4,19 +4,20 @@
       <div class="header_main">
         <div class="header_top__main">
           <div class="header_action">
-            <div class="header_logo">
-              <NuxtLink to="/"
-                ><img src="../../assets/img/header/header-logo.svg" alt="logo"
-              /></NuxtLink>
-            </div>
+            <NuxtLink to="/" class="header_logo"
+              ><img src="../../assets/img/header/header-logo.svg" alt="logo"
+            /></NuxtLink>
+
             <div class="header_btn__group">
               <button type="button" class="primary button">
-                <Icon name="custom:crown" />
-                <span>топ</span>
+                <img src="../../assets/icons/crown.svg" alt="crown" />
+                <span class="header_btn__group-text">топ</span>
               </button>
               <button type="button" class="secondary button">
-                <Icon name="custom:area" />
-                <span>все</span>
+                <Icon name="custom:area" size="12px" />
+                <span class="header_btn__group-text" style="margin-left: 5px"
+                  >все</span
+                >
               </button>
             </div>
           </div>
@@ -44,16 +45,48 @@
             </NuxtLink>
           </nav>
 
-          <img
-            v-if="!isAuthorizedUser"
-            src="@/assets/img/header/crash.svg"
-            alt="crash"
-            class="crash"
-          />
           <p class="nav_social_wrapper">
+            <img
+              v-if="!isAuthorizedUser"
+              src="@/assets/img/header/crash.svg"
+              alt="crash"
+              class="crash"
+            />
             <Socials />
             <LoginBtn @click="openModal" />
           </p>
+        </div>
+      </div>
+      <div class="header_main-mobile">
+        <div class="header_top__mobile">
+          <p>
+            <NuxtLink to="/"
+              ><img
+                src="../../assets/img/header/header-logo.svg"
+                class="logo"
+                alt="logo"
+            /></NuxtLink>
+            <Socials />
+          </p>
+          <p>
+            <CardOnline />
+            <LoginBtn @click="openModal" />
+          </p>
+        </div>
+        <div class="header_bottom__mobile">
+          <div class="header_btn__group">
+            <button type="button" class="primary button">
+              <img src="../../assets/icons/crown.svg" alt="crown" />
+            </button>
+            <button type="button" class="secondary button">
+              <Icon name="custom:area" />
+            </button>
+          </div>
+          <ul class="header_prize__list">
+            <li v-for="(item, i) in list" :key="'mini-prize-' + i">
+              <MiniPrize :card="item" />
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -157,16 +190,23 @@ function closeModal() {
 
 const nav = ref<any>([
   { name: "Кейсы", icon: "nav-1", link: "" },
-  { name: "бонусы", icon: "nav-2", link: "" },
-  { name: "барабан", icon: "nav-3", link: "" },
-  { name: "апгрейд", icon: "nav-4", link: "" },
   { name: "контракты", icon: "nav-5", link: "" },
-  { name: "квесты", icon: "nav-6", link: "" },
-  { name: "crash", icon: "nav-7", link: "" },
+  { name: "апгрейд", icon: "nav-4", link: "" },
+  { name: "барабан", icon: "nav-3", link: "" },
+  { name: "бонусы", icon: "nav-2", link: "" },
+  // { name: "квесты", icon: "nav-6", link: "" },
+  // { name: "crash", icon: "nav-7", link: "" },
 ]);
 </script>
 
 <style scoped lang="scss">
+.header_main {
+  display: block;
+  @include bp($point_5) {
+    display: none;
+  }
+}
+
 .header_action {
   @include flex-start;
 }
@@ -188,8 +228,13 @@ const nav = ref<any>([
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+
   .button {
-    height: 100%;
+    @include bp($point_5) {
+      height: 30px;
+      width: 30px;
+      padding: unset;
+    }
     &:last-child {
       &:after {
         opacity: 1;
@@ -201,11 +246,9 @@ const nav = ref<any>([
   button {
     @include flex-center;
     color: $white;
-    gap: 0.5rem;
     cursor: pointer;
     width: 100%;
-    height: 100%;
-    padding: 2.3rem;
+    height: 50px;
     p {
       font-size: 1.5rem;
       font-family: $font_5;
@@ -280,6 +323,10 @@ const nav = ref<any>([
   gap: 2px;
   max-width: 100%;
   overflow: hidden;
+  @include bp($point_5) {
+    max-height: 100px;
+    height: 62px;
+  }
 
   &::-webkit-scrollbar {
     display: none;
@@ -304,6 +351,16 @@ const nav = ref<any>([
   box-shadow: 0 7px 0 0 #4a3399;
   border-bottom-left-radius: 2.5rem;
   border-bottom-right-radius: 2.5rem;
+}
+.header_btn__group-text {
+  font-family: $font_2;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 14px;
+  text-align: left;
+  @include bp($point_2) {
+    font-size: 12px;
+  }
 }
 .header_nav {
   @include flex-start;
@@ -421,6 +478,7 @@ const nav = ref<any>([
   height: 108px;
   position: relative;
   bottom: -7px;
+  padding-right: 10px;
 }
 .nav_icon {
   width: 3.6rem;
@@ -444,5 +502,29 @@ header {
   width: 100%;
   right: 5.2rem;
   top: calc(100% + 3.2rem);
+}
+.header_main-mobile {
+  display: none;
+  .header_bottom__mobile {
+    @include flex-center;
+    gap: 5px;
+  }
+  @include bp($point_5) {
+    display: block;
+  }
+  .header_top__mobile {
+    @include flex-space;
+    padding: 10px 10px 0 10px;
+    > p {
+      @include flex-center;
+    }
+    > p:first-child {
+      gap: 10px;
+    }
+  }
+  .logo {
+    max-width: 44px;
+    margin: 0 -4px;
+  }
 }
 </style>

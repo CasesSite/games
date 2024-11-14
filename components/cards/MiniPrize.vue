@@ -34,6 +34,9 @@ const isColor = computed(() => {
   margin-bottom: 0.25rem;
   z-index: 1;
   transition: all 0.3s ease-in-out;
+  @include bp($point_5) {
+    max-width: 60px;
+  }
   img {
     width: 100%;
     height: 100%;
@@ -44,6 +47,9 @@ const isColor = computed(() => {
   font-size: 1.2rem;
   font-family: $font_5;
   z-index: 1;
+  @include bp($point_5) {
+    font-size: 8px;
+  }
 }
 
 .cardPrize {
@@ -54,7 +60,9 @@ const isColor = computed(() => {
   @include flex-center;
   flex-direction: column;
   cursor: pointer;
-
+  @include bp($point_5) {
+    width: 100px !important;
+  }
   &:hover {
     .cardPrize__img {
       transform: rotate(-5deg);
