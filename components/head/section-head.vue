@@ -42,13 +42,21 @@ const menuItems = ref([
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    position: absolute;
+    padding: 10px 26px;
+    position: fixed;
+    bottom: 0;
     width: 100%;
     z-index: 9;
-    background-color: #090d31d4;
-    backdrop-filter: blur(4px);
   }
+}
+.menu-bar:before {
+  backdrop-filter: blur(4px);
+  background-color: #090d31d4;
+  opacity: 0.8;
+  content: "";
+  inset: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 .menu-item {
@@ -59,7 +67,13 @@ const menuItems = ref([
   font-weight: bold;
   font-size: 1.2rem;
   cursor: pointer;
-
+  > span {
+    font-family: $font_5;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 17px;
+    color: #c2c3d0;
+  }
   img {
     width: 35px;
   }
