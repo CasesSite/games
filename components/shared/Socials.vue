@@ -12,7 +12,19 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineProps } from "vue";
+const props = defineProps({
+  width: {
+    type: String,
+    default: "40px",
+  },
+  height: {
+    type: String,
+    default: "40px",
+  },
+});
+</script>
 
 <style scoped lang="scss">
 .socials {
@@ -22,15 +34,13 @@
     gap: 8px;
   }
   a {
-    width: 4.3rem;
-    height: 4.3rem;
+    width: v-bind(width);
+    height: v-bind(height);
     @include flex-center;
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 4px 4px 0px rgba(77, 59, 187, 1);
 
     @include bp($point_5) {
-      width: 22px;
-      height: 22px;
       box-shadow: unset;
     }
     &:nth-child(1) {

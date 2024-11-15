@@ -4,6 +4,21 @@
   <footer class="footer">
     <Prefooter />
     <div class="container">
+      <div class="footer_info-mobile">
+        <div class="footer_logo">
+          <NuxtLink>
+            <img src="@/assets/img/header/header-logo.svg" alt="logo" />
+            <p>StarDrop</p>
+          </NuxtLink>
+        </div>
+        <div class="footer_info-mobile-socials"><Socials /></div>
+      </div>
+      <button class="footer_work__btn-mobile">
+        <div class="btn-icon">
+          <Icon name="custom:work" />
+        </div>
+        <p>Сотрудничество</p>
+      </button>
       <div class="footer_medium">
         <ul class="footer_nav">
           <li>
@@ -13,8 +28,9 @@
             <NuxtLink to="/"> Контакты</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/">Соглашение о приватности </NuxtLink>
+            <NuxtLink to="/"> Правила</NuxtLink>
           </li>
+
           <li>
             <NuxtLink to="/"> Вопрос - ответ</NuxtLink>
           </li>
@@ -25,7 +41,7 @@
             <NuxtLink to="/"> FAQ</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/"> Правила</NuxtLink>
+            <NuxtLink to="/">Соглашение о приватности </NuxtLink>
           </li>
         </ul>
         <div class="footer_info">
@@ -43,16 +59,18 @@
           Company number 13246765, 16 John Nicholas Crescent, Ellesmere Port,
           Cheshire, United Kingdom, CH65 2DL, +44 07308278693.
         </div>
-        <div class="footer_work__btn">
+        <button class="footer_work__btn">
           <div class="btn-icon">
             <Icon name="custom:work" />
           </div>
           <p>Сотрудничество</p>
-        </div>
+        </button>
       </div>
-      <div class="footer_decorator">
-        <img src="@/assets/img/decorator/footer-decorator.png" />
-      </div>
+      <img
+        class="footer_decorator"
+        src="@/assets/img/decorator/footer-decorator.png"
+        alt="Decorator"
+      />
     </div>
   </footer>
 </template>
@@ -64,16 +82,14 @@ import Socials from "./Socials.vue";
 
 <style scoped lang="scss">
 .footer {
-  // background-image: url("../../assets/img/footer.png");
-  // background-repeat: no-repeat;
-  // background-position: center center;
-  // background-size: cover;
-  background: linear-gradient(180deg, #090D31 0%, #2F389F 82.94%);
-
-
+  background: linear-gradient(180deg, #090d31 0%, #2f389f 82.94%);
   position: relative;
   padding-bottom: 5.5rem;
   padding-top: 12rem;
+  @include bp($point_5) {
+    padding-top: 5rem;
+    padding-bottom: 8rem;
+  }
   :deep(.socials) {
     justify-content: flex-end;
   }
@@ -85,6 +101,9 @@ import Socials from "./Socials.vue";
 .footer_medium {
   @include flex-space;
   margin-bottom: 5rem;
+  @include bp($point_5) {
+    margin-bottom: 25px;
+  }
 }
 
 .footer_bottom {
@@ -107,7 +126,11 @@ import Socials from "./Socials.vue";
   align-items: flex-start;
   max-height: 17rem;
   gap: 2.2rem 3.8rem;
-
+  @include bp($point_5) {
+    gap: 20px;
+    flex-wrap: nowrap;
+    max-height: unset;
+  }
   li {
     a {
       color: rgba(134, 181, 255, 1);
@@ -115,6 +138,9 @@ import Socials from "./Socials.vue";
       font-family: $font_3;
       &:hover {
         color: $white;
+      }
+      @include bp($point_5) {
+        font-size: 15px;
       }
     }
   }
@@ -130,6 +156,12 @@ import Socials from "./Socials.vue";
     width: 100%;
     height: 100%;
   }
+  @include bp($point_5) {
+    right: 0;
+    max-width: 230px;
+    width: 100%;
+    bottom: 180px;
+  }
 }
 
 .footer_logo {
@@ -140,6 +172,9 @@ import Socials from "./Socials.vue";
     p {
       font-size: 3rem;
       font-family: $font_6;
+      @include bp($point_5) {
+        font-size: 18px;
+      }
     }
   }
 }
@@ -147,15 +182,50 @@ import Socials from "./Socials.vue";
 .footer_work__btn {
   @include flex-start;
   gap: 1.5rem;
-  background: linear-gradient(180deg, #3658f7 0%, #5541c2 100%);
-
+  background: $button-gradient-blu-light;
   padding: 1.9rem 2.4rem;
   border-radius: 1.5rem;
   font-size: 1.8rem;
   font-family: $font_5;
   cursor: pointer;
+  color: $white;
+  @include bp($point_5) {
+    display: none;
+  }
 }
-
+.footer_work__btn-mobile {
+  @include flex-start;
+  gap: 1.5rem;
+  background: $button-gradient-blu-light;
+  width: 100%;
+  max-width: 400px;
+  height: 50px;
+  border-radius: 1.5rem;
+  font-size: 1.8rem;
+  font-family: $font_5;
+  cursor: pointer;
+  color: $white;
+  display: none;
+  margin: 32px 0;
+  @include bp($point_5) {
+    @include flex-center;
+  }
+}
+.footer_info {
+  display: block;
+  @include bp($point_5) {
+    display: none;
+  }
+}
+.footer_info-mobile {
+  display: none;
+  @include bp($point_5) {
+    &-socials {
+      width: 280px !important;
+    }
+    @include flex-space;
+  }
+}
 .btn-icon {
   @include flex-center;
 }

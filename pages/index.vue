@@ -69,31 +69,31 @@ const cards = ref([
   {
     img: "/assets/img/card-1.png",
     name: "Мрачный ронин",
-    price: "53000",
+    price: "9000",
     oldprice: "55000",
   },
   {
     img: "/assets/img/card-2.png",
     name: "Мрачный ронин",
-    price: "53000",
+    price: "9000",
     oldprice: "55000",
   },
   {
     img: "/assets/img/card-3.png",
     name: "Мрачный ронин",
-    price: "53000",
+    price: "9000",
     oldprice: "55000",
   },
   {
     img: "/assets/img/card-4.png",
     name: "Мрачный ронин",
-    price: "53000",
+    price: "9000",
     oldprice: "55000",
   },
   {
     img: "/assets/img/card-5.png",
     name: "Мрачный ронин",
-    price: "53000",
+    price: "9000",
     oldprice: "55000",
   },
 ]);
@@ -143,6 +143,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+  width: 100%;
   @include bp($point_5) {
     left: 57%;
     top: 29%;
@@ -199,9 +200,14 @@ const doubledCards = ref([...cards.value, ...cards.value]);
 .popular {
   position: relative;
   margin-bottom: 14rem;
-
+  @include bp($point_5) {
+    margin-bottom: 40px;
+  }
   &.first {
     margin-bottom: 10rem;
+    @include bp($point_5) {
+      margin-bottom: 40px;
+    }
   }
 }
 

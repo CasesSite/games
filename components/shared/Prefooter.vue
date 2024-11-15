@@ -1,19 +1,17 @@
 <template>
-  <div class="prefooter">
-    <div class="container">
-      <div class="prefooter_main">
-        <div
-          class="prefooter_item"
-          v-for="(item, i) in prefooter"
-          :key="'prefootert-item-' + i"
-        >
-          <div class="prefooter_item__img">
-            <img :src="item.img" alt="info" />
-          </div>
-          <div class="prefooter_item__content">
-            <h6>{{ item.title }}</h6>
-            <p>{{ item.txt }}</p>
-          </div>
+  <div class="prefooter container">
+    <div class="prefooter_main">
+      <div
+        class="prefooter_item"
+        v-for="(item, i) in prefooter"
+        :key="'prefootert-item-' + i"
+      >
+        <div class="prefooter_item__img">
+          <img :src="item.img" alt="info" />
+        </div>
+        <div class="prefooter_item__content">
+          <h6>{{ item.title }}</h6>
+          <p>{{ item.txt }}</p>
         </div>
       </div>
     </div>
@@ -51,9 +49,7 @@ const prefooter = ref<any>([
   top: -5rem;
 }
 .prefooter_main {
-  display: flex;
-  max-width: 175rem;
-  margin: 0 auto;
+  @include flex-space;
   gap: 7.6rem;
   @include bp($point_5) {
     gap: 15px;
@@ -63,15 +59,18 @@ const prefooter = ref<any>([
 }
 
 .prefooter_item {
-  background: linear-gradient(180deg, #3270fb 0%, #573dc0 100%);
+  background: $button-gradient-blu-button;
   border-radius: 2rem;
   @include flex-start;
   gap: 3rem;
   padding: 2rem 4rem;
   height: 14.1rem;
+  @include bp($point_0) {
+    padding: 1rem 2rem;
+  }
   @include bp($point_5) {
     padding: 11px;
-    gap: 5px;
+    gap: 2px;
     height: 62px;
     border-radius: 5px;
   }
@@ -79,6 +78,9 @@ const prefooter = ref<any>([
 
 .prefooter_item__img {
   > img {
+    @include bp($point_0) {
+      width: 60px;
+    }
     @include bp($point_5) {
       width: 40px;
     }
@@ -98,7 +100,7 @@ const prefooter = ref<any>([
     font-size: 1.7rem;
     font-family: $font_4;
     @include bp($point_5) {
-      font-size: 12px;
+      font-size: 10px;
     }
   }
 }

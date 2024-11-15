@@ -66,7 +66,7 @@
                 class="logo"
                 alt="logo"
             /></NuxtLink>
-            <Socials />
+            <Socials width="22px" height="22px" />
           </p>
           <p>
             <CardOnline />

@@ -4,7 +4,7 @@
       <div class="product__img">
         <img :src="card.img" alt="" />
         <div class="product_count">
-          <p>{{ currentValue }} / {{ maxValue }}</p>
+          <span>{{ currentValue }}/{{ maxValue }}</span>
           <div
             class="product_count__progress"
             :style="{ width: `${percentage}%` }"
@@ -12,14 +12,17 @@
         </div>
       </div>
 
-      <div class="product__title"><h3>Мрачный ронин</h3></div>
+      <h3 class="product__title">Мрачный ронин</h3>
 
       <div class="product_price">
         <div class="product_price__btn">
           <div class="product_old__price">
-            <span>{{ card.oldprice }}</span> <Icon name="custom:logo" />
+            <span>{{ card.oldprice }}</span>
+            <img src="@/assets/icons/logo.svg" alt="icon" />
           </div>
-          <span>{{ card.price }}</span> <Icon name="custom:logo" />
+          <span>{{ card.price }}</span>
+          <img src="@/assets/icons/logo.svg" alt="icon" />
+          <!--          <Icon name="custom:logo" size="24" style="z-index: 1" />-->
         </div>
       </div>
     </NuxtLink>
@@ -33,8 +36,8 @@ const props = defineProps<{
   card: any;
 }>();
 
-const currentValue = ref<number>(4700);
-const maxValue = ref<number>(22780);
+const currentValue = ref<number>(8700);
+const maxValue = ref<number>(98800);
 const percentage = (currentValue.value / maxValue.value) * 100;
 </script>
 
@@ -47,9 +50,15 @@ const percentage = (currentValue.value / maxValue.value) * 100;
   @include bp($point_5) {
     max-width: 175px;
   }
+
   img {
     width: 100%;
     display: block;
+    transition: transform 0.3s;
+  }
+
+  img:hover {
+    transform: translateY(-10px);
   }
 }
 
@@ -74,13 +83,23 @@ const percentage = (currentValue.value / maxValue.value) * 100;
   height: 3.2rem;
   padding: 1rem 2rem;
   background: rgba(26, 34, 84, 1);
+  @include bp($point_5) {
+    > span {
+      font-family: $font_6;
+      font-size: 10px;
+      font-weight: 700;
+      text-align: center;
+    }
+    width: 81px;
+    height: 22px;
+  }
 
   .product_count__progress {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     left: -1%;
-    width: 100%;
+    width: 50% !important;
     height: 110%;
     box-sizing: border-box;
     border-bottom: 0.1rem solid rgb(197, 110, 119);
@@ -88,12 +107,15 @@ const percentage = (currentValue.value / maxValue.value) * 100;
     border-top: 0.1rem solid rgb(197, 110, 119);
     border-radius: 1rem 0px 0px 1rem;
     z-index: 22;
-
     background: linear-gradient(
       270deg,
       rgba(195, 108, 121, 0.23) 0%,
       rgba(18, 25, 71, 0.23) 100%
     );
+    @include bp($point_5) {
+      width: 40px !important;
+      height: 22px;
+    }
   }
 }
 
@@ -101,7 +123,12 @@ const percentage = (currentValue.value / maxValue.value) * 100;
   margin-bottom: 2rem;
   h3 {
     font-size: 1.8rem;
-    font-family: $font_5;
+    font-family: $font_6;
+    @include bp($point_5) {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 12.24px;
+    }
   }
 }
 
@@ -120,7 +147,12 @@ const percentage = (currentValue.value / maxValue.value) * 100;
   z-index: 2;
   background: $lrose;
   border-radius: 1rem;
-  // min-width: 14rem;
+  @include bp($point_5) {
+    width: 80px;
+    height: 29px;
+    border-radius: 6.8px;
+    font-size: 16px;
+  }
 }
 
 .product_old__price {
@@ -144,6 +176,9 @@ const percentage = (currentValue.value / maxValue.value) * 100;
     content: "";
     border-bottom: 0.2rem solid $rose;
     width: 88%;
+  }
+  @include bp($point_5) {
+    display: none;
   }
 }
 </style>
