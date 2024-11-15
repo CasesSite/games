@@ -114,15 +114,13 @@ const doubledCards = ref([...cards.value, ...cards.value]);
 .hero-try {
   position: absolute;
   top: 35%;
-  left: 50%;
   width: 100%;
-  transform: translate(-50%, -50%);
+  transform: translate(4%, -50%);
   z-index: 2;
 
   content: url("@/assets/img/hero/hero-try.png");
 
   @include bp($point_5) {
-    left: 57%;
     top: 29%;
     content: url("@/assets/img/hero/hero-try-mobile.png");
   }
