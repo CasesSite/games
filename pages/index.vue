@@ -88,7 +88,10 @@ const doubledCards = ref([...cards.value, ...cards.value]);
     margin-top: 25px;
   }
 }
-
+.hero {
+  position: relative;
+  overflow: hidden;
+}
 .hero_socials {
   position: absolute;
   top: 3rem;
@@ -113,15 +116,14 @@ const doubledCards = ref([...cards.value, ...cards.value]);
 
 .hero-try {
   position: absolute;
-  top: 35%;
-  width: 100%;
-  transform: translate(4%, -50%);
+  width: 90%;
+  top: 20%;
   z-index: 2;
-
   content: url("@/assets/img/hero/hero-try.png");
-
   @include bp($point_5) {
-    top: 29%;
+    left: 10%;
+    top: 16%;
+    transform: translateX(5%);
     content: url("@/assets/img/hero/hero-try-mobile.png");
   }
 }
@@ -149,7 +151,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
     min-width: 0;
     height: 55px;
     font-size: 18px;
-    top: 77%;
+    top: 58%;
     a {
       height: 52px;
       padding: 1.65rem 3.6rem 1.8rem 3.65rem;
