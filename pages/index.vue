@@ -215,6 +215,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   @include bp($point_5) {
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
     padding: 0;
+    grid-gap: 0;
   }
 }
 </style>
