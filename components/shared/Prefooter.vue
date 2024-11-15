@@ -8,7 +8,7 @@
           :key="'prefootert-item-' + i"
         >
           <div class="prefooter_item__img">
-            <img :src="item.img" />
+            <img :src="item.img" alt="info" />
           </div>
           <div class="prefooter_item__content">
             <h6>{{ item.title }}</h6>
@@ -51,11 +51,15 @@ const prefooter = ref<any>([
   top: -5rem;
 }
 .prefooter_main {
-  @include flex-space;
+  display: flex;
   max-width: 175rem;
   margin: 0 auto;
-
   gap: 7.6rem;
+  @include bp($point_5) {
+    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .prefooter_item {
@@ -65,20 +69,37 @@ const prefooter = ref<any>([
   gap: 3rem;
   padding: 2rem 4rem;
   height: 14.1rem;
+  @include bp($point_5) {
+    padding: 11px;
+    gap: 5px;
+    height: 62px;
+    border-radius: 5px;
+  }
 }
 
 .prefooter_item__img {
+  > img {
+    @include bp($point_5) {
+      width: 40px;
+    }
+  }
 }
 
 .prefooter_item__content {
   h6 {
     font-size: 4.4rem;
     font-family: $font_5;
+    @include bp($point_5) {
+      font-size: 18px;
+    }
   }
   p {
     color: $light;
     font-size: 1.7rem;
     font-family: $font_4;
+    @include bp($point_5) {
+      font-size: 12px;
+    }
   }
 }
 </style>
