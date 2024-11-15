@@ -2,10 +2,8 @@
   <div class="home">
     <section class="hero">
       <div class="hero_main">
-        <div class="hero_img">
-          <img :src="hero" alt="hero" />
-        </div>
-        <img :src="heroTryImageSrc" alt="hero-try" class="hero-try" />
+        <div class="hero_img"></div>
+        <div class="hero-try"></div>
         <div class="hero_btn">
           <div class="rounde"></div>
           <NuxtLink to="/"> Попробовать </NuxtLink>
@@ -41,30 +39,7 @@
 <script setup lang="ts">
 import sectionHead from "~/components/head/section-head.vue";
 import CardProduct from "~/components/cards/CardProduct.vue";
-import heroTryMobileImage from "@/assets/img/hero/hero-try-mobile.png";
-import heroTryDesktopImage from "@/assets/img/hero/hero-try.png";
-import heroMobile from "@/assets/img/hero/hero-mobile.png";
-import heroDesktop from "@/assets/img/hero/hero.png";
 
-const isMobile = ref(false);
-
-const checkScreenSize = () => {
-  isMobile.value = window.innerWidth <= 768;
-};
-
-onMounted(() => {
-  checkScreenSize();
-  window.addEventListener("resize", checkScreenSize);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", checkScreenSize);
-});
-
-const heroTryImageSrc = computed(() =>
-  isMobile.value ? heroTryMobileImage : heroTryDesktopImage,
-);
-const hero = computed(() => (isMobile.value ? heroMobile : heroDesktop));
 const cards = ref([
   {
     img: "/assets/img/card-1.png",
@@ -121,34 +96,38 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   height: 100%;
   z-index: 99;
 }
-
 .hero_img {
   width: 100%;
   height: 100%;
   top: -11rem;
   position: absolute;
   z-index: -1;
+  object-fit: cover;
+  content: url("@/assets/img/hero/hero.png");
+
   @include bp($point_5) {
     top: 0;
-  }
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    content: url("@/assets/img/hero/hero-mobile.png");
   }
 }
+
 .hero-try {
   position: absolute;
   top: 35%;
   left: 50%;
+  width: 100%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  width: 100%;
+
+  content: url("@/assets/img/hero/hero-try.png");
+
   @include bp($point_5) {
     left: 57%;
     top: 29%;
+    content: url("@/assets/img/hero/hero-try-mobile.png");
   }
 }
+
 .hero_btn {
   position: absolute;
   cursor: pointer;
