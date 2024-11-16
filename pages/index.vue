@@ -84,7 +84,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   margin-bottom: -17.4rem;
   @include bp($point_5) {
     min-height: 400px;
-    margin-bottom: -45px;
+    margin-bottom: -90px;
     margin-top: -30px;
   }
 }
