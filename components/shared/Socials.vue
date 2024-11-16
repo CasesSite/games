@@ -30,6 +30,9 @@ const props = defineProps({
 .socials {
   @include flex-start;
   gap: 1.7rem;
+  @include bp($point_3) {
+    gap: 0.6rem;
+  }
   @include bp($point_5) {
     gap: 8px;
   }
@@ -38,7 +41,7 @@ const props = defineProps({
     height: v-bind(height);
     @include flex-center;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0px 4px 4px 0px rgba(77, 59, 187, 1);
+    box-shadow: 0 4px 4px 0 rgba(77, 59, 187, 1);
 
     @include bp($point_5) {
       box-shadow: unset;

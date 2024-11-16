@@ -82,9 +82,9 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   min-height: 88.5rem;
   z-index: 1;
   margin-bottom: -17.4rem;
-  @include bp($point_5) {
-    min-height: 400px;
-    margin-bottom: -90px;
+  @include bp($point_3) {
+    min-height: 250px;
+    margin-bottom: 10px;
     margin-top: -30px;
   }
 }
@@ -108,9 +108,8 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   object-fit: cover;
   content: url("@/assets/img/hero/hero.png");
 
-  @include bp($point_5) {
+  @include bp($point_3) {
     top: 0;
-    content: url("@/assets/img/hero/hero-mobile.png");
   }
 }
 
@@ -120,7 +119,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   top: 20%;
   z-index: 2;
   content: url("@/assets/img/hero/hero-try.png");
-  @include bp($point_5) {
+  @include bp($point_6) {
     left: 10%;
     top: 16%;
     transform: translateX(5%);
@@ -146,12 +145,12 @@ const doubledCards = ref([...cards.value, ...cards.value]);
     padding: 1.6rem 3.6rem 1.8rem 3.6rem;
     @include flex-center;
   }
-  @include bp($point_5) {
+  @include bp($point_3) {
     border-radius: 20px;
     min-width: 0;
     height: 55px;
     font-size: 18px;
-    top: 58%;
+    top: 79%;
     a {
       height: 52px;
       padding: 1.65rem 3.6rem 1.8rem 3.65rem;
@@ -168,7 +167,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   transform: translate(-50%, -50%);
   width: 31.7rem;
   height: 10rem;
-  @include bp($point_5) {
+  @include bp($point_3) {
     width: 219px;
     height: 71px;
     border: 10px solid rgba(255, 255, 255, 0.31);
@@ -179,12 +178,12 @@ const doubledCards = ref([...cards.value, ...cards.value]);
 .popular {
   position: relative;
   margin-bottom: 14rem;
-  @include bp($point_5) {
+  @include bp($point_3) {
     margin-bottom: 40px;
   }
   &.first {
     margin-bottom: 10rem;
-    @include bp($point_5) {
+    @include bp($point_3) {
       margin-bottom: 40px;
     }
   }
@@ -197,11 +196,10 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   padding: 0 5rem;
   max-width: 182.1rem;
   margin: 0 auto;
-  @include bp($point_5) {
+  @include bp($point_3) {
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
     padding: 0 10px;
-    grid-gap: unset;
-    row-gap: 10px;
+    grid-gap: 10px;
   }
 }
 </style>

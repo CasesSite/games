@@ -22,7 +22,7 @@
   gap: 1rem;
   padding: 1.1rem 1.6rem;
   font-family: $font_5;
-  @include bp($point_5) {
+  @include bp($point_3) {
     background: unset;
     gap: 6px;
     padding: 0 10px 0 0;

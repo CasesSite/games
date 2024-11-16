@@ -38,7 +38,7 @@
               :key="'header-nav-item-' + i"
             >
               <div class="nav_icon">
-                <Icon :name="'custom:' + item.icon" :size="36" />
+                <Icon :name="'custom:' + item.icon" />
               </div>
 
               <p>{{ item.name }}</p>
@@ -202,7 +202,7 @@ const nav = ref<any>([
 <style scoped lang="scss">
 .header_main {
   display: block;
-  @include bp($point_5) {
+  @include bp($point_3) {
     display: none;
   }
 }
@@ -263,6 +263,9 @@ const nav = ref<any>([
 .nav_social_wrapper {
   @include flex-center;
   gap: 3rem;
+  @include bp($point_3) {
+    gap: 1rem;
+  }
 }
 .button {
   position: relative;
@@ -351,6 +354,9 @@ const nav = ref<any>([
   box-shadow: 0 7px 0 0 #4a3399;
   border-bottom-left-radius: 2.5rem;
   border-bottom-right-radius: 2.5rem;
+  @include bp($point_5) {
+    gap: 1rem;
+  }
 }
 .header_btn__group-text {
   font-family: $font_2;
@@ -365,6 +371,9 @@ const nav = ref<any>([
 .header_nav {
   @include flex-start;
   gap: 2rem;
+  @include bp($point_2) {
+    gap: 1rem;
+  }
   a {
     @include flex-start;
     gap: 1.6rem;
@@ -376,6 +385,10 @@ const nav = ref<any>([
     box-shadow: inset 0 0 0.3rem 0 rgba(0, 0, 0, 0.49);
     background: rgba(43, 52, 145, 0.67);
     position: relative;
+    @include bp($point_2) {
+      font-size: 1rem;
+      gap: 1rem;
+    }
     &:hover {
       &:before {
         opacity: 1;
@@ -479,10 +492,17 @@ const nav = ref<any>([
   position: relative;
   bottom: -7px;
   padding-right: 10px;
+  @include bp($point_2) {
+    display: none;
+  }
 }
 .nav_icon {
   width: 3.6rem;
   height: 3.6rem;
+  > span {
+    width: 37px;
+    height: 37px;
+  }
   @include flex-center;
   border-radius: 0.7rem;
   z-index: 1;
@@ -509,7 +529,7 @@ header {
     @include flex-center;
     gap: 5px;
   }
-  @include bp($point_5) {
+  @include bp($point_3) {
     display: block;
   }
   .header_top__mobile {

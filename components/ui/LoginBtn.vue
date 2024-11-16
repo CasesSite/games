@@ -45,7 +45,7 @@ const coins = ref(91750);
   height: 100%;
   cursor: pointer;
   position: relative;
-  @include bp($point_5) {
+  @include bp($point_2) {
     padding: 9px;
     > span {
       font-size: 16px !important;
@@ -65,7 +65,7 @@ const coins = ref(91750);
   box-shadow: 0px -3px 0px 0px rgba(0, 0, 0, 0.25) inset;
   transition: all 0.3s ease-in-out;
   color: $white;
-  @include bp($point_5) {
+  @include bp($point_2) {
     p {
       font-size: 10px;
     }
@@ -87,7 +87,7 @@ const coins = ref(91750);
   cursor: pointer;
   background-color: #353ba8;
   border-radius: 3rem;
-  @include bp($point_5) {
+  @include bp($point_2) {
     padding: 5px;
     gap: 4px;
     border-radius: 10px;
@@ -135,7 +135,7 @@ const coins = ref(91750);
     line-height: 24px;
     text-align: left;
     @include flex-center;
-    @include bp($point_5) {
+    @include bp($point_2) {
       font-size: 1rem;
     }
   }
@@ -151,7 +151,7 @@ const coins = ref(91750);
     border: 1px;
     padding: 5px;
     background-color: #5c207cbf;
-    @include bp($point_5) {
+    @include bp($point_2) {
       display: none;
     }
   }
@@ -168,7 +168,7 @@ const coins = ref(91750);
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
-  @include bp($point_5) {
+  @include bp($point_2) {
     display: block;
   }
 }

@@ -86,7 +86,7 @@ import Socials from "./Socials.vue";
   position: relative;
   padding-bottom: 5.5rem;
   padding-top: 12rem;
-  @include bp($point_5) {
+  @include bp($point_2) {
     padding-top: 5rem;
     padding-bottom: 8rem;
   }
@@ -101,7 +101,7 @@ import Socials from "./Socials.vue";
 .footer_medium {
   @include flex-space;
   margin-bottom: 5rem;
-  @include bp($point_5) {
+  @include bp($point_2) {
     margin-bottom: 25px;
   }
 }
@@ -126,7 +126,7 @@ import Socials from "./Socials.vue";
   align-items: flex-start;
   max-height: 17rem;
   gap: 2.2rem 3.8rem;
-  @include bp($point_5) {
+  @include bp($point_2) {
     gap: 20px;
     flex-wrap: nowrap;
     max-height: unset;
@@ -139,7 +139,7 @@ import Socials from "./Socials.vue";
       &:hover {
         color: $white;
       }
-      @include bp($point_5) {
+      @include bp($point_2) {
         font-size: 15px;
       }
     }
@@ -156,7 +156,7 @@ import Socials from "./Socials.vue";
     width: 100%;
     height: 100%;
   }
-  @include bp($point_5) {
+  @include bp($point_2) {
     right: 0;
     max-width: 230px;
     width: 100%;
@@ -172,7 +172,7 @@ import Socials from "./Socials.vue";
     p {
       font-size: 3rem;
       font-family: $font_6;
-      @include bp($point_5) {
+      @include bp($point_2) {
         font-size: 18px;
       }
     }
@@ -189,7 +189,7 @@ import Socials from "./Socials.vue";
   font-family: $font_5;
   cursor: pointer;
   color: $white;
-  @include bp($point_5) {
+  @include bp($point_2) {
     display: none;
   }
 }
@@ -207,19 +207,19 @@ import Socials from "./Socials.vue";
   color: $white;
   display: none;
   margin: 32px 0;
-  @include bp($point_5) {
+  @include bp($point_2) {
     @include flex-center;
   }
 }
 .footer_info {
   display: block;
-  @include bp($point_5) {
+  @include bp($point_2) {
     display: none;
   }
 }
 .footer_info-mobile {
   display: none;
-  @include bp($point_5) {
+  @include bp($point_2) {
     &-socials {
       width: 280px !important;
     }

@@ -38,7 +38,7 @@ const menuItems = ref([
 <style scoped lang="scss">
 .menu-bar {
   display: none;
-  @include bp($point_5) {
+  @include bp($point_3) {
     display: flex;
     align-items: center;
     justify-content: space-between;

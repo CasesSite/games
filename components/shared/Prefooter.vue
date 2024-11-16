@@ -51,7 +51,7 @@ const prefooter = ref<any>([
 .prefooter_main {
   @include flex-space;
   gap: 7.6rem;
-  @include bp($point_5) {
+  @include bp($point_2) {
     gap: 15px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -68,7 +68,7 @@ const prefooter = ref<any>([
   @include bp($point_0) {
     padding: 1rem 2rem;
   }
-  @include bp($point_5) {
+  @include bp($point_2) {
     padding: 11px;
     gap: 2px;
     height: 62px;
@@ -81,7 +81,7 @@ const prefooter = ref<any>([
     @include bp($point_0) {
       width: 60px;
     }
-    @include bp($point_5) {
+    @include bp($point_2) {
       width: 40px;
     }
   }
@@ -91,7 +91,7 @@ const prefooter = ref<any>([
   h6 {
     font-size: 4.4rem;
     font-family: $font_5;
-    @include bp($point_5) {
+    @include bp($point_2) {
       font-size: 18px;
     }
   }
@@ -99,7 +99,7 @@ const prefooter = ref<any>([
     color: $light;
     font-size: 1.7rem;
     font-family: $font_4;
-    @include bp($point_5) {
+    @include bp($point_2) {
       font-size: 10px;
     }
   }
