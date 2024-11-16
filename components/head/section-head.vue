@@ -67,6 +67,7 @@ const menuItems = ref([
   font-weight: bold;
   font-size: 1.2rem;
   cursor: pointer;
+  gap: 2px;
   > span {
     font-family: $font_6;
     font-size: 10px;
@@ -75,7 +76,8 @@ const menuItems = ref([
     color: #c2c3d0;
   }
   img {
-    width: 35px;
+    width: 30px;
+    height: 30px;
   }
 }
 .section-head {
