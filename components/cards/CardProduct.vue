@@ -48,7 +48,7 @@ const percentage = (currentValue.value / maxValue.value) * 100;
   margin-bottom: 0.6rem;
   position: relative;
   @include bp($point_5) {
-    max-width: 175px;
+    max-width: 190px;
   }
 
   img {
@@ -65,6 +65,10 @@ const percentage = (currentValue.value / maxValue.value) * 100;
 .product {
   text-align: center;
   position: relative;
+  @include bp($point_5) {
+    @include flex-center;
+    @include flex-col;
+  }
 }
 
 .product_count {
@@ -121,6 +125,9 @@ const percentage = (currentValue.value / maxValue.value) * 100;
 
 .product__title {
   margin-bottom: 2rem;
+  @include bp($point_5) {
+    margin-bottom: 5px;
+  }
   h3 {
     font-size: 1.8rem;
     font-family: $font_6;

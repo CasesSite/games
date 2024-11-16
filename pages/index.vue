@@ -84,8 +84,8 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   margin-bottom: -17.4rem;
   @include bp($point_5) {
     min-height: 400px;
-    margin-bottom: 0;
-    margin-top: 25px;
+    margin-bottom: -45px;
+    margin-top: -30px;
   }
 }
 .hero {
@@ -200,7 +200,7 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   @include bp($point_5) {
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
     padding: 0;
-    grid-gap: 0;
+    grid-gap: 10px;
   }
 }
 </style>
