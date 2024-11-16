@@ -199,8 +199,9 @@ const doubledCards = ref([...cards.value, ...cards.value]);
   margin: 0 auto;
   @include bp($point_5) {
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-    padding: 0;
-    grid-gap: 10px;
+    padding: 0 10px;
+    grid-gap: unset;
+    row-gap: 10px;
   }
 }
 </style>

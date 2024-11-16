@@ -18,7 +18,7 @@
         <div class="product_price__btn">
           <div class="product_old__price">
             <span>{{ card.oldprice }}</span>
-            <img src="@/assets/icons/logo.svg" alt="icon" />
+            <img src="@/assets/img/header/logo.png" alt="icon" />
           </div>
           <span>{{ card.price }}</span>
           <img src="@/assets/icons/logo.svg" alt="icon" />
@@ -49,6 +49,7 @@ const percentage = (currentValue.value / maxValue.value) * 100;
   position: relative;
   @include bp($point_5) {
     max-width: 190px;
+    scale: 1.1;
   }
 
   img {
@@ -109,7 +110,7 @@ const percentage = (currentValue.value / maxValue.value) * 100;
     border-bottom: 0.1rem solid rgb(197, 110, 119);
     border-left: 0.1rem solid rgb(197, 110, 119);
     border-top: 0.1rem solid rgb(197, 110, 119);
-    border-radius: 1rem 0px 0px 1rem;
+    border-radius: 1rem 0 0 1rem;
     z-index: 22;
     background: linear-gradient(
       270deg,
@@ -159,6 +160,8 @@ const percentage = (currentValue.value / maxValue.value) * 100;
     height: 29px;
     border-radius: 6.8px;
     font-size: 16px;
+
+    opacity: 1;
   }
 }
 
