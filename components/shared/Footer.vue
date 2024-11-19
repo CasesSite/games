@@ -38,7 +38,7 @@
             <NuxtLink to="/"> Анонсы</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/"> FAQ</NuxtLink>
+            <NuxtLink to="/faq"> FAQ</NuxtLink>
           </li>
           <li>
             <NuxtLink to="/">Соглашение о приватности </NuxtLink>
