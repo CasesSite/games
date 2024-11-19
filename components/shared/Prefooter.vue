@@ -67,6 +67,7 @@ const prefooter = ref<any>([
   height: 14.1rem;
   @include bp($point_0) {
     padding: 1rem 2rem;
+    height: 10rem;
   }
   @include bp($point_2) {
     padding: 11px;

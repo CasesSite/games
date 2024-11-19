@@ -1,12 +1,12 @@
 <template>
-  <div class="userHead"
-  v-for="item in userHead">
+  <div class="userHead" v-for="item in userHead">
     <div class="userHead__avatar">
       <div class="userHead__img">
         <img :src="item.avatar" />
       </div>
-      <button class="userHead_img__download"><img :src="item.downIcon">
-        Загрузить</button>
+      <button class="userHead_img__download">
+        <img :src="item.downIcon" /> Загрузить
+      </button>
     </div>
 
     <div class="userHead__info">
@@ -16,95 +16,103 @@
             <h3>{{ item.name }}</h3>
             <button>Изменить</button>
           </div>
-          <div class="userHead__id">ID: {{ item.ID }} <img :src="item.copy" />
+          <div class="userHead__id">
+            ID: {{ item.ID }} <img :src="item.copy" />
           </div>
         </div>
         <div class="userHead_profile__stats">
           <div class="userHead_stats__money">
             <div class="userHead__money">
-              <img :src="item.creditsIcon" alt="" class="userHead_money__icon userHead__credits">
+              <img
+                :src="item.creditsIcon"
+                alt=""
+                class="userHead_money__icon userHead__credits"
+              />
               {{ item.credits }}
-              <img :src="item.star" alt="" class="userHead__star">
+              <img :src="item.star" alt="" class="userHead__star" />
             </div>
             <div class="userHead__money">
-              <img :src="item.gemsIcon" alt="" class="userHead_money__icon userHead__gems">
+              <img
+                :src="item.gemsIcon"
+                alt=""
+                class="userHead_money__icon userHead__gems"
+              />
               {{ item.gems }}
             </div>
           </div>
           <div class="userHead_stats__add">
-            <button>Пополнить </button>
+            <button>Пополнить</button>
           </div>
         </div>
       </div>
       <div class="userHead_info__achieves">
-
         <div class="userHead_profile__fav">
-            <div class="userHead_fav__ammo userHead__fav">
-              <div class="userHead_fav__title userHead_ammo__tltle">Лучший дроп</div>
-              <div class="userHead_ammo__img">
-                <img :src="item.dropImg">
-              </div>
-              <div class="userHead_ammo__foot">
-                <div class="userHead_ammo__info">
-                  <div class="userHead_info__weapon">
-                    {{ item.dropWeapon }}
-                  </div>
-                  <div class="userHead_info__nickname">
-                    {{ item.dropName }}
-                  </div>
-                </div>
-                <div class="userHead_ammo__rate">
-                  {{ item.dropRate }}
-                  <img :src="item.dropIcon">
-                </div>
-              </div>
+          <div class="userHead_fav__ammo userHead__fav">
+            <div class="userHead_fav__title userHead_ammo__tltle">
+              Лучший дроп
             </div>
-            <div class="userHead_fav__case userHead__fav">
-              <div class="userHead_fav__title userHead_case__title">Любимый кейс</div>
-              <div class="userHead_fav__name"> {{ item.favName }}</div>
-              <div class="userHead_fav__img">
-                <img :src="item.favCase">
+            <div class="userHead_ammo__img">
+              <img :src="item.dropImg" />
+            </div>
+            <div class="userHead_ammo__foot">
+              <div class="userHead_ammo__info">
+                <div class="userHead_info__weapon">
+                  {{ item.dropWeapon }}
+                </div>
+                <div class="userHead_info__nickname">
+                  {{ item.dropName }}
+                </div>
               </div>
-              <button class="button userHead_fav_button">Открыть</button>
+              <div class="userHead_ammo__rate">
+                {{ item.dropRate }}
+                <img :src="item.dropIcon" />
+              </div>
             </div>
           </div>
+          <div class="userHead_fav__case userHead__fav">
+            <div class="userHead_fav__title userHead_case__title">
+              Любимый кейс
+            </div>
+            <div class="userHead_fav__name">{{ item.favName }}</div>
+            <div class="userHead_fav__img">
+              <img :src="item.favCase" />
+            </div>
+            <button class="button userHead_fav_button">Открыть</button>
+          </div>
+        </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup lang="ts">
-
-  const userHead = ref<any>([
-    {
-      avatar: "/assets/img/profile/avatar.png",
-      name: "Genius Levenstine",
-      downIcon: "/assets/img/download.svg",
-      ID: "687980",
-      copy: "/assets/img/profile/copy.svg",
-      creditsIcon: "/assets/img/profile/credits.svg",
-      credits: 91750,
-      star: "/assets/img/profile/star.svg",
-      gemsIcon: "/assets/img/profile/gem.svg",
-      gems: 20,
-      dropImg: "/assets/img/profile/best-drop.png",
-      dropWeapon: "АК-74",
-      dropName: "Soul Dreamer",
-      dropRate: 970.5,
-      dropIcon: "/assets/img/profile/ratedrop.svg",
-      favName: "Palpatine",
-      favCase: "/assets/img/profile/fav-case.png"
-    }
-  ]);
-
+const userHead = ref<any>([
+  {
+    avatar: "/assets/img/profile/avatar.png",
+    name: "Genius Levenstine",
+    downIcon: "/assets/img/download.svg",
+    ID: "687980",
+    copy: "/assets/img/profile/copy.svg",
+    creditsIcon: "/assets/img/profile/credits.svg",
+    credits: 91750,
+    star: "/assets/img/profile/star.svg",
+    gemsIcon: "/assets/img/profile/gem.svg",
+    gems: 20,
+    dropImg: "/assets/img/profile/best-drop.png",
+    dropWeapon: "АК-74",
+    dropName: "Soul Dreamer",
+    dropRate: 970.5,
+    dropIcon: "/assets/img/profile/ratedrop.svg",
+    favName: "Palpatine",
+    favCase: "/assets/img/profile/fav-case.png",
+  },
+]);
 </script>
 
 <style scoped lang="scss">
-
 .userHead {
   padding: 3.5rem;
-  background: #1B205A;
+  background: #1b205a;
   border-radius: 2rem;
   margin-bottom: 1.5rem;
   display: flex;
@@ -161,7 +169,7 @@
   padding: 0.8rem 1.3rem;
   background: #151951;
   border-radius: 0.5rem;
-  color: #7C7E9D;
+  color: #7c7e9d;
   text-transform: uppercase;
   font-family: "Exo2-Bold";
   cursor: pointer;
@@ -215,8 +223,7 @@
   margin-left: 1rem;
 }
 .userHead_stats__add button {
-
-  background: linear-gradient(180deg, #E171E3 0%, #8332ED 100%);
+  background: linear-gradient(180deg, #e171e3 0%, #8332ed 100%);
   position: relative;
   font-size: 1.8rem;
   color: #fff;
@@ -226,21 +233,17 @@
   padding: 1.8rem 3.5rem 1.8rem 2.8rem;
   border-radius: 1.5rem;
   cursor: pointer;
-
 }
-.userHead_stats__add button:after
-{
-  content: '›';
+.userHead_stats__add button:after {
+  content: "›";
   position: absolute;
   font-size: 1.8rem;
   line-height: 2rem;
   top: 1.8rem;
   right: 2.5rem;
-  transition: all .2s ease-in;
-
+  transition: all 0.2s ease-in;
 }
-.userHead_stats__add button:hover:after
-{
+.userHead_stats__add button:hover:after {
   right: 2.1rem;
 }
 .userHead__info {
@@ -257,18 +260,17 @@
 }
 .userHead__fav {
   width: 29rem;
-  padding: 2.5rem 2.5rem 2.0rem 2.5rem;
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
   border-radius: 2rem;
 }
 .userHead_fav__ammo {
-  background: linear-gradient(135.02deg, #1B65B7 0%, #212669 100%);
+  background: linear-gradient(135.02deg, #1b65b7 0%, #212669 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .userHead_fav__case {
-  background: linear-gradient(135.02deg, #2E2B6E 0%, #C1356A 100%);
-
+  background: linear-gradient(135.02deg, #2e2b6e 0%, #c1356a 100%);
 }
 .userHead_fav__title {
   font-size: 2rem;
@@ -288,7 +290,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center
+  align-items: center;
 }
 .userHead_ammo__info {
   display: flex;
@@ -304,19 +306,10 @@
 }
 .userHead_fav__img {
   position: absolute;
-  bottom: -2rem;
+  bottom: -3rem;
   right: -3.3rem;
 }
-.userHead_fav__case:after {
-  position: absolute;
-  content: '';
-  width: 18rem;
-  height: 100%;
-  background: url('/assets/img/profile/fav-back.png');
-  bottom: 0;
-  right: 0;
-  z-index: -0;
-}
+
 .userHead_case__title {
   margin-bottom: 1rem;
 }
