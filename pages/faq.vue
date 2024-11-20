@@ -90,7 +90,7 @@ const goBack = () => {
 .faq-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px 10px;
+  padding: 20px 10px 40px 10px;
   border-radius: 10px;
 }
 .faq-top {
