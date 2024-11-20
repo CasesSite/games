@@ -19,7 +19,11 @@
       >
         <div class="accordion-header" @click="toggleAccordion(index)">
           <p>{{ question.title }}</p>
-          <Icon name="mdi:chevron-down" class="accordion-icon" />
+          <img
+            src="/assets/img/prefooter/arrow.svg"
+            alt="wave"
+            class="accordion-arrow"
+          />
         </div>
         <div v-if="activeIndex === index" class="accordion-body">
           <p>{{ question.answer }}</p>
@@ -147,10 +151,9 @@ const goBack = () => {
   margin: 0;
   color: #fff;
 }
-
-.accordion-icon {
-  color: #fff;
-  font-size: 20px;
+.accordion-arrow {
+  width: 16px;
+  margin-left: 10px;
 }
 
 .accordion-body {
