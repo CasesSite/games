@@ -206,7 +206,7 @@ const items = [
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1 1 300px;
+  flex: 1 1 205px;
   max-width: 400px;
   box-sizing: border-box;
 
@@ -266,7 +266,8 @@ const items = [
   margin-left: 0.5rem;
 }
 .inventory-item__img {
-  max-width: 12.2rem;
+  max-width: 12.4rem;
+  width: 100%;
   margin-bottom: 0.8rem;
   position: relative;
 }

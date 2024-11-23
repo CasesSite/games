@@ -1,15 +1,22 @@
 <template>
   <div class="userHead" v-for="item in userHead">
-    <div class="userHead__avatar">
-      <div class="userHead__img">
-        <img :src="item.avatar" />
+    <p class="userHead-container">
+      <div>
+        <div class="userHead__img">
+          <img :src="item.avatar" alt="avatar"/>
+          <div class="userHead_profile__name-mobile">
+            <div class="userHead__name">
+              <h3>{{ item.name }}</h3>
+            </div>
+            <div class="userHead__id">
+              ID: {{ item.ID }} <img :src="item.copy" />
+            </div>
+          </div>
+        </div>
+        <button class="userHead_img__download">
+          <img :src="item.downIcon" alt="down icon" /> Загрузить
+        </button>
       </div>
-      <button class="userHead_img__download">
-        <img :src="item.downIcon" /> Загрузить
-      </button>
-    </div>
-
-    <div class="userHead__info">
       <div class="userHead_info__profile">
         <div class="userHead_profile__name">
           <div class="userHead__name">
@@ -24,18 +31,18 @@
           <div class="userHead_stats__money">
             <div class="userHead__money">
               <img
-                :src="item.creditsIcon"
-                alt=""
-                class="userHead_money__icon userHead__credits"
+                  :src="item.creditsIcon"
+                  alt=""
+                  class="userHead_money__icon userHead__credits"
               />
               {{ item.credits }}
               <img :src="item.star" alt="" class="userHead__star" />
             </div>
             <div class="userHead__money">
               <img
-                :src="item.gemsIcon"
-                alt=""
-                class="userHead_money__icon userHead__gems"
+                  :src="item.gemsIcon"
+                  alt=""
+                  class="userHead_money__icon userHead__gems"
               />
               {{ item.gems }}
             </div>
@@ -45,6 +52,8 @@
           </div>
         </div>
       </div>
+    </p>
+    <p class="userHead__info">
       <div class="userHead_info__achieves">
         <div class="userHead_profile__fav">
           <div class="userHead_fav__ammo userHead__fav">
@@ -74,14 +83,12 @@
               Любимый кейс
             </div>
             <div class="userHead_fav__name">{{ item.favName }}</div>
-            <div class="userHead_fav__img">
-              <img :src="item.favCase" />
-            </div>
+            <img :src="item.favCase" class="userHead_fav__img" alt="fav img" />
             <button class="button userHead_fav_button">Открыть</button>
           </div>
         </div>
       </div>
-    </div>
+    </p>
   </div>
 </template>
 
@@ -118,6 +125,10 @@ const userHead = ref<any>([
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @include bp($point_2) {
+    display: block;
+    padding: 15px;
+  }
 }
 .userHead__img {
   display: block;
@@ -126,11 +137,31 @@ const userHead = ref<any>([
   height: 14rem;
   border-radius: 2rem;
   margin-bottom: 1rem;
+  @include bp($point_4) {
+    display: flex;
+    gap: 17px;
+  }
 }
 .userHead__img img {
   width: 100%;
   height: 100%;
 }
+.userHead__avatar{
+  display: block;
+  @include bp($point_4) {
+    display: none;
+  }
+}
+.userHead-container{
+@include flex-space;
+  gap: 2rem;
+  @include bp($point_4) {
+    @include flex-start;
+    @include flex-col;
+    align-items: flex-start;
+  }
+}
+
 .userHead_img__download {
   font-family: "Exo2-Bold", serif;
   display: flex;
@@ -148,16 +179,33 @@ const userHead = ref<any>([
 
 .userHead_info__profile {
   width: 55.9rem;
+  @include bp($point_4) {
+    width: 100%;
+  }
 }
 .userHead_profile__name {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.85rem;
+  @include bp($point_4) {
+ display: none;
+  }
+}
+.userHead_profile__name-mobile{
+  display: none;
+  @include bp($point_4) {
+    @include flex-start;
+    @include flex-col;
+    margin-bottom: 1.85rem;
+    gap: 1rem;
+  }
+
 }
 .userHead__name {
   display: flex;
   align-items: center;
+
 }
 .userHead__name h3 {
   font-size: 2rem;
@@ -197,7 +245,14 @@ const userHead = ref<any>([
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @include bp($point_4) {
+    padding: 20px;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+  }
 }
+
 .userHead__money {
   margin-bottom: 0.4rem;
   display: flex;
@@ -205,9 +260,15 @@ const userHead = ref<any>([
   font-size: 2.4rem;
   line-height: 2.4rem;
   font-family: "Exo2-Bold";
+  @include bp($point_4) {
+    font-size: 18px;
+  }
 }
 .userHead_money__icon {
   margin-right: 1.5rem;
+  @include bp($point_4) {
+    margin-right: 1rem;
+  }
 }
 .userHead__credits {
   width: 2.6rem;
@@ -221,7 +282,17 @@ const userHead = ref<any>([
   width: 2.6rem;
   height: 2.6rem;
   margin-left: 1rem;
+  @include bp($point_4) {
+    width: 20px;
+    height: 20px;
+  }
 }
+.userHead_stats__add {
+  @include bp($point_4) {
+    width: 100%;
+  }
+}
+
 .userHead_stats__add button {
   background: linear-gradient(180deg, #e171e3 0%, #8332ed 100%);
   position: relative;
@@ -233,6 +304,10 @@ const userHead = ref<any>([
   padding: 1.8rem 3.5rem 1.8rem 2.8rem;
   border-radius: 1.5rem;
   cursor: pointer;
+  @include bp($point_4) {
+    width: 100%;
+  }
+
 }
 .userHead_stats__add button:after {
   content: "›";
@@ -247,15 +322,14 @@ const userHead = ref<any>([
   right: 2.1rem;
 }
 .userHead__info {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  grid: gap;
+@include flex-start;
   gap: 2.5rem;
+  @include bp($point_2) {
+    display: none;
+  }
 }
 .userHead_profile__fav {
   display: flex;
-  grid: gap;
   gap: 2.5rem;
 }
 .userHead__fav {
@@ -306,8 +380,9 @@ const userHead = ref<any>([
 }
 .userHead_fav__img {
   position: absolute;
-  bottom: -3rem;
-  right: -3.3rem;
+  bottom: -10%;
+  left: 45%;
+  max-width: 180px;
 }
 
 .userHead_case__title {

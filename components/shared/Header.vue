@@ -60,7 +60,7 @@
       <div class="header_main-mobile">
         <div class="header_top__mobile">
           <p>
-            <NuxtLink to="/"
+            <NuxtLink to="/account/inventory"
               ><img
                 src="../../assets/img/header/header-logo.svg"
                 class="logo"

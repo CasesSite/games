@@ -1,6 +1,6 @@
 <template>
   <main class="container inventory-wrapper">
-    <!--    <userHead />-->
+    <userHead />
     <Tabs />
   </main>
 </template>
@@ -38,7 +38,7 @@ const items = [
 .inventory-wrapper {
   padding: 85px 230px 20px;
   @include bp($point_0) {
-    padding: 65px 160px 20px;
+    padding: 65px 80px 20px;
   }
   @include bp($point_2) {
     padding: 20px 10px;

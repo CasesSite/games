@@ -32,6 +32,7 @@ import { ref, computed } from "vue";
 import InventoryContracts from "@/components/inventory/inventory-contracts.vue";
 import InventoryUpgrades from "@/components/inventory/inventory-upgrades.vue";
 import InventoryMain from "@/components/inventory/inventory-main.vue";
+import InventoryConclusions from "@/components/inventory/conclusions.vue";
 
 const tabs = ["Мой инвентарь", "Апгрейды", "Контракты", "Выводы"];
 const activeTab = ref(tabs[0]);
@@ -41,6 +42,7 @@ const tabComponents = {
   "Мой инвентарь": InventoryMain,
   Апгрейды: InventoryUpgrades,
   Контракты: InventoryContracts,
+  Выводы: InventoryConclusions,
 };
 
 const activeComponent = computed(() => tabComponents[activeTab.value]);
@@ -58,7 +60,7 @@ const selectTab = (tab: string) => {
   background: #1b205a;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
-  @include bp($point_4) {
+  @include bp($point_3) {
     display: block;
     padding: 20px 10px;
   }
@@ -68,7 +70,7 @@ const selectTab = (tab: string) => {
   @include flex-center;
   gap: 10px;
 
-  @include bp($point_4) {
+  @include bp($point_3) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
@@ -87,7 +89,7 @@ const selectTab = (tab: string) => {
   background: #1b205a;
   border-radius: 10px;
   padding: 10px 20px;
-  height: 5rem;
+  min-height: 50px;
   color: #fff;
   cursor: pointer;
   transition:
@@ -108,7 +110,7 @@ const selectTab = (tab: string) => {
 .controls {
   @include flex-center;
   gap: 1.5rem;
-  @include bp($point_4) {
+  @include bp($point_3) {
     padding-top: 24px;
     flex-direction: column-reverse;
     align-items: flex-start;
