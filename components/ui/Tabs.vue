@@ -2,9 +2,9 @@
   <div class="tabs-actions">
     <div class="tabs">
       <button
-        v-for="(tab, index) in tabs"
+        v-for="(tab, index) in tabStore.tabs"
         :key="index"
-        :class="{ active: activeTab === tab }"
+        :class="{ active: tabStore.activeTab === tab }"
         @click="selectTab(tab)"
       >
         {{ tab }}
@@ -13,8 +13,8 @@
 
     <div class="controls">
       <div class="sell-toggle">
-        <label for="sell"
-          >Можно продать
+        <label for="sell">
+          Можно продать
           <input type="checkbox" id="sell" name="sell" v-model="canSell" />
           <span></span>
         </label>
@@ -28,15 +28,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed } from "vue";
+import { useTabStore } from "@/stores/useTabStore";
 import InventoryContracts from "@/components/inventory/inventory-contracts.vue";
 import InventoryUpgrades from "@/components/inventory/inventory-upgrades.vue";
 import InventoryMain from "@/components/inventory/inventory-main.vue";
 import InventoryConclusions from "@/components/inventory/conclusions.vue";
 
-const tabs = ["Мой инвентарь", "Апгрейды", "Контракты", "Выводы"];
-const activeTab = ref(tabs[0]);
-const canSell = ref(false);
+const tabStore = useTabStore();
 
 const tabComponents = {
   "Мой инвентарь": InventoryMain,
@@ -45,10 +44,10 @@ const tabComponents = {
   Выводы: InventoryConclusions,
 };
 
-const activeComponent = computed(() => tabComponents[activeTab.value]);
+const activeComponent = computed(() => tabComponents[tabStore.activeTab]);
 
 const selectTab = (tab: string) => {
-  activeTab.value = tab;
+  tabStore.setActiveTab(tab);
 };
 </script>
 

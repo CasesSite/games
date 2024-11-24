@@ -45,6 +45,9 @@
   row-gap: 2.8rem;
   background-color: #1b205a;
   padding: 4rem;
+  @include bp($point_5) {
+    padding: 10px;
+  }
 }
 .inventory__contact {
   background: #141949;

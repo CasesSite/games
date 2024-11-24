@@ -97,6 +97,9 @@
   column-gap: 2.5rem;
   background-color: #1b205a;
   padding: 4rem;
+  @include bp($point_5) {
+    padding: 10px;
+  }
 }
 .inventory-upgrade__item {
   max-width: 450px;

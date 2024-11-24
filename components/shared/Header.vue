@@ -33,14 +33,14 @@
         <div class="header_bottom__main">
           <nav class="header_nav">
             <NuxtLink
-              to="/"
+              :to="item.link"
+              @click="selectTab(item.name)"
               v-for="(item, i) in nav"
               :key="'header-nav-item-' + i"
             >
               <div class="nav_icon">
                 <Icon :name="'custom:' + item.icon" />
               </div>
-
               <p>{{ item.name }}</p>
             </NuxtLink>
           </nav>
@@ -103,6 +103,7 @@ import LoginModal from "~/components/modals/LoginModal.vue";
 import LoginBtn from "../ui/LoginBtn.vue";
 import { useGlobalStoreRefs } from "@/stores/useGlobalStore";
 const { isAuthorizedUser } = useGlobalStoreRefs();
+import { useTabStore } from "@/stores/useTabStore";
 
 const list = ref<any>([
   {
@@ -187,16 +188,21 @@ function openModal() {
 function closeModal() {
   isModalOpen.value = false;
 }
-
 const nav = ref<any>([
   { name: "Кейсы", icon: "nav-1", link: "" },
-  { name: "контракты", icon: "nav-5", link: "" },
-  { name: "апгрейд", icon: "nav-4", link: "" },
+  { name: "Контракты", icon: "nav-5", link: "/account/contracts" },
+  { name: "Апгрейды", icon: "nav-4", link: "/account/upgrade" },
   { name: "барабан", icon: "nav-3", link: "" },
   { name: "бонусы", icon: "nav-2", link: "" },
   // { name: "квесты", icon: "nav-6", link: "" },
   // { name: "crash", icon: "nav-7", link: "" },
 ]);
+
+const tabStore = useTabStore();
+
+const selectTab = (tab: string) => {
+  tabStore.setActiveTab(tab);
+};
 </script>
 
 <style scoped lang="scss">
