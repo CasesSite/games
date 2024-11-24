@@ -3,35 +3,35 @@
     <div class="container">
       <userHead />
       <Tabs />
-      <div class="upgrades-grid">
-        <div
-          class="upgrade-card"
-          v-for="(upgrade, index) in upgrades"
-          :key="index"
-        >
-          <div class="card-header">
-            <p>Ваша ставка</p>
-            <p>Апгрейд</p>
-          </div>
+      <!--      <div class="upgrades-grid">-->
+      <!--        <div-->
+      <!--          class="upgrade-card"-->
+      <!--          v-for="(upgrade, index) in upgrades"-->
+      <!--          :key="index"-->
+      <!--        >-->
+      <!--          <div class="card-header">-->
+      <!--            <p>Ваша ставка</p>-->
+      <!--            <p>Апгрейд</p>-->
+      <!--          </div>-->
 
-          <div class="card-content">
-            <img :src="upgrade.image" :alt="upgrade.name" class="item-image" />
-            <div class="item-details">
-              <p class="item-name">{{ upgrade.name }}</p>
-              <p class="item-price">{{ upgrade.price }} Р</p>
-            </div>
-          </div>
+      <!--          <div class="card-content">-->
+      <!--            <img :src="upgrade.image" :alt="upgrade.name" class="item-image" />-->
+      <!--            <div class="item-details">-->
+      <!--              <p class="item-name">{{ upgrade.name }}</p>-->
+      <!--              <p class="item-price">{{ upgrade.price }} Р</p>-->
+      <!--            </div>-->
+      <!--          </div>-->
 
-          <div class="card-footer">
-            <p class="chance">
-              Шанс: <span>{{ upgrade.chance }}%</span>
-            </p>
-            <button :class="upgrade.status === 'win' ? 'btn-win' : 'btn-lose'">
-              {{ upgrade.status === "win" ? "ВЫИГРЫШ" : "ПРОИГРЫШ" }}
-            </button>
-          </div>
-        </div>
-      </div>
+      <!--          <div class="card-footer">-->
+      <!--            <p class="chance">-->
+      <!--              Шанс: <span>{{ upgrade.chance }}%</span>-->
+      <!--            </p>-->
+      <!--            <button :class="upgrade.status === 'win' ? 'btn-win' : 'btn-lose'">-->
+      <!--              {{ upgrade.status === "win" ? "ВЫИГРЫШ" : "ПРОИГРЫШ" }}-->
+      <!--            </button>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
   </div>
 </template>
@@ -65,4 +65,14 @@ const upgrades = [
 ];
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.inventory {
+  padding: 85px 230px 20px;
+  @include bp($point_0) {
+    padding: 65px 80px 20px;
+  }
+  @include bp($point_2) {
+    padding: 20px 10px;
+  }
+}
+</style>

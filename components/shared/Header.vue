@@ -190,8 +190,8 @@ function closeModal() {
 }
 const nav = ref<any>([
   { name: "Кейсы", icon: "nav-1", link: "" },
-  { name: "Контракты", icon: "nav-5", link: "/account/contracts" },
-  { name: "Апгрейды", icon: "nav-4", link: "/account/upgrade" },
+  { name: "Контракты", icon: "nav-5", link: "" },
+  { name: "Апгрейды", icon: "nav-4", link: "" },
   { name: "барабан", icon: "nav-3", link: "" },
   { name: "бонусы", icon: "nav-2", link: "" },
   // { name: "квесты", icon: "nav-6", link: "" },

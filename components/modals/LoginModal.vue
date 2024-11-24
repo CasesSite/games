@@ -271,7 +271,7 @@ h2 {
 }
 .error-message {
   color: red;
-  font-size: 0.875rem; // 14px
+  font-size: 14px;
 }
 .action-btn {
   width: 100%;

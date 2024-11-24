@@ -1,5 +1,5 @@
 import { defineStore, storeToRefs } from "pinia";
-import { useNuxtApp } from "#app";
+import { useNuxtApp, useCookie } from "#app";
 
 export const useGlobalStore = defineStore("main", {
   state: () => ({
@@ -23,6 +23,15 @@ export const useGlobalStore = defineStore("main", {
     },
     setAuthorized(status: boolean) {
       this.isAuthorizedUser = status;
+    },
+    checkAuthorization() {
+      const tokenCookie = useCookie("authToken");
+      this.isAuthorizedUser = !!tokenCookie.value;
+    },
+    logout() {
+      const tokenCookie = useCookie("authToken");
+      tokenCookie.value = null;
+      this.isAuthorizedUser = false;
     },
   },
   persist: true,
