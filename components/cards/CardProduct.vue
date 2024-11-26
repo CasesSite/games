@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    <NuxtLink to="/" class="product__link">
+    <NuxtLink :to="`/case/${card.id}`" class="product__link">
       <div class="product__img">
         <img :src="card.img" alt="" />
         <div class="product_count">
@@ -17,7 +17,7 @@
       <div class="product_price">
         <div class="product_price__btn">
           <div class="product_old__price">
-            <span>{{ card.oldprice }}</span>
+            <span>{{ card.oldPrice }}</span>
             <img src="@/assets/img/header/logo.png" alt="icon" />
           </div>
           <span>{{ card.price }}</span>
