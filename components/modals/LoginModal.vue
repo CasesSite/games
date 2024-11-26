@@ -165,9 +165,18 @@ async function login() {
       await loginUser(email.value, password.value);
       closeModal();
       globalStore.setAuthorized(true);
+      await logCurrentUser();
     } catch (error) {
       console.error("Error logging in:", error);
     }
+  }
+}
+async function logCurrentUser() {
+  try {
+    const currentUser = await fetchCurrentUser();
+    console.log("Current User:", currentUser);
+  } catch (error) {
+    console.error("Error fetching current user:", error);
   }
 }
 </script>

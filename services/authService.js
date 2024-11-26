@@ -16,7 +16,7 @@ export const checkEmailExists = async (email) => {
 
 export const createAccount = async (email, password) => {
   const globalStore = useGlobalStore();
-  const tokenCookie = useCookie("authToken");
+  const tokenCookie = useCookie("AccessToken");
 
   try {
     const response = await axios.post(
