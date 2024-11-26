@@ -40,20 +40,33 @@ export const createAccount = async (email, password) => {
 
 export const login = async (email, password) => {
   const globalStore = useGlobalStore();
-  const tokenCookie = useCookie("authToken");
 
   try {
-    const response = await axios.post("https://dev.24cases.ru/v1/auth/login", {
-      email,
-      password,
-    });
+    const response = await axios.post(
+      "https://dev.24cases.ru/v1/auth/login",
+      { email, password },
+      { withCredentials: true },
+    );
 
-    const { token } = response.data;
-    tokenCookie.value = token;
     globalStore.setAuthorized(true);
+    console.log("Login successful, cookies are now handled by the browser.");
     return response.data;
   } catch (error) {
     console.error("Error logging in:", error);
+    throw error;
+  }
+};
+export const getCurrentUser = async () => {
+  try {
+    const response = await axios.get("https://dev.24cases.ru/v1/users/me", {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error fetching current user:",
+      error.response?.data || error.message,
+    );
     throw error;
   }
 };

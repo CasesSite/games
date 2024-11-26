@@ -89,11 +89,14 @@ import {
   checkEmailExists,
   createAccount as registerUser,
   login as loginUser,
+  getCurrentUser as fetchCurrentUser,
 } from "~/services/authService";
 import SocialsInLogin from "~/components/shared/SocialsInLogin.vue";
 import { useForm, useField } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
+import { useGlobalStore } from "@/stores/useGlobalStore";
+
 const showPassword = ref(false);
 const isOpen = ref(true);
 const password = ref("");
@@ -164,6 +167,7 @@ async function login() {
     try {
       await loginUser(email.value, password.value);
       closeModal();
+      const globalStore = useGlobalStore();
       globalStore.setAuthorized(true);
       await logCurrentUser();
     } catch (error) {
@@ -171,12 +175,26 @@ async function login() {
     }
   }
 }
+
 async function logCurrentUser() {
   try {
     const currentUser = await fetchCurrentUser();
     console.log("Current User:", currentUser);
   } catch (error) {
     console.error("Error fetching current user:", error);
+  }
+}
+
+async function checkUserAuthentication() {
+  try {
+    const currentUser = await fetchCurrentUser();
+    if (currentUser) {
+      console.log("User is logged in:", currentUser);
+    } else {
+      console.log("User is not logged in.");
+    }
+  } catch (error) {
+    console.error("Error verifying user authentication:", error);
   }
 }
 </script>

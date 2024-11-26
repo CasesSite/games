@@ -1,6 +1,5 @@
 import { defineStore, storeToRefs } from "pinia";
 import { useNuxtApp, useCookie } from "#app";
-import { getCurrentUser } from "~/services/user";
 
 export const useGlobalStore = defineStore("main", {
   state: () => ({
