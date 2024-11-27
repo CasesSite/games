@@ -21,11 +21,20 @@
               </button>
             </div>
           </div>
+
           <ul class="header_prize__list">
-            <li v-for="(item, i) in list" :key="'mini-prize-' + i">
+            <li
+              v-for="(item, i) in list"
+              :key="'mini-prize-' + i"
+              :style="{
+                '--position': positions[i],
+              }"
+              class="animated-item"
+            >
               <MiniPrize :card="item" />
             </li>
           </ul>
+
           <div class="header__online">
             <CardOnline />
           </div>
@@ -98,13 +107,12 @@
 import CardOnline from "../cards/CardOnline.vue";
 import MiniPrize from "../cards/MiniPrize.vue";
 import Socials from "./Socials.vue";
-import { ref } from "vue";
 import LoginModal from "~/components/modals/LoginModal.vue";
 import LoginBtn from "../ui/LoginBtn.vue";
 import { useGlobalStoreRefs } from "@/stores/useGlobalStore";
 const { isAuthorizedUser } = useGlobalStoreRefs();
 import { useTabStore } from "@/stores/useTabStore";
-
+import { ref, onMounted, onUnmounted } from "vue";
 const list = ref<any>([
   {
     img: "/assets/img/top-img.png",
@@ -203,6 +211,27 @@ const tabStore = useTabStore();
 const selectTab = (tab: string) => {
   tabStore.setActiveTab(tab);
 };
+
+const position = ref(0);
+
+const positions = ref<number[]>(list.value.map((_, i) => i));
+
+let interval: NodeJS.Timeout;
+
+onMounted(() => {
+  interval = setInterval(() => {
+    positions.value = positions.value.map((pos) => {
+      if (pos === list.value.length - 1) {
+        return 0;
+      }
+      return pos + 1;
+    });
+  }, 3000);
+});
+
+onUnmounted(() => {
+  clearInterval(interval);
+});
 </script>
 
 <style scoped lang="scss">
@@ -215,6 +244,8 @@ const selectTab = (tab: string) => {
 
 .header_action {
   @include flex-start;
+  z-index: 9;
+  background-color: #090d31;
 }
 
 .header_logo {
@@ -314,31 +345,32 @@ const selectTab = (tab: string) => {
   z-index: 2;
   max-height: 104px;
   height: 100%;
-  &:before {
-    width: 110%;
-    height: 100%;
-    background: $dark-blue;
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 }
 
 .header_prize__list {
-  @include flex-start;
   flex-grow: 1;
   gap: 2px;
   max-width: 100%;
   overflow: hidden;
+  @include flex-start;
+  position: relative;
+  height: 100px;
+  z-index: 1;
+  margin-left: -11.1%;
+
+  .animated-item {
+    background-color: #090d31;
+    position: absolute;
+    height: 100%;
+    z-index: 2;
+    transform: translateX(calc((100% + 2px) * var(--position)));
+    transition:
+      transform 0.3s ease,
+      -webkit-transform 0.3s ease;
+  }
   @include bp($point_5) {
     max-height: 100px;
     height: 62px;
-  }
-
-  &::-webkit-scrollbar {
-    display: none;
   }
 }
 
