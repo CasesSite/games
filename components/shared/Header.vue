@@ -21,11 +21,20 @@
               </button>
             </div>
           </div>
+
           <ul class="header_prize__list">
-            <li v-for="(item, i) in list" :key="'mini-prize-' + i">
+            <li
+              v-for="(item, i) in list"
+              :key="'mini-prize-' + i"
+              :style="{
+                '--position': positions[i],
+              }"
+              class="animated-item"
+            >
               <MiniPrize :card="item" />
             </li>
           </ul>
+
           <div class="header__online">
             <CardOnline />
           </div>
@@ -83,7 +92,14 @@
             </button>
           </div>
           <ul class="header_prize__list">
-            <li v-for="(item, i) in list" :key="'mini-prize-' + i">
+            <li
+              v-for="(item, i) in list"
+              :key="'mini-prize-' + i"
+              :style="{
+                '--position': positions[i],
+              }"
+              class="animated-item"
+            >
               <MiniPrize :card="item" />
             </li>
           </ul>
@@ -98,13 +114,12 @@
 import CardOnline from "../cards/CardOnline.vue";
 import MiniPrize from "../cards/MiniPrize.vue";
 import Socials from "./Socials.vue";
-import { ref } from "vue";
 import LoginModal from "~/components/modals/LoginModal.vue";
 import LoginBtn from "../ui/LoginBtn.vue";
 import { useGlobalStoreRefs } from "@/stores/useGlobalStore";
 const { isAuthorizedUser } = useGlobalStoreRefs();
 import { useTabStore } from "@/stores/useTabStore";
-
+import { ref, onMounted, onUnmounted } from "vue";
 const list = ref<any>([
   {
     img: "/assets/img/top-img.png",
@@ -203,6 +218,27 @@ const tabStore = useTabStore();
 const selectTab = (tab: string) => {
   tabStore.setActiveTab(tab);
 };
+
+const position = ref(0);
+
+const positions = ref<number[]>(list.value.map((_, i) => i));
+
+let interval: NodeJS.Timeout;
+
+onMounted(() => {
+  interval = setInterval(() => {
+    positions.value = positions.value.map((pos) => {
+      if (pos === list.value.length - 1) {
+        return 0;
+      }
+      return pos + 1;
+    });
+  }, 3000);
+});
+
+onUnmounted(() => {
+  clearInterval(interval);
+});
 </script>
 
 <style scoped lang="scss">
@@ -215,6 +251,8 @@ const selectTab = (tab: string) => {
 
 .header_action {
   @include flex-start;
+  z-index: 9;
+  background-color: #090d31;
 }
 
 .header_logo {
@@ -234,6 +272,8 @@ const selectTab = (tab: string) => {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  z-index: 7;
+  background: $dark-blue;
 
   .button {
     @include bp($point_5) {
@@ -314,31 +354,27 @@ const selectTab = (tab: string) => {
   z-index: 2;
   max-height: 104px;
   height: 100%;
-  &:before {
-    width: 110%;
-    height: 100%;
-    background: $dark-blue;
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 }
 
 .header_prize__list {
-  @include flex-start;
   flex-grow: 1;
   gap: 2px;
   max-width: 100%;
   overflow: hidden;
-  @include bp($point_5) {
-    max-height: 100px;
-    height: 62px;
-  }
-
-  &::-webkit-scrollbar {
-    display: none;
+  @include flex-start;
+  position: relative;
+  height: 100px;
+  z-index: 1;
+  margin-left: calc(100% - (var(--position)));
+  .animated-item {
+    background-color: #090d31;
+    position: absolute;
+    height: 100%;
+    z-index: 2;
+    transform: translateX(calc((100% + 2px) * var(--position)));
+    transition:
+      transform 0.3s ease,
+      -webkit-transform 0.3s ease;
   }
 }
 
@@ -391,6 +427,7 @@ const selectTab = (tab: string) => {
     box-shadow: inset 0 0 0.3rem 0 rgba(0, 0, 0, 0.49);
     background: rgba(43, 52, 145, 0.67);
     position: relative;
+    cursor: pointer;
     @include bp($point_2) {
       font-size: 1rem;
       gap: 1rem;
@@ -422,7 +459,6 @@ const selectTab = (tab: string) => {
     }
 
     &:nth-child(1) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -432,7 +468,6 @@ const selectTab = (tab: string) => {
       }
     }
     &:nth-child(2) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -442,7 +477,6 @@ const selectTab = (tab: string) => {
       }
     }
     &:nth-child(3) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -452,7 +486,6 @@ const selectTab = (tab: string) => {
       }
     }
     &:nth-child(4) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -462,7 +495,6 @@ const selectTab = (tab: string) => {
       }
     }
     &:nth-child(5) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -472,7 +504,6 @@ const selectTab = (tab: string) => {
       }
     }
     &:nth-child(6) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -482,7 +513,6 @@ const selectTab = (tab: string) => {
       }
     }
     &:nth-child(7) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -503,14 +533,12 @@ const selectTab = (tab: string) => {
   }
 }
 .nav_icon {
-  width: 3.6rem;
-  height: 3.6rem;
   > span {
-    width: 37px;
-    height: 37px;
+    width: 36px;
+    height: 36px;
   }
   @include flex-center;
-  border-radius: 0.7rem;
+  border-radius: 7px;
   z-index: 1;
 }
 
@@ -532,7 +560,9 @@ header {
 .header_main-mobile {
   display: none;
   .header_bottom__mobile {
-    @include flex-center;
+    position: relative;
+    z-index: 2;
+    @include flex-start;
     gap: 5px;
   }
   @include bp($point_3) {

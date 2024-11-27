@@ -1,7 +1,7 @@
 <template>
   <div class="cardPrize" :class="isColor">
     <div class="cardPrize__img">
-      <img :src="card.img" />
+      <img :src="card.img" alt="card" />
     </div>
     <div class="cardPrize__txt">{{ card.name }}</div>
   </div>
@@ -80,6 +80,7 @@ const isColor = computed(() => {
     height: 100%;
     transform: translate(-50%, -50%);
     content: "";
+    background-color: $dark-blue;
     background-image: url("../../assets/img/prize/prize-before-blue.png");
     background-position: center center;
     background-repeat: no-repeat;
@@ -87,22 +88,7 @@ const isColor = computed(() => {
     z-index: 0;
     pointer-events: none;
   }
-  // &:after {
-  //   position: absolute;
-  //   top: 64%;
-  //   left: 50%;
-  //   width: 100%;
-  //   height: 100%;
-  //   transform: translate(-50%, -50%);
-  //   content: "";
-  //   background-image: url("../../assets/img/prize/prize-after-blue.png");
-  //   background-position: center center;
-  //   background-repeat: no-repeat;
-  //   background-size: contain;
-  //   z-index: -1;
-  //   pointer-events: none;
-  //   transition: all 0.3s ease-in-out;
-  // }
+
   &.color_violet {
     &:before {
       background-image: url("../../assets/img/prize/prize-before-violet.png");
