@@ -92,7 +92,14 @@
             </button>
           </div>
           <ul class="header_prize__list">
-            <li v-for="(item, i) in list" :key="'mini-prize-' + i">
+            <li
+              v-for="(item, i) in list"
+              :key="'mini-prize-' + i"
+              :style="{
+                '--position': positions[i],
+              }"
+              class="animated-item"
+            >
               <MiniPrize :card="item" />
             </li>
           </ul>
@@ -265,6 +272,8 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  z-index: 7;
+  background: $dark-blue;
 
   .button {
     @include bp($point_5) {
@@ -356,8 +365,7 @@ onUnmounted(() => {
   position: relative;
   height: 100px;
   z-index: 1;
-  margin-left: -11.1%;
-
+  margin-left: calc(100% - (var(--position)));
   .animated-item {
     background-color: #090d31;
     position: absolute;
@@ -367,10 +375,6 @@ onUnmounted(() => {
     transition:
       transform 0.3s ease,
       -webkit-transform 0.3s ease;
-  }
-  @include bp($point_5) {
-    max-height: 100px;
-    height: 62px;
   }
 }
 
@@ -423,6 +427,7 @@ onUnmounted(() => {
     box-shadow: inset 0 0 0.3rem 0 rgba(0, 0, 0, 0.49);
     background: rgba(43, 52, 145, 0.67);
     position: relative;
+    cursor: pointer;
     @include bp($point_2) {
       font-size: 1rem;
       gap: 1rem;
@@ -454,7 +459,6 @@ onUnmounted(() => {
     }
 
     &:nth-child(1) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -464,7 +468,6 @@ onUnmounted(() => {
       }
     }
     &:nth-child(2) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -474,7 +477,6 @@ onUnmounted(() => {
       }
     }
     &:nth-child(3) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -484,7 +486,6 @@ onUnmounted(() => {
       }
     }
     &:nth-child(4) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -494,7 +495,6 @@ onUnmounted(() => {
       }
     }
     &:nth-child(5) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -504,7 +504,6 @@ onUnmounted(() => {
       }
     }
     &:nth-child(6) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -514,7 +513,6 @@ onUnmounted(() => {
       }
     }
     &:nth-child(7) {
-      .nav_icon,
       &:before {
         background: linear-gradient(
           180deg,
@@ -535,14 +533,12 @@ onUnmounted(() => {
   }
 }
 .nav_icon {
-  width: 3.6rem;
-  height: 3.6rem;
   > span {
-    width: 37px;
-    height: 37px;
+    width: 36px;
+    height: 36px;
   }
   @include flex-center;
-  border-radius: 0.7rem;
+  border-radius: 7px;
   z-index: 1;
 }
 
@@ -564,7 +560,9 @@ header {
 .header_main-mobile {
   display: none;
   .header_bottom__mobile {
-    @include flex-center;
+    position: relative;
+    z-index: 2;
+    @include flex-start;
     gap: 5px;
   }
   @include bp($point_3) {
