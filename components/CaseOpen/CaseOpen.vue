@@ -5,69 +5,79 @@
   </div>
 
   <div class="case-info">
-    <img :src="props.data.image" alt="Case Image" class="case-image"/>
-    <div v-if="!isAuth">
-      <div class="case-info__message">
-        <p class="message-title">ВЫ НЕ АВТОРИЗОВАНЫ!</p>
-        <p class="message-desc">Авторизируйтесь, чтобы открыть кейс</p>
-      </div>
-      <div class="hero_btn">
-        <NuxtLink to="/"> ВОЙТИ </NuxtLink>
-      </div>
+    <div v-if="isOpening">
+      <CaseOpening :caseImg="props.data.image" :id="4" />
     </div>
-    <div v-else-if="notEnoughMoney">
-      <div class="case-info__message">
-        <p class="message-title">
-          Не хватает {{ amount }}
+    <div class="info" v-else>
+      <img :src="props.data.image" alt="Case Image" class="case-image"/>
+      <div v-if="!isAuth">
+        <div class="case-info__message">
+          <p class="message-title">ВЫ НЕ АВТОРИЗОВАНЫ!</p>
+          <p class="message-desc">Авторизируйтесь, чтобы открыть кейс</p>
+        </div>
+        <div class="hero_btn">
+          <NuxtLink to="/"> ВОЙТИ </NuxtLink>
+        </div>
+      </div>
+      <div v-else-if="notEnoughMoney">
+        <div class="case-info__message">
+          <p class="message-title">
+            Не хватает {{ amount }}
+            <img
+                class="star-icon"
+                src="@/assets/img/header/header-logo.svg"
+                alt="Star Icon"
+            />
+          </p>
+          <p class="message-desc">Недостаточно средств для открытия кейса</p>
+        </div>
+        <div class="hero_btn">
+          <NuxtLink to="/">ПОПОЛНИТЬ БАЛАНС</NuxtLink>
+        </div>
+      </div>
+      <div v-else class="case-info__actions">
+        <button class="case-action-button sell-btn" @click="open">
+          ОТКРЫТЬ ЗА 980
           <img
-              class="star-icon"
+              class="icon"
               src="@/assets/img/header/header-logo.svg"
               alt="Star Icon"
           />
-        </p>
-        <p class="message-desc">Недостаточно средств для открытия кейса</p>
-      </div>
-      <div class="hero_btn">
-        <NuxtLink to="/">ПОПОЛНИТЬ БАЛАНС</NuxtLink>
+        </button>
+        <button class="case-action-button fast-sell-btn" @click="withdraw">
+          <img
+              class="icon lightning-icon"
+              src="../../assets/img/header/lightning.svg"
+              alt="Lightning Icon"
+          />
+          БЫСТРОЕ ОТКРЫТИЕ
+        </button>
       </div>
     </div>
-    <div v-else class="case-info__actions">
-      <button class="case-action-button sell-btn" @click="sell">
-        ОТКРЫТЬ ЗА 980
-        <img
-            class="icon"
-            src="@/assets/img/header/header-logo.svg"
-            alt="Star Icon"
-        />
-      </button>
-      <button class="case-action-button fast-sell-btn" @click="withdraw">
-        <img
-            class="icon lightning-icon"
-            src="../../assets/img/header/lightning.svg"
-            alt="Lightning Icon"
-        />
-        БЫСТРОЕ ОТКРЫТИЕ
-      </button>
-    </div>
-
   </div>
 </template>
 
 <script setup lang="ts">
 import { defineProps } from "vue";
 import { CaseType } from "~/common/commonTypes"
+import CaseOpening from "~/components/CaseOpen/CaseOpening.vue";
 
 const props = defineProps<{
   data: CaseType;
 }>();
 
-const notEnoughMoney = false; // TODO: remove hardcode
-const isAuth = false; // TODO: remove hardcode
-const amount = 4; // TODO: remove hardcode
 
+const isOpening = ref(false);
+
+const notEnoughMoney = false; // TODO: remove hardcode after adding userStore
+const isAuth = true; // TODO: remove hardcode after adding userStore
+const amount = 4; // TODO: remove hardcode after adding userStore
+
+const open = () => {
+  isOpening.value = true;
+}
 
 </script>
-
 
 <style lang="scss" scoped>
 .case-top {
@@ -161,7 +171,7 @@ const amount = 4; // TODO: remove hardcode
   align-items: center;
   gap: 2px;
   color: #fff;
-  font-family: "Exo2-bold";
+  font-family: $font_5;
   font-size: 20px;
   border-radius: 10px;
   text-transform: uppercase;
@@ -180,6 +190,10 @@ const amount = 4; // TODO: remove hardcode
   margin-right: 10px;
   width: 15px;
   height: 24px;
+}
+
+.info {
+  text-align: center;
 }
 
 </style>
