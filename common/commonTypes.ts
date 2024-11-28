@@ -31,3 +31,11 @@ export type CaseType = {
   oldPrice: number;
   items: Item[];
 };
+
+export type CaseBaseDataType = {
+  id: string;
+  name: string;
+  image: string;
+  category: number;
+  rarity: CaseItemRarity;
+}

@@ -30,7 +30,7 @@
         v-for="(item, index) in caseItems"
         :key="item.name + '-' + index"
         :img="item.image"
-        :rarity="4"
+        :rarity="item.rarity"
         :name="item.name"
         :category="item.category"
       />
@@ -46,14 +46,14 @@ import { useCurrentCaseStore } from "~/stores/useCurrentCaseStore";
 
 
 const caseItems = [
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png"},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png"},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png"},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png"},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png"},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png"},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png"},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png"},
+  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
+  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
+  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 5},
+  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
+  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
+  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 4},
+  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 6},
+  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 1},
 ];
 
 const router = useRouter();
