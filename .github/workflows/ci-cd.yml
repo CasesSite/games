@@ -12,7 +12,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+      - name: Set Image Tag
+        id: tag
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
+            echo "TAG=prod" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/stage" ]]; then
+            echo "TAG=stage" >> $GITHUB_ENV
+          else
+            echo "TAG=dev" >> $GITHUB_ENV
+          fi
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
@@ -27,12 +36,17 @@ jobs:
 
       - name: SSH and Deploy
         uses: appleboy/ssh-action@v0.1.5
+        env:
+          GIT_SHA_FRONT: ${{ env.TAG }}-${{ github.sha }}
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          envs: GIT_SHA_FRONT
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/testapp:${{ github.sha }}
-            docker stop testapp || true
-            docker rm testapp || true
-            docker run -d -p 3000:3000 --name testapp ${{ secrets.DOCKERHUB_USERNAME }}/testapp:${{ github.sha }}
+            cd stardrop
+            sed -i '/^GIT_SHA_FRONT=/d' .env && echo "GIT_SHA_FRONT=${GIT_SHA_FRONT}" >> .env
+            docker compose down
+            docker system prune -f --all
+            docker compose pull
+            docker compose up -d
