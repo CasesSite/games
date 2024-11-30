@@ -18,10 +18,27 @@ const props = defineProps<{
 .card {
   height: 220px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //@include bp($point_5) {
+  //  display: flex;
+  //  justify-content: center;
+  //  align-items: center;
+  //}
 
   img {
+    //width: auto;
+    //height: 220px;
+    height: 100%;
     width: auto;
-    height: 220px;
+    max-height: 220px;
+    max-width: 100%;
+
+    @include bp($point_5) {
+      //width: 100%;
+      height: auto;
+    }
   }
 }
 

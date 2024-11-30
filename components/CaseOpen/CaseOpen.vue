@@ -6,7 +6,7 @@
 
   <div class="case-info">
     <div v-if="isOpening">
-      <CaseOpening :caseImg="props.data.image" :id="4" />
+      <CaseOpening :caseImg="props.data.image" :items="props.data.items" />
     </div>
     <div class="info" v-else>
       <img :src="props.data.image" alt="Case Image" class="case-image"/>
@@ -162,6 +162,10 @@ const open = () => {
 .case-info__actions {
   @include flex-center;
   gap: 35px;
+  @include bp($point_5) {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 .case-action-button {
@@ -169,6 +173,7 @@ const open = () => {
   height: 60px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 2px;
   color: #fff;
   font-family: $font_5;
@@ -176,6 +181,11 @@ const open = () => {
   border-radius: 10px;
   text-transform: uppercase;
   cursor: pointer;
+
+  @include bp($point_5) {
+    width: 325px;
+  }
+
 }
 
 .sell-btn {

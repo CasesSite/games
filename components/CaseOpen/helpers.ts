@@ -11,7 +11,7 @@ export function createSlotElement(item: CaseBaseDataType) {
     img: item.image,
     rarity: item.rarity,
     name: item.name,
-    category: item.category
+    game: item.game
   }));
   app.mount(container);
 

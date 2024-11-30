@@ -22,7 +22,7 @@
           :img="caseItem.image"
           :name="caseItem.name"
           :rarity="caseItem.rarity"
-          :category="caseItem.game"
+          :game="caseItem.game"
       />
 
       <CaseItem
@@ -32,7 +32,7 @@
         :img="item.image"
         :rarity="item.rarity"
         :name="item.name"
-        :category="item.category"
+        :game="item.game"
       />
     </div>
   </div>
