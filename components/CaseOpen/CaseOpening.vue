@@ -3,31 +3,31 @@
     <div class="slotContainer">
       <div class="slot" :class="'slot-x' + boxCount" ref="slot1">
         <div class="symbols">
-          <img :src="caseImg" alt="Case Image" class="case-image"/>
+          <EmptySlot :img="caseImg" />
         </div>
       </div>
 
       <div v-if="boxCount > 1" class="slot" :class="'slot-x' + boxCount" ref="slot2">
         <div class="symbols">
-          <img :src="caseImg" alt="Case Image" class="case-image"/>
+          <EmptySlot :img="caseImg" />
         </div>
       </div>
 
       <div v-if="boxCount > 2" class="slot" :class="'slot-x' + boxCount" ref="slot3">
         <div class="symbols">
-          <img :src="caseImg" alt="Case Image" :class="'slot-x' + boxCount" class="case-image"/>
+          <EmptySlot :img="caseImg" />
         </div>
       </div>
 
       <div v-if="boxCount > 3" class="slot" :class="'slot-x' + boxCount" ref="slot4">
         <div class="symbols">
-          <img :src="caseImg" alt="Case Image" class="case-image"/>
+          <EmptySlot :img="caseImg" />
         </div>
       </div>
 
       <div v-if="boxCount > 4" class="slot" :class="'slot-x' + boxCount" ref="slot5">
         <div class="symbols">
-          <img :src="caseImg" alt="Case Image" class="case-image"/>
+          <EmptySlot :img="caseImg" />
         </div>
       </div>
     </div>
@@ -67,21 +67,25 @@
 import {ref, onMounted, defineProps} from "vue";
 import { CaseBaseDataType } from "~/common/commonTypes";
 import { createEmptyElement, createSlotElement } from "~/components/CaseOpen/helpers";
+import EmptySlot from "~/components/cards/EmptySlot.vue";
 
 const props = defineProps<{
   caseImg: string;
+  items: CaseBaseDataType[];
 }>();
 
-const caseItems: CaseBaseDataType[] = [
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 5},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 4},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 6},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 1},
-];
+// const caseItems: CaseBaseDataType[] = [
+//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 2},
+//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 2},
+//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 5},
+//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 2},
+//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 2},
+//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 4},
+//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 6},
+//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 1},
+// ];
+
+const caseItems: CaseBaseDataType[] = props.items;
 
 // Refs to access slots
 const slot1 = ref<HTMLDivElement | null>(null);
@@ -204,33 +208,78 @@ onMounted(() => {
 }
 
 .slotContainer {
-  height: 340px;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 20px;
+
+  @include bp($point_5) {
+    width: 100%;
+    gap: 10px;
+  }
+
+}
+
+.slot-x1 {
+  max-width: 500px;
+  flex: 1;
+
+  @include bp($point_5) {
+    max-width: 320px;
+  }
 }
 
 .slot-x2 {
-  width: 796px !important;
+  flex: 1;
+  max-width: 760px;
+  min-width: 400px;
+
+  @include bp($point_5) {
+    max-width: 175px;
+    min-width: auto;
+  }
 }
 
 .slot-x3 {
-  width: 500px !important;
+  flex: 1;
+  max-width: 500px;
+  min-width: 500px;
+
+  @include bp($point_5) {
+    max-width: 115px;
+    min-width: auto;
+  }
 }
 
 .slot-x4 {
-  width: 400px !important;
+  flex: 1;
+  max-width: 400px;
+  min-width: 300px;
+
+  @include bp($point_5) {
+    max-width: fit-content;
+    min-width: 160px;
+  }
 }
 
 .slot-x5 {
-  width: 300px !important;
+  flex: 1;
+  max-width: 300px;
+  min-width: 270px;
+
+  @include bp($point_5) {
+    max-width: fit-content;
+    min-width: 160px;
+  }
 }
 
 .slot {
-  width: 270px;
-  height: 220px; // 312px fix
+  flex: 1;
+  width: 100%;
+  height: 220px;
   border-radius: 20px;
   display: inline-block;
   overflow: hidden;
@@ -274,12 +323,18 @@ button {
 .case-info__actions {
   @include flex-center;
   gap: 35px;
+
+  @include bp($point_5) {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 .case-action-button {
   padding: 20px;
   height: 60px;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 2px;
   color: $white;
@@ -288,6 +343,10 @@ button {
   border-radius: 10px;
   text-transform: uppercase;
   cursor: pointer;
+
+  @include bp($point_5) {
+    width: 325px;
+  }
 }
 
 .sell-btn {
@@ -336,8 +395,7 @@ button {
 }
 
 .case-image {
-  height: 100% !important;
-  width: auto !important;
+  max-width: 100%;
 }
 
 </style>

@@ -36,6 +36,6 @@ export type CaseBaseDataType = {
   id: string;
   name: string;
   image: string;
-  category: number;
+  game: string;
   rarity: CaseItemRarity;
 }

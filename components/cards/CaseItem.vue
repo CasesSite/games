@@ -4,7 +4,7 @@
       <img :src="img" />
     </div>
     <div class="card__txt">{{ name }}</div>
-    <div class="card__type">{{ category }}</div>
+    <div class="card__type">{{ game }}</div>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import {CaseItemRarity} from "~/common/commonTypes";
 
 const props = defineProps<{
   name: string;
-  category: string;
+  game: string;
   rarity: CaseItemRarity;
   img: string;
 }>();
@@ -52,12 +52,6 @@ const isColor = computed(() => {
   @include bp($point_5) {
     width: 140px;
   }
-
-  //&:hover {
-  //  img {
-  //    transform: rotate(-5deg);
-  //  }
-  //}
 
   img {
     width: auto;

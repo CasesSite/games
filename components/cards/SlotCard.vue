@@ -4,7 +4,7 @@
       <img :src="img" />
     </div>
     <div class="card__txt">{{ name }}</div>
-    <div class="card__type">{{ category }}</div>
+    <div class="card__type">{{ game }}</div>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import {CaseItemRarity} from "~/common/commonTypes";
 
 const props = defineProps<{
   name: string;
-  category: string;
+  game: string;
   rarity: CaseItemRarity;
   img: string;
 }>();
@@ -60,7 +60,7 @@ const isColor = computed(() => {
     transition: all 0.3s ease-in-out;
 
     @include bp($point_5) {
-      max-width: 140px;
+      max-width: 70%;
     }
   }
 }
@@ -96,7 +96,7 @@ const isColor = computed(() => {
   cursor: pointer;
 
   @include bp($point_5) {
-    width: 165px;
+    //width: 165px;
   }
 
   &.color_primary {
