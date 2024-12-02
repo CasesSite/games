@@ -16,7 +16,7 @@ function closeModal() {
   <section class="container">
     <div class="not-auth-container">
       <img
-        src="@/assets/img/inventory/not-auth.png"
+        src="../assets/img/inventory/not-auth.png"
         alt="not-auth"
         class="not-auth-img"
       />
@@ -37,6 +37,9 @@ function closeModal() {
   @include flex-col;
   @include flex-center;
   gap: 3rem;
+  @include bp($point_3) {
+    gap: 1rem;
+  }
   .login-btn-main {
     max-width: 370px;
   }
@@ -47,6 +50,10 @@ h1 {
   font-weight: 800;
   line-height: 77px;
   text-align: center;
+  @include bp($point_3) {
+    font-size: 24px;
+    line-height: 27px;
+  }
 }
 h3 {
   font-family: $font_2;
@@ -55,8 +62,15 @@ h3 {
   line-height: 36px;
   text-align: center;
   color: #787dac;
+  @include bp($point_3) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 }
 .not-auth-img {
   margin: auto;
+  @include bp($point_3) {
+    max-width: 300px;
+  }
 }
 </style>

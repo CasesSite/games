@@ -197,7 +197,9 @@ const list = ref<any>([
 const isModalOpen = ref(false);
 
 function openModal() {
-  isModalOpen.value = true;
+  if (!isAuthorizedUser.value) {
+    isModalOpen.value = true;
+  }
 }
 
 function closeModal() {

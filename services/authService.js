@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useGlobalStore } from "@/stores/useGlobalStore";
 import { useCookie } from "#app";
+import axiosClient from "~/helper/axiosClient.js";
 
 export const checkEmailExists = async (email) => {
   try {
-    const response = await axios.get(
-      `https://dev.24cases.ru/v1/exists/${email}`,
-    );
+    const response = await axiosClient.get(`/exists/${email}`);
     return response.data;
   } catch (error) {
     console.error("Error checking email:", error);
@@ -19,18 +18,16 @@ export const createAccount = async (email, password) => {
   const tokenCookie = useCookie("AccessToken");
 
   try {
-    const response = await axios.post(
-      "https://dev.24cases.ru/v1/auth/register",
-      {
-        email,
-        password,
-        role: "User",
-      },
-    );
+    const response = await axiosClient.post("/auth/register", {
+      email,
+      password,
+      role: "User",
+    });
 
-    const { token } = response.data;
+    const { token, user } = response.data;
     tokenCookie.value = token;
     globalStore.setAuthorized(true);
+    globalStore.setCurrentUser(user);
     return response.data;
   } catch (error) {
     console.error("Error creating account:", error);
@@ -42,25 +39,31 @@ export const login = async (email, password) => {
   const globalStore = useGlobalStore();
 
   try {
-    const response = await axios.post(
-      "https://dev.24cases.ru/v1/auth/login",
+    const response = await axiosClient.post(
+      "/auth/login",
       { email, password },
       { withCredentials: true },
     );
 
     globalStore.setAuthorized(true);
-    console.log("Login successful, cookies are now handled by the browser.");
+
+    const currentUser = await getCurrentUser();
+    globalStore.setCurrentUser(currentUser);
+
+    console.log("Login successful, current user updated in the store.");
     return response.data;
   } catch (error) {
     console.error("Error logging in:", error);
     throw error;
   }
 };
+
 export const getCurrentUser = async () => {
+  const globalStore = useGlobalStore();
+
   try {
-    const response = await axios.get("https://dev.24cases.ru/v1/users/me", {
-      withCredentials: true,
-    });
+    const response = await axiosClient.get("users/me");
+    globalStore.setCurrentUser(response.data);
     return response.data;
   } catch (error) {
     console.error(

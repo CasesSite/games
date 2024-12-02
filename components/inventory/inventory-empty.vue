@@ -2,7 +2,7 @@
   <section class="inventory-empty">
     <div class="inventory-empty__info">
       <div class="inventory-empty__icon">
-        <img src="/public/assets/img/profile/warnings.svg" alt="" />
+        <img src="/assets/img/profile/warnings.svg" alt="" />
       </div>
       <div class="inventory-empty__text">
         <h3>У вас нет предметов</h3>

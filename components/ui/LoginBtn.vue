@@ -8,9 +8,9 @@
   <p v-else class="login-btn-mobile">
     <img src="@/assets/img/header/plus.svg" alt="plus" class="plus-mobile" />
     <button class="authorized-content">
-      <button>
+      <NuxtLink to="/account/inventory">
         <img src="@/assets/img/header/plus.svg" alt="plus" class="plus" />
-      </button>
+      </NuxtLink>
       <p class="coins">
         {{ coins }}
         <img
@@ -29,11 +29,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useGlobalStoreRefs } from "@/stores/useGlobalStore";
+import { getCurrentUser as fetchCurrentUser } from "~/services/authService";
 
-const { isAuthorizedUser } = useGlobalStoreRefs();
-const coins = ref(91750);
+const { isAuthorizedUser, currentUser } = useGlobalStoreRefs();
+const coins = computed(() => currentUser?.value?.result?.currentBalance || 0);
+
+async function logCurrentUser() {
+  try {
+    const user = await fetchCurrentUser();
+    console.log("Current User:", user);
+  } catch (error) {
+    console.error("Error fetching current user:", error);
+  }
+}
+
+onMounted(() => {
+  if (isAuthorizedUser.value) {
+    logCurrentUser();
+  }
+});
 </script>
 
 <style scoped lang="scss">

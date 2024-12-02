@@ -145,6 +145,25 @@ input {
   transition: left .3s ease-in-out;
   background: linear-gradient(180deg, #F18D74 0%, #CB4B9E 100%);
 }
+
 .label-policy input:checked + span:after {
   left: 1.4rem
+}
+.color_primary {
+  background: linear-gradient(180deg, #373A75 0%, #656D8D 100%);
+}
+.color_rare {
+  background: linear-gradient(180deg, #3A7A18 0%, #68B31E 100%);
+}
+.color_superRare {
+  background: linear-gradient(180deg, #373E96 0%, #2B80E6 100%);
+}
+.color_epic {
+  background: linear-gradient(180deg, #7715A6 0%, #B015EC 100%);
+}
+.color_mif {
+  background: linear-gradient(180deg, #66154F 0%, #D12A52 100%);
+}
+.color_legend {
+  background: linear-gradient(180deg, #B78A18 0%, #E6D11C 100%);
 }
