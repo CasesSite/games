@@ -1,7 +1,7 @@
 <template>
-  <div v-if="isUpdateModalOpen" class="modal-overlay" @click="closeUpdateModal">
+  <div v-if="isOpen" class="modal-overlay" @click="emitClose">
     <div class="modal-content" @click.stop>
-      <button @click="closeUpdateModal">
+      <button @click="emitClose">
         <img src="~/assets/img/modal/close.svg" alt="close" class="close-btn" />
       </button>
 
@@ -42,23 +42,33 @@ import { ref } from "vue";
 import { useGlobalStore } from "@/stores/useGlobalStore";
 import axiosClient from "~/helper/axiosClient.js";
 
-const isUpdateModalOpen = ref(false);
+const props = defineProps({
+  isOpen: Boolean,
+});
+
+const emit = defineEmits(["close"]);
+
 const updatedEmail = ref("");
 const updatedName = ref("");
 const updatedPhone = ref("");
 
-function closeUpdateModal() {
-  isUpdateModalOpen.value = false;
+function emitClose() {
+  emit("close");
 }
 
 async function updateUser() {
   const globalStore = useGlobalStore();
   const currentUser = globalStore.currentUser;
 
-  if (!currentUser?.id) {
+  if (!currentUser?.result.id) {
     console.error("User ID not found. Cannot update.");
     return;
   }
+  console.log("Update payload:", {
+    email: updatedEmail.value,
+    userName: updatedName.value,
+    phone: updatedPhone.value,
+  });
 
   try {
     const updatePayload = {
@@ -68,12 +78,12 @@ async function updateUser() {
     };
 
     const response = await axiosClient.put(
-      `/users/update/${currentUser.id}`,
+      `/users/update/${currentUser.result.id}`,
       updatePayload,
     );
 
     globalStore.setCurrentUser(response.data);
-    closeUpdateModal();
+    emitClose();
     console.log("User updated successfully.");
   } catch (error) {
     console.error(
