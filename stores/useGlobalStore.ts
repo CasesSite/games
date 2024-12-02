@@ -1,30 +1,29 @@
-import { defineStore, storeToRefs } from "pinia";
+import { defineStore } from "pinia";
 import { useNuxtApp, useCookie } from "#app";
 
 export const useGlobalStore = defineStore("main", {
   state: () => ({
-    load: false as boolean,
-    page: {} as any,
+    load: false,
+    page: {},
     isAuthorizedUser: false,
-    currentUser: null,
     accessToken: null,
     refreshToken: null,
+    currentUser: null,
   }),
   actions: {
     async getPages() {
       this.load = true;
       const { $main } = useNuxtApp();
-
       try {
         const response = await $main.get("/pages");
         this.page = response.data;
       } catch (error) {
-        console.error("Error loading data:", error);
+        console.error("Error loading pages:", error);
       } finally {
         this.load = false;
       }
     },
-    setAuthorized(status: boolean) {
+    setAuthorized(status) {
       this.isAuthorizedUser = status;
     },
     checkAuthorization() {
@@ -34,17 +33,21 @@ export const useGlobalStore = defineStore("main", {
     logout() {
       const tokenCookie = useCookie("AccessToken");
       tokenCookie.value = null;
-      this.isAuthorizedUser = false;
+      this.clearTokens();
       this.currentUser = null;
     },
     setTokens({ accessToken, refreshToken }) {
       this.accessToken = accessToken;
       this.refreshToken = refreshToken;
+      this.setAuthorized(!!accessToken);
     },
     clearTokens() {
       this.accessToken = null;
       this.refreshToken = null;
-      this.isAuthorized = false;
+      this.setAuthorized(false);
+    },
+    setCurrentUser(user) {
+      this.currentUser = user;
     },
   },
   persist: true,

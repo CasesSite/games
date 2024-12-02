@@ -1,9 +1,9 @@
 <template>
-  <div class="userHead" v-for="item in userHead">
-    <p class="userHead-container">
+  <div class="userHead" v-for="item in userHead" :key="item.ID">
+    <div class="userHead-container">
       <div>
         <div class="userHead__img">
-          <img :src="item.avatar" alt="avatar"/>
+          <img :src="item.avatar" alt="avatar" />
           <div class="userHead_profile__name-mobile">
             <div class="userHead__name">
               <h3>{{ item.name }}</h3>
@@ -21,39 +21,46 @@
         <div class="userHead_profile__name">
           <div class="userHead__name">
             <h3>{{ item.name }}</h3>
-            <button>Изменить</button>
+            <button @click="openUpdateModal">Изменить</button>
           </div>
           <div class="userHead__id">
-            ID: {{ item.ID }} <img :src="item.copy" />
+            ID: {{ item.ID }}
+            <img
+              :src="item.copy"
+              alt="copy"
+              @click="copyToClipboard(item.ID)"
+            />
           </div>
         </div>
         <div class="userHead_profile__stats">
           <div class="userHead_stats__money">
             <div class="userHead__money">
               <img
-                  :src="item.creditsIcon"
-                  alt=""
-                  class="userHead_money__icon userHead__credits"
+                :src="item.creditsIcon"
+                alt=""
+                class="userHead_money__icon userHead__credits"
               />
-              {{ item.credits }}
+              {{ item.currentBalance }}
               <img :src="item.star" alt="" class="userHead__star" />
             </div>
             <div class="userHead__money">
               <img
-                  :src="item.gemsIcon"
-                  alt=""
-                  class="userHead_money__icon userHead__gems"
+                :src="item.gemsIcon"
+                alt=""
+                class="userHead_money__icon userHead__gems"
               />
               {{ item.gems }}
             </div>
           </div>
           <div class="userHead_stats__add">
-            <button>Пополнить</button>
+            <button>
+              <NuxtLink to="/account/payment">Пополнить</NuxtLink>
+            </button>
           </div>
         </div>
       </div>
-    </p>
-    <p class="userHead__info">
+    </div>
+    <div class="userHead__info">
       <div class="userHead_info__achieves">
         <div class="userHead_profile__fav">
           <div class="userHead_fav__ammo userHead__fav">
@@ -88,20 +95,35 @@
           </div>
         </div>
       </div>
-    </p>
+    </div>
   </div>
+  <UpdateUserModal @click="openUpdateModal" @close="closeUpdateModal" />
 </template>
 
 <script setup lang="ts">
+import { ref, watch, onMounted } from "vue";
+import { useGlobalStoreRefs } from "@/stores/useGlobalStore";
+import { getCurrentUser as fetchCurrentUser } from "~/services/authService";
+import UpdateUserModal from "~/components/modals/updateUserModal.vue";
+
+const isUpdateModalOpen = ref(false);
+
+function openUpdateModal() {
+  isUpdateModalOpen.value = true;
+}
+
+function closeUpdateModal() {
+  isUpdateModalOpen.value = false;
+}
 const userHead = ref<any>([
   {
     avatar: "/assets/img/profile/avatar.png",
-    name: "Genius Levenstine",
+    name: "", // Placeholder for user's name
     downIcon: "/assets/img/download.svg",
     ID: "687980",
     copy: "/assets/img/profile/copy.svg",
     creditsIcon: "/assets/img/profile/credits.svg",
-    credits: 91750,
+    currentBalance: 0, // Placeholder for user's balance
     star: "/assets/img/profile/star.svg",
     gemsIcon: "/assets/img/profile/gem.svg",
     gems: 20,
@@ -114,6 +136,46 @@ const userHead = ref<any>([
     favCase: "/assets/img/profile/fav-case.png",
   },
 ]);
+
+const { isAuthorizedUser, currentUser } = useGlobalStoreRefs();
+
+// Watch currentUser for changes and update the userHead accordingly
+watch(currentUser, (newValue) => {
+  if (newValue && newValue.result) {
+    console.log("Current user updated:", newValue);
+
+    userHead.value[0].name = newValue.result.userName;
+    userHead.value[0].currentBalance = newValue.result.currentBalance;
+    userHead.value[0].ID = newValue.result.id;
+    userHead.value[0].avatar =
+      newValue.result.profileImagePath || "/assets/img/profile/avatar.png";
+  }
+});
+
+function copyToClipboard(text: string) {
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      console.log("ID copied to clipboard: " + text);
+    })
+    .catch((error) => {
+      console.error("Failed to copy ID: ", error);
+    });
+}
+async function logCurrentUser() {
+  try {
+    const user = await fetchCurrentUser();
+    console.log("Current User fetched:", user);
+  } catch (error) {
+    console.error("Error fetching current user:", error);
+  }
+}
+
+onMounted(() => {
+  if (isAuthorizedUser.value) {
+    logCurrentUser();
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -146,14 +208,14 @@ const userHead = ref<any>([
   width: 100%;
   height: 100%;
 }
-.userHead__avatar{
+.userHead__avatar {
   display: block;
   @include bp($point_4) {
     display: none;
   }
 }
-.userHead-container{
-@include flex-space;
+.userHead-container {
+  @include flex-space;
   gap: 2rem;
   @include bp($point_4) {
     @include flex-start;
@@ -186,13 +248,13 @@ const userHead = ref<any>([
 .userHead_profile__name {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   margin-bottom: 1.85rem;
   @include bp($point_4) {
- display: none;
+    display: none;
   }
 }
-.userHead_profile__name-mobile{
+.userHead_profile__name-mobile {
   display: none;
   @include bp($point_4) {
     @include flex-start;
@@ -200,12 +262,12 @@ const userHead = ref<any>([
     margin-bottom: 1.85rem;
     gap: 1rem;
   }
-
 }
 .userHead__name {
-  display: flex;
-  align-items: center;
-
+  @include flex-col;
+  @include flex-start;
+  align-items: flex-start;
+  gap: 10px;
 }
 .userHead__name h3 {
   font-size: 2rem;
@@ -307,7 +369,6 @@ const userHead = ref<any>([
   @include bp($point_4) {
     width: 100%;
   }
-
 }
 .userHead_stats__add button:after {
   content: "›";
@@ -322,7 +383,7 @@ const userHead = ref<any>([
   right: 2.1rem;
 }
 .userHead__info {
-@include flex-start;
+  @include flex-start;
   gap: 2.5rem;
   @include bp($point_2) {
     display: none;

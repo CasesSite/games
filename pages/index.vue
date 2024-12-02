@@ -17,7 +17,11 @@
         subtitle="Забери AWP Asimov за минуту"
       />
       <ul class="card_product__list">
-        <li v-if="casesStore?.casesCards" v-for="(item, i) in casesStore.casesCards" :key="'popular-item-' + i">
+        <li
+          v-if="casesStore?.casesCards"
+          v-for="(item, i) in casesStore.casesCards"
+          :key="'popular-item-' + i"
+        >
           <CardProduct :card="item" />
         </li>
         <li v-for="(item, i) in cards" :key="'popular-item-' + i">
@@ -47,35 +51,35 @@ import CardProduct from "~/components/cards/CardProduct.vue";
 
 const cards = ref([
   {
-    id: '1',
+    id: "1",
     img: "/assets/img/card-1.png",
     name: "Мрачный ронин",
     price: "9000",
     oldprice: "55000",
   },
   {
-    id: '2',
+    id: "2",
     img: "/assets/img/card-2.png",
     name: "Мрачный ронин",
     price: "9000",
     oldprice: "55000",
   },
   {
-    id: '3',
+    id: "3",
     img: "/assets/img/card-3.png",
     name: "Мрачный ронин",
     price: "9000",
     oldprice: "55000",
   },
   {
-    id: '5',
+    id: "5",
     img: "/assets/img/card-4.png",
     name: "Мрачный ронин",
     price: "9000",
     oldprice: "55000",
   },
   {
-    id: '6',
+    id: "6",
     img: "/assets/img/card-5.png",
     name: "Мрачный ронин",
     price: "9000",
@@ -83,14 +87,14 @@ const cards = ref([
   },
 ]);
 
-const casesStore = useCasesStore()
+const casesStore = useCasesStore();
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`https://dev.24cases.ru/v1/cases/getall`)
+    const response = await axios.get(`https://dev.24cases.ru/v1/cases/getall`);
     casesStore.setCases(response.data);
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
   }
 });
 

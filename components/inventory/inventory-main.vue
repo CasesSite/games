@@ -1,18 +1,22 @@
 <template>
-  <section class="inventory_main">
+  <section v-if="items" class="inventory_main">
     <div class="inventory-content">
       <div
         v-for="(item, index) in items"
         :key="index"
-        :class="['inventory-item', 'inventory-item__big', item.class]"
+        :class="[
+          'inventory-item',
+          'inventory-item__big',
+          getColorClass(item.rarity),
+        ]"
       >
-        <div class="inventory-item__head" v-if="item.showHeader">
+        <div class="inventory-item__head">
           <div class="inventory-item__payment">
-            <img :src="item.paymentIcon" alt="Payment Icon" />
+            <img src="/assets/img/profile/card.svg" alt="Payment Icon" />
           </div>
           <div class="inventory-item__rate">
-            {{ item.rate }}
-            <img :src="item.rateIcon" alt="Rate Icon" />
+            {{ item.sellPrice }}
+            <img src="/assets/img/profile/star.svg" alt="Rate Icon" />
           </div>
         </div>
         <div class="inventory-item__img">
@@ -50,132 +54,73 @@
       </div>
     </div>
   </section>
+  <section v-else class="inventory-content">
+    <EmptyInventory />
+  </section>
 </template>
 
 <script setup lang="ts">
-const items = [
-  {
-    class: "inventory-item_usual",
-    paymentIcon: "/assets/img/profile/card.svg",
-    rate: 980,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: "/assets/img/profile/inventory-item.png",
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: false,
-  },
-  {
-    class: "inventory-item_cyan",
-    paymentIcon: "/assets/img/profile/card.svg",
-    rate: 281,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: null,
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: false,
-  },
-  {
-    class: "inventory-item_violet",
-    paymentIcon: "/assets/img/profile/payment-card.svg",
-    rate: 984,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: null,
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: false,
-  },
-  {
-    class: "inventory-item_cyan",
-    paymentIcon: "/assets/img/profile/card.svg",
-    rate: 1290,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: null,
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: false,
-  },
-  {
-    class: "inventory-item_red",
-    paymentIcon: "/assets/img/profile/payment-card.svg",
-    rate: 333,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: null,
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: false,
-  },
-  {
-    class: "inventory-item_cyan",
-    paymentIcon: "/assets/img/profile/card.svg",
-    rate: 1290,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: null,
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: false,
-  },
-  {
-    class: "inventory-item_usual",
-    paymentIcon: "/assets/img/profile/payment-card.svg",
-    rate: 888,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: "/assets/img/profile/inven-bg-card-1.svg",
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: true,
-  },
-  {
-    class: "inventory-item_usual",
-    paymentIcon: "/assets/img/profile/payment-card.svg",
-    rate: 787,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: "/assets/img/profile/inven-bg-card-2.svg",
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: true,
-  },
-  {
-    class: "inventory-item_cyan",
-    paymentIcon: "/assets/img/profile/card.svg",
-    rate: 1290,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: null,
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: false,
-  },
-  {
-    class: "inventory-item_cyan",
-    paymentIcon: "/assets/img/profile/card.svg",
-    rate: 1290,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: null,
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: false,
-  },
-  {
-    class: "inventory-item_red",
-    paymentIcon: "/assets/img/profile/payment-card.svg",
-    rate: 787,
-    rateIcon: "/assets/img/profile/star.svg",
-    image: null,
-    kind: "Melinor",
-    name: "Starned Corbem",
-    showHeader: true,
-    showPresent: false,
-  },
-];
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import { getCurrentUser as fetchCurrentUser } from "~/services/authService";
+import { CaseItemRarity } from "~/common/commonTypes";
+import axiosClient from "~/helper/axiosClient";
+import EmptyInventory from "~/pages/account/empty-inventory.vue";
+
+const items = ref([]);
+
+async function logCurrentUser() {
+  try {
+    const user = await fetchCurrentUser();
+    console.log("Current User:", user);
+    await getAllUserInventoryItems(user);
+  } catch (error) {
+    if (error.status === 401) {
+      return $router.push("/not-authorized");
+    }
+    console.error("Error fetching current user:", error);
+  }
+}
+
+async function getAllUserInventoryItems(user) {
+  const userInventoryItems = user.result.userInventory.itemsUserInventory;
+  console.log(userInventoryItems.length, "items");
+  const requests = userInventoryItems.map((item) =>
+    axiosClient.get(`/items/get/${item.itemId}`),
+  );
+
+  try {
+    const responses = await Promise.all(requests);
+    items.value = responses.map((response, index) => ({
+      ...userInventoryItems[index],
+      ...response.data,
+    }));
+  } catch (error) {
+    console.error("Failed to fetch one or more items", error);
+  }
+}
+function getColorClass(rarity) {
+  switch (rarity) {
+    case CaseItemRarity.Primary:
+      return "color_primary";
+    case CaseItemRarity.Rare:
+      return "color_rare";
+    case CaseItemRarity.SuperRare:
+      return "color_superRare";
+    case CaseItemRarity.Epic:
+      return "color_epic";
+    case CaseItemRarity.Mif:
+      return "color_mif";
+    case CaseItemRarity.Legend:
+      return "color_legend";
+    default:
+      return "color_primary";
+  }
+}
+
+onMounted(() => {
+  logCurrentUser();
+});
 </script>
 
 <style lang="scss">
@@ -223,27 +168,6 @@ const items = [
   width: 5.5rem;
   height: 2.5rem;
   margin-bottom: 0;
-}
-.inventory-item_usual {
-  background: linear-gradient(180deg, #373e96 0%, #1b6ed2 100%);
-}
-.inventory-item_cyan {
-  background: linear-gradient(180deg, #3a7a18 0%, #68b31e 100%);
-}
-.inventory-item_violet {
-  background: linear-gradient(180deg, #7715a6 0%, #b015ec 100%);
-}
-.inventory-item_grey {
-  background: linear-gradient(180deg, #373a75 0%, #656d8d 100%);
-}
-.inventory-item_gold {
-  background: linear-gradient(180deg, #403f70 0%, #a18265 100%);
-}
-.inventory-item_green {
-  background: linear-gradient(180deg, #323a6f 0%, #42983a 100%);
-}
-.inventory-item_red {
-  background: linear-gradient(180deg, #66154f 0%, #d12a52 100%);
 }
 .inventory-item__head {
   display: flex;
