@@ -49,7 +49,7 @@
             alt="Star Icon"
         />
       </button>
-      <button class="case-action-button fast-sell-btn" @click="reset">
+      <button class="case-action-button fast-sell-btn" @click="fastOpen">
         <img
             class="icon lightning-icon"
             src="../../assets/img/header/lightning.svg"
@@ -72,6 +72,7 @@ import EmptySlot from "~/components/cards/EmptySlot.vue";
 const props = defineProps<{
   caseImg: string;
   items: CaseBaseDataType[];
+  caseId: string;
 }>();
 
 // const caseItems: CaseBaseDataType[] = [
@@ -96,7 +97,7 @@ const slot5 = ref<HTMLDivElement | null>(null);
 
 const spun = ref(false);
 
-const boxCount = ref(2);
+const boxCount = ref(1);
 
 const slotItems = ref([
   [...caseItems],
@@ -158,6 +159,13 @@ function spin() {
   });
 }
 
+async function fastOpen() {
+
+  // const data = await openCase({ caseId: props.caseId, userId: "5e1eb899-6e76-432c-84e6-1b374a96c201" });
+
+  console.log('open params::', props.caseId);
+}
+
 function reset() {
   const slots = [slot1.value, slot2.value, slot3.value, slot4.value, slot5.value];
   slots.forEach(slot => {
@@ -190,9 +198,9 @@ function logDisplayedSymbols(slots: (HTMLDivElement | null)[]) {
 }
 
 onMounted(() => {
-  setTimeout(() => {
-    spin();
-  }, 100)
+  // setTimeout(() => {
+  //   spin();
+  // }, 100)
 });
 
 </script>

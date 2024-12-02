@@ -1,7 +1,7 @@
 <template>
   <div class="card" :class="isColor">
     <div class="card__img">
-      <img :src="img" />
+      <NuxtImg :src="img" />
     </div>
     <div class="card__txt">{{ name }}</div>
     <div class="card__type">{{ game }}</div>
