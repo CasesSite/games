@@ -110,6 +110,7 @@
   width: 170px;
   height: 170px;
   justify-content: space-between;
+  background: linear-gradient(180deg, #373e96 0%, #1b6ed2 100%);
   @include bp($point_5) {
     width: 97px;
     height: 102px;

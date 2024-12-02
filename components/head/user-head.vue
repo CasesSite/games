@@ -97,7 +97,7 @@
       </div>
     </div>
   </div>
-  <UpdateUserModal @click="openUpdateModal" @close="closeUpdateModal" />
+  <UpdateUserModal :is-open="isUpdateModalOpen" @close="closeUpdateModal" />
 </template>
 
 <script setup lang="ts">

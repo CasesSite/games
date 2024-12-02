@@ -123,6 +123,7 @@
     box-sizing: border-box;
     width: 170px !important;
     height: 160px !important;
+    background: linear-gradient(180deg, #373e96 0%, #1b6ed2 100%);
 
     @include bp($point_6) {
       width: 140px !important;

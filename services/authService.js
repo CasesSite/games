@@ -37,6 +37,8 @@ export const createAccount = async (email, password) => {
 
 export const login = async (email, password) => {
   const globalStore = useGlobalStore();
+  const accessTokenCookie = useCookie("AccessToken");
+  const refreshTokenCookie = useCookie("RefreshToken");
 
   try {
     const response = await axiosClient.post(
@@ -44,6 +46,11 @@ export const login = async (email, password) => {
       { email, password },
       { withCredentials: true },
     );
+
+    const { accessToken, refreshToken } = response.data;
+
+    accessTokenCookie.value = accessToken;
+    refreshTokenCookie.value = refreshToken;
 
     globalStore.setAuthorized(true);
 
