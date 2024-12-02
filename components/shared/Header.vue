@@ -535,13 +535,15 @@ onUnmounted(() => {
   }
 }
 .nav_icon {
-  > span {
+  & span {
     width: 36px;
     height: 36px;
   }
   @include flex-center;
-  border-radius: 7px;
-  z-index: 1;
+  & {
+    border-radius: 7px;
+    z-index: 1;
+  }
 }
 
 header {
