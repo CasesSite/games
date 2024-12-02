@@ -68,7 +68,7 @@ const menuItems = ref([
   font-size: 1.2rem;
   cursor: pointer;
   gap: 2px;
-  > span {
+  & span {
     font-family: $font_6;
     font-size: 10px;
     font-weight: 800;

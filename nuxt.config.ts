@@ -49,6 +49,7 @@ export default defineNuxtConfig({
 
   build: {
     transpile: ["vue-toastification"],
+    include: "**/*.js",
   },
 
   runtimeConfig: {

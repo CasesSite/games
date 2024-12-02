@@ -89,7 +89,7 @@ const percentage = (currentValue.value / maxValue.value) * 100;
   padding: 1rem 2rem;
   background: rgba(26, 34, 84, 1);
   @include bp($point_5) {
-    > span {
+    & span {
       font-family: $font_6;
       font-size: 10px;
       font-weight: 700;

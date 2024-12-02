@@ -157,7 +157,7 @@
   margin-top: 2.3rem;
   height: 6.8rem;
   width: 100%;
-  > span {
+  & span {
     font-weight: 900;
   }
 }

@@ -1,6 +1,5 @@
 import { defineNuxtRouteMiddleware, useRouter } from "#app";
 import { useGlobalStore } from "~/stores/useGlobalStore";
-import { useUserService } from "~/services/userService"; // Ensure you have this implemented
 import { useCookie } from "#app";
 
 export default defineNuxtRouteMiddleware(async (to) => {
@@ -13,7 +12,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   try {
-    const userService = useUserService();
     await userService.getSelf();
   } catch (error) {
     if (error.response?.status === 401) {

@@ -63,7 +63,7 @@ onMounted(() => {
   position: relative;
   @include bp($point_2) {
     padding: 9px;
-    > span {
+    & span {
       font-size: 16px !important;
     }
   }
@@ -135,9 +135,6 @@ onMounted(() => {
         #fe80ff 0%,
         rgba(76, 78, 234, 0.3) 100%
       );
-      mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
     }
