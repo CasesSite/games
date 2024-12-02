@@ -2,7 +2,7 @@
   <div class="product">
     <NuxtLink :to="`/case/${card.id}`" class="product__link">
       <div class="product__img">
-        <img :src="card.img" alt="" />
+        <NuxtImg :src="card.img" :alt="card.name" />
         <div class="product_count">
           <span>{{ currentValue }}/{{ maxValue }}</span>
           <div
@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <h3 class="product__title">Мрачный ронин</h3>
+      <h3 class="product__title">{{  card.name }}</h3>
 
       <div class="product_price">
         <div class="product_price__btn">

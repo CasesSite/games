@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosClient from "~/helper/axiosClient.js";
 
 export const getCaseById = async (id) => {
     try {
@@ -23,5 +24,19 @@ export const getAllCases = async () => {
             error.response?.data || error.message,
         );
         throw error;
+    }
+}
+
+export const openCase = async ({ userId, caseId }) => {
+    try {
+        const response = await axiosClient.post('https://dev.24cases.ru/v1/case/open', {
+            caseId,
+            userId,
+        })
+        console.log('response', response);
+        return response.data;
+    } catch (err) {
+        console.error('Error opening case', err);
+        throw err;
     }
 }

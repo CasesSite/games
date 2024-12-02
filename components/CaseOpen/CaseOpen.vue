@@ -6,10 +6,10 @@
 
   <div class="case-info">
     <div v-if="isOpening">
-      <CaseOpening :caseImg="props.data.image" :items="props.data.items" />
+      <CaseOpening :caseImg="props.data.image" :items="props.data.items" :caseId="props.data.id" />
     </div>
     <div class="info" v-else>
-      <img :src="props.data.image" alt="Case Image" class="case-image"/>
+      <NuxtImg :src="props.data.image" alt="Case Image" class="case-image" />
       <div v-if="!isAuth">
         <div class="case-info__message">
           <p class="message-title">ВЫ НЕ АВТОРИЗОВАНЫ!</p>
