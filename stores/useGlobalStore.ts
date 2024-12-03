@@ -28,7 +28,7 @@ export const useGlobalStore = defineStore("main", {
     },
     checkAuthorization() {
       const tokenCookie = useCookie("AccessToken");
-      this.isAuthorizedUser = !!tokenCookie.value;
+      this.setAuthorized(!!tokenCookie.value);
     },
     logout() {
       const tokenCookie = useCookie("AccessToken");
