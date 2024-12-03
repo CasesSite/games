@@ -1,6 +1,5 @@
 import { defineNuxtRouteMiddleware, useRouter, useCookie } from "#app";
 import { useGlobalStore } from "~/stores/useGlobalStore";
-import userService from "~/services/userService";
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const globalStore = useGlobalStore();
