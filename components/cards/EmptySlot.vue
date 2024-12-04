@@ -16,28 +16,25 @@ const props = defineProps<{
 
 <style scoped lang="scss">
 .card {
-  height: 220px;
-  width: 100%;
+  height: 310px;
+  width: 310px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  //@include bp($point_5) {
-  //  display: flex;
-  //  justify-content: center;
-  //  align-items: center;
-  //}
+  @include bp($point_5) {
+    height: 210px;
+    width: auto;
+  }
 
   img {
-    //width: auto;
-    //height: 220px;
     height: 100%;
-    width: auto;
-    max-height: 220px;
-    max-width: 100%;
+    width: 310px;
 
     @include bp($point_5) {
-      //width: 100%;
       height: auto;
+      width: -webkit-fill-available;
+      max-width: 250px;
     }
   }
 }

@@ -45,12 +45,12 @@ const isColor = computed(() => {
 }
 
 .card__img {
-  width: 168px;
+  width: 310px;
   height: auto;
   @include flex-center;
   margin-bottom: 0.25rem;
   @include bp($point_5) {
-    width: 140px;
+    width: 250px; // 250px
   }
 
   img {
@@ -60,7 +60,7 @@ const isColor = computed(() => {
     transition: all 0.3s ease-in-out;
 
     @include bp($point_5) {
-      max-width: 70%;
+      max-width: 90px;
     }
   }
 }
@@ -89,7 +89,7 @@ const isColor = computed(() => {
 .card {
   position: relative;
   width: auto;
-  height: 220px;
+  height: 310px;
   background: linear-gradient(180deg, #373E96 0%, #1B6ED2 100%);
   @include flex-center;
   flex-direction: column;
@@ -97,6 +97,8 @@ const isColor = computed(() => {
 
   @include bp($point_5) {
     //width: 165px;
+    height: 210px;
+
   }
 
   &.color_primary {
