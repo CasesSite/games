@@ -1,90 +1,115 @@
 <template>
   <div>
+    <div class="case-top">
+      <h2 class="case-title">{{ props.data?.name }}</h2>
+      <p class="case-subtitle">Кейс</p>
+    </div>
+
     <div class="slotContainer">
       <div class="slot" :class="'slot-x' + boxCount" ref="slot1">
-        <div class="symbols">
-          <EmptySlot :img="caseImg" />
+        <div v-if="fastOpenCaseData?.length" key="slot-card" class="fast-open-wrapper">
+          <SlotCard
+              :name="fastOpenCaseData[0].name"
+              :game="fastOpenCaseData[0].game"
+              :rarity="fastOpenCaseData[0].rarity"
+              :img="fastOpenCaseData[0].image"
+          />
+        </div>
+        <div class="symbols" :class="{ 'symbols-x': boxCount === 1 }">
+          <EmptySlot key="empty-slot" :img="caseImg" />
         </div>
       </div>
 
       <div v-if="boxCount > 1" class="slot" :class="'slot-x' + boxCount" ref="slot2">
+        <div v-if="fastOpenCaseData?.length > 1" key="slot-card" class="fast-open-wrapper">
+          <SlotCard
+              :name="fastOpenCaseData[1].name"
+              :game="fastOpenCaseData[1].game"
+              :rarity="fastOpenCaseData[1].rarity"
+              :img="fastOpenCaseData[1].image"
+          />
+        </div>
         <div class="symbols">
           <EmptySlot :img="caseImg" />
         </div>
       </div>
 
       <div v-if="boxCount > 2" class="slot" :class="'slot-x' + boxCount" ref="slot3">
+        <div v-if="fastOpenCaseData?.length > 2" key="slot-card" class="fast-open-wrapper">
+          <SlotCard
+              :name="fastOpenCaseData[2].name"
+              :game="fastOpenCaseData[2].game"
+              :rarity="fastOpenCaseData[2].rarity"
+              :img="fastOpenCaseData[2].image"
+          />
+        </div>
         <div class="symbols">
           <EmptySlot :img="caseImg" />
         </div>
       </div>
 
       <div v-if="boxCount > 3" class="slot" :class="'slot-x' + boxCount" ref="slot4">
+        <div v-if="fastOpenCaseData?.length > 3" key="slot-card" class="fast-open-wrapper">
+          <SlotCard
+              :name="fastOpenCaseData[3].name"
+              :game="fastOpenCaseData[3].game"
+              :rarity="fastOpenCaseData[3].rarity"
+              :img="fastOpenCaseData[3].image"
+          />
+        </div>
         <div class="symbols">
           <EmptySlot :img="caseImg" />
         </div>
       </div>
 
       <div v-if="boxCount > 4" class="slot" :class="'slot-x' + boxCount" ref="slot5">
+        <div v-if="fastOpenCaseData?.length > 4" key="slot-card" class="fast-open-wrapper">
+          <SlotCard
+              :name="fastOpenCaseData[4].name"
+              :game="fastOpenCaseData[4].game"
+              :rarity="fastOpenCaseData[4].rarity"
+              :img="fastOpenCaseData[4].image"
+          />
+        </div>
         <div class="symbols">
           <EmptySlot :img="caseImg" />
         </div>
       </div>
     </div>
 
-    <div class="case-info__actions">
-      <div class="btn-wrapper">
-        <span @click="handleChangeSlotCount(1)" class="x-btn" :class="{ 'active-btn': boxCount === 1 }">X1</span>
-        <span @click="handleChangeSlotCount(2)" class="x-btn" :class="{ 'active-btn': boxCount === 2 }">X2</span>
-        <span @click="handleChangeSlotCount(3)" class="x-btn" :class="{ 'active-btn': boxCount === 3 }">X3</span>
-        <span @click="handleChangeSlotCount(4)" class="x-btn" :class="{ 'active-btn': boxCount === 4 }">X4</span>
-        <span @click="handleChangeSlotCount(5)" class="x-btn" :class="{ 'active-btn': boxCount === 5 }">X5</span>
-      </div>
-
-      <button class="case-action-button sell-btn" @click="spin">
-        ОТКРЫТЬ ЗА 980
-        <img
-            class="icon"
-            src="@/assets/img/header/header-logo.svg"
-            alt="Star Icon"
-        />
-      </button>
-      <button class="case-action-button fast-sell-btn" @click="fastOpen">
-        <img
-            class="icon lightning-icon"
-            src="../../assets/img/header/lightning.svg"
-            alt="Lightning Icon"
-        />
-        БЫСТРОЕ ОТКРЫТИЕ
-      </button>
-    </div>
+    <CaseOpenActions
+      :on-count-change="handleChangeSlotCount"
+      :on-spin="spin"
+      :fast-open="fastOpen"
+      :disabled="isPlaying"
+      :box-count="boxCount"
+      :price="props.data?.price"
+    />
   </div>
 </template>
 
 
 <script setup lang="ts">
 
-import {ref, onMounted, defineProps} from "vue";
-import { CaseBaseDataType } from "~/common/commonTypes";
+import { ref, onMounted, defineProps } from "vue";
+import { CaseBaseDataType, type CaseType } from "~/common/commonTypes";
 import { createEmptyElement, createSlotElement } from "~/components/CaseOpen/helpers";
 import EmptySlot from "~/components/cards/EmptySlot.vue";
+import {useGlobalStoreRefs} from "~/stores/useGlobalStore";
+import {openCase, openCases} from "~/services/cases";
+import SlotCard from "~/components/cards/SlotCard.vue";
+
 
 const props = defineProps<{
+  data: CaseType;
   caseImg: string;
   items: CaseBaseDataType[];
   caseId: string;
 }>();
 
-// const caseItems: CaseBaseDataType[] = [
-//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 2},
-//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 2},
-//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 5},
-//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 2},
-//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 2},
-//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 4},
-//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 6},
-//   {name: "Space Blaster", game: "М16", image: "/assets/img/top-img.png", rarity: 1},
-// ];
+const { currentUser } = useGlobalStoreRefs();
+
+const { isMobile } = useDevice();
 
 const caseItems: CaseBaseDataType[] = props.items;
 
@@ -96,6 +121,9 @@ const slot4 = ref<HTMLDivElement | null>(null);
 const slot5 = ref<HTMLDivElement | null>(null);
 
 const spun = ref(false);
+const isPlaying = ref(false);
+const fastOpenCaseData = ref(null);
+const slotIsPlaying = ref(false);
 
 const boxCount = ref(1);
 
@@ -108,47 +136,59 @@ const slotItems = ref([
 ]);
 
 const handleChangeSlotCount = (count: number) => {
+  fastOpenCaseData.value = null;
   boxCount.value = count;
+  initSlots();
   reset();
 }
 
-function spin() {
-  if (spun.value) {
+async function spin() {
+  fastOpenCaseData.value = null;
+  isPlaying.value = true;
+  // if (spun.value) {
     reset();
+  // }
+
+  const winItemsIds = [];
+
+  if(boxCount.value === 1) {
+    const response = await openCase({ caseId: props.caseId, userId: currentUser?.value?.result?.id });
+    winItemsIds.push(response.result);
+  } else {
+    const response = await openCases({
+      caseId: props.caseId,
+      userId: currentUser?.value?.result?.id,
+      quantity: boxCount.value,
+    });
+    winItemsIds.push(...response.result);
   }
 
   const slots = [slot1.value, slot2.value, slot3.value, slot4.value, slot5.value];
-  // if (!slots.every(slot => slot)) return;
 
   let completedSlots = 0;
 
   slots.filter(slot => !!slot).forEach((slot, index) => {
     const symbols = slot!.querySelector(".symbols") as HTMLDivElement;
-    const symbolHeight = 220;
+    const symbolHeight = isMobile ? 210 : 310;
+    const symbolWidth = isMobile ? 250: 310;
 
-    const symbolCount = slotItems.value[index].length;
-
-    // Reset symbols and add new ones
-    symbols.innerHTML = "";
-
-    symbols.appendChild(createEmptyElement(props.caseImg)); // Placeholder at start
-
-    for (let i = 0; i < 3; i++) {
-      slotItems.value[index].forEach((slotItem: CaseBaseDataType) => {
-        symbols.appendChild(createSlotElement(slotItem));
-      });
+    if (boxCount.value === 1) {
+      const offset = -(caseItems.findIndex(caseItem => caseItem.id === winItemsIds[index]) + 1) * symbolWidth;
+      symbols.style.transition = "transform 2s ease";
+      symbols.style.transform = `translateX(${offset}px)`;
+    } else {
+      const offset = -(caseItems.findIndex(caseItem => caseItem.id === winItemsIds[index]) + 1) * symbolHeight;
+      symbols.style.transition = "top 2s ease";
+      symbols.style.top = `${offset}px`;
     }
+    slotIsPlaying.value = true;
 
-    // const totalDistance = symbolCount * symbolHeight;
-    const randomOffset =
-        -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
-
-    symbols.style.transition = "top 2s ease";
-    symbols.style.top = `${randomOffset}px`;
 
     symbols.addEventListener(
         "transitionend",
         () => {
+          isPlaying.value = false;
+          slotIsPlaying.value = false;
           completedSlots++;
           if (completedSlots === boxCount.value) {
             logDisplayedSymbols(slots);
@@ -159,11 +199,46 @@ function spin() {
   });
 }
 
+function initSlots () {
+  setTimeout(() => {
+    const slots = [slot1.value, slot2.value, slot3.value, slot4.value, slot5.value];
+
+    slots.filter(slot => !!slot).forEach((slot, index) => {
+      const symbols = slot!.querySelector(".symbols") as HTMLDivElement;
+      symbols.innerHTML = "";
+      symbols.appendChild(createEmptyElement(props.caseImg)); // Placeholder at start
+
+      for (let i = 0; i < 3; i++) {
+        slotItems.value[index].forEach((slotItem: CaseBaseDataType) => {
+          symbols.appendChild(createSlotElement(slotItem));
+        });
+      }
+
+    });
+  }, 100)
+}
+
 async function fastOpen() {
+  reset();
+  isPlaying.value = true;
+  fastOpenCaseData.value = null;
 
-  // const data = await openCase({ caseId: props.caseId, userId: "5e1eb899-6e76-432c-84e6-1b374a96c201" });
+  if(boxCount.value === 1) {
+    const response = await openCase({ caseId: props.caseId, userId: currentUser?.value?.result?.id });
+    const openedItem = props.data.items.find(caseItem => caseItem.id === response.result)
+    fastOpenCaseData.value = [openedItem as CaseType];
+  } else {
+    const response = await openCases({
+      caseId: props.caseId,
+      userId: currentUser?.value?.result?.id,
+      quantity: boxCount.value,
+    });
 
-  console.log('open params::', props.caseId);
+    const openedItems = props.data.items.filter(caseItem => response.result.includes(caseItem.id))
+    fastOpenCaseData.value = openedItems as CaseType[];
+  }
+
+  isPlaying.value = false;
 }
 
 function reset() {
@@ -173,9 +248,11 @@ function reset() {
     const symbols = slot.querySelector(".symbols") as HTMLDivElement;
     symbols.style.transition = "none";
     symbols.style.top = "0";
+    symbols.style.transform = "none";
     symbols.offsetHeight; // Trigger reflow
     symbols.style.transition = "";
   });
+
 }
 
 function logDisplayedSymbols(slots: (HTMLDivElement | null)[]) {
@@ -197,10 +274,8 @@ function logDisplayedSymbols(slots: (HTMLDivElement | null)[]) {
   console.log(displayedSymbols); // Log the symbols
 }
 
-onMounted(() => {
-  // setTimeout(() => {
-  //   spin();
-  // }, 100)
+onMounted(async () => {
+  initSlots();
 });
 
 </script>
@@ -215,8 +290,80 @@ onMounted(() => {
   height: 100vh;
 }
 
+.case-top {
+  @include flex-center;
+  flex-direction: column;
+  margin-top: 70px;
+  margin-bottom: 20px;
+}
+
+.case-title {
+  text-align: center;
+  font-size: 37px;
+  font-family: $font_2;
+  font-weight: 900;
+}
+
+.case-subtitle {
+  text-align: center;
+  font-family: $font_2;
+  font-size: 16px;
+  color: $grey-text;
+}
+
+.case-info__message {
+  background: linear-gradient(0deg, #362F69 0%, #9E6171 100%);
+  width: 396px;
+  text-align: center;
+  padding: 1.6rem 3.6rem 1.8rem 3.6rem;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+  .message-title {
+    font-family: $font_2;
+    font-size: 20px;
+    font-weight: 900;
+  }
+  .message-desc {
+    font-family: $font_2;
+  }
+
+  @include bp($point_5) {
+    width: 325px;
+  }
+}
+
+.hero_btn {
+  cursor: pointer;
+  width: 396px;
+  border-top: 0.4rem solid rgb(254, 128, 255);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #F18D72 0%, #C744A3 100%);
+  font-size: 20px;
+  font-family: $font_5;
+  text-transform: uppercase;
+  a {
+    padding: 1.6rem 3.6rem 1.8rem 3.6rem;
+    @include flex-center;
+  }
+
+  @include bp($point_5) {
+    width: 325px;
+  }
+}
+
+.fast-open-wrapper {
+  position: absolute;
+  width: 100%;
+  z-index: 4;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .slotContainer {
+  position: relative;
   width: 100vw;
+  padding: 20px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -228,15 +375,14 @@ onMounted(() => {
     width: 100%;
     gap: 10px;
   }
-
 }
 
 .slot-x1 {
-  max-width: 500px;
+  max-width: 310px;
   flex: 1;
 
   @include bp($point_5) {
-    max-width: 320px;
+    max-width: 250px;
   }
 }
 
@@ -287,31 +433,33 @@ onMounted(() => {
 .slot {
   flex: 1;
   width: 100%;
-  height: 220px;
+  height: 310px;
   border-radius: 20px;
   display: inline-block;
   overflow: hidden;
   position: relative;
+
+  @include bp($point_5) {
+    height: 210px;
+  }
 }
 
 .slot .symbols {
-  height: 220px;
+  height: 310px;
   width: inherit;
   position: absolute;
   text-align: center;
   top: 0;
   left: 0;
   transition: top 5s;
+
+  @include bp($point_5) {
+    height: 210px;
+  }
 }
 
-.slot .symbol {
-  width: 100px;
-  height: 150px;
-  font-size: 60px;
-  line-height: 100px;
-  display: block;
-  text-align: center;
-  padding-top: 25px;
+.slot .symbols-x {
+  display: flex;
 }
 
 button {
@@ -320,90 +468,39 @@ button {
   font-size: 16px;
 }
 
-.symbol {
-  font-size: 50px;
-}
-
-.icon {
-  width: 20px;
-}
-
-.case-info__actions {
-  @include flex-center;
-  gap: 35px;
-
-  @include bp($point_5) {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-
-.case-action-button {
-  padding: 20px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2px;
-  color: $white;
-  font-family: $font_2;
-  font-size: 20px;
-  border-radius: 10px;
-  text-transform: uppercase;
-  cursor: pointer;
-
-  @include bp($point_5) {
-    width: 325px;
-  }
-}
-
-.sell-btn {
-  background: $out;
-}
-
-.fast-sell-btn {
-  background: $sell;
-}
-
-.lightning-icon {
-  margin-right: 10px;
-  width: 15px;
-  height: 24px;
-}
-
-.btn-wrapper {
-  width: 240px;
-  background: $dark-blue-button-bg;
-  display: flex;
-  padding: 12px 15px;
-  gap: 6px;
-  border-radius: 10px;
-}
-
-.x-btn {
-  height: 34px;
-  margin: 0;
-  width: 37px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #5760F0;
-  font-size: 14px;
-  font-family: $font_2;
-  border-radius: 10px;
-  color: $white;
-  cursor: pointer;
-  font-weight: 900;
-  line-height: 14px;
-}
-
-.active-btn {
-  background: $sell;
-}
-
 .case-image {
   max-width: 100%;
 }
 
+.arrow-icon {
+  position: absolute;
+}
+
+.arrow-top {
+  left: 50%;
+  transform: translateX(-50%);
+  top: -10px;
+  z-index: 2;
+}
+
+.arrow-bottom {
+  left: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+  bottom: -10px;
+}
+
+.arrow-left {
+  left: 0;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow-right {
+  z-index: 2;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
 </style>

@@ -10,7 +10,16 @@
       </button>
       <img src="/assets/img/prefooter/wave.svg" alt="wave" />
     </p>
-    <CaseOpen v-if="caseStore?.currentCase" :data="caseStore?.currentCase" />
+
+    <div class="case-info">
+      <CaseOpening
+          v-if="caseStore?.currentCase"
+          :data="caseStore?.currentCase"
+          :caseImg="caseStore?.currentCase.image"
+          :items="caseStore?.currentCase.items"
+          :caseId="caseStore?.currentCase.id"
+      />
+    </div>
 
     <h3 class="case-content-title">СОДЕРЖИМОЕ КЕЙСА</h3>
 
@@ -24,16 +33,6 @@
           :rarity="caseItem.rarity"
           :game="caseItem.game"
       />
-
-      <CaseItem
-        v-if="caseStore.currentCase"
-        v-for="(item, index) in caseItems"
-        :key="item.name + '-' + index"
-        :img="item.image"
-        :rarity="item.rarity"
-        :name="item.name"
-        :game="item.game"
-      />
     </div>
   </div>
 </template>
@@ -43,18 +42,8 @@ import CaseItem from "~/components/cards/CaseItem.vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { useCurrentCaseStore } from "~/stores/useCurrentCaseStore";
+import CaseOpening from "~/components/CaseOpen/CaseOpening.vue";
 
-
-const caseItems = [
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 5},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 2},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 4},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 6},
-  {name: "Space Blaster", category: "М16", image: "/assets/img/top-img.png", rarity: 1},
-];
 
 const router = useRouter();
 const caseStore = useCurrentCaseStore();

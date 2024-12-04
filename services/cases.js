@@ -40,3 +40,18 @@ export const openCase = async ({ userId, caseId }) => {
         throw err;
     }
 }
+
+export const openCases = async ({ userId, caseId, quantity }) => {
+    try {
+        const response = await axiosClient.post('https://dev.24cases.ru/v1/cases/open', {
+            caseId,
+            userId,
+            quantity
+        })
+        console.log('response: openCases', response);
+        return response.data;
+    } catch (err) {
+        console.error('Error opening case', err);
+        throw err;
+    }
+}
