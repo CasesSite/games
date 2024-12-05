@@ -13,14 +13,4 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (to.path === "/not-authorized" && isAuthorizedUser.value) {
     return navigateTo("/");
   }
-
-  try {
-    await userService.getSelf();
-  } catch (error) {
-    if (error.response?.status === 401) {
-      handleUnauthorizedUser(globalStore, tokenCookie, router);
-    } else {
-      console.error("An unexpected error occurred:", error);
-    }
-  }
 });
