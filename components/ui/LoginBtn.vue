@@ -19,11 +19,13 @@
           alt="Star Icon"
         />
       </p>
-      <img
-        src="@/assets/img/header/avatar.png"
-        alt="User Avatar"
-        class="avatar-mobile"
-      />
+      <div class="avatar-border">
+        <img
+          src="@/assets/img/header/avatar.png"
+          alt="User Avatar"
+          class="avatar-mobile"
+        />
+      </div>
     </button>
   </p>
 </template>
@@ -97,7 +99,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1.5rem;
+  padding: 6px;
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -185,9 +187,27 @@ onMounted(() => {
     display: block;
   }
 }
+.avatar-border {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fe80ff 0%, rgba(76, 78, 234, 0.3) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .avatar-mobile {
-  width: 23px;
-  height: 23px;
-  border-radius: 5px;
+  width: 53px;
+  height: 53px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.avatar-mobile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px; /* Match inner border radius */
 }
 </style>
