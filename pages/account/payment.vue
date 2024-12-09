@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper-small">
-    <div class="payment">
+  <div class="payment-wrapper">
+    <div class="payment container">
       <div class="payment-head">
         <div class="payment-head__icon">
           <img src="/assets/img/profile/credits.svg" alt="" />
@@ -109,21 +109,22 @@
           </div>
           <!-- Promo -->
           <div class="payment-methods__form payment-form">
-            <form action="#">
+            <form @submit.prevent="handleSubmit">
               <div class="payment-form__content">
                 <label for="email">
                   <input
                     type="email"
                     id="email"
-                    required
+                    v-model="email"
                     placeholder="E-mail"
                   />
                 </label>
                 <label for="sum">
                   <input
-                    type="sum"
+                    type="number"
                     id="cost"
                     required
+                    v-model="amount"
                     placeholder="Сумма пополнения"
                     class="input-cost"
                   />
@@ -134,7 +135,12 @@
                   <a href="">пользовательского соглашения</a>
                 </label>
               </div>
-              <button class="but-sell">Перейти к оплате</button>
+              <button
+                class="but-sell payment-form__content-button"
+                type="submit"
+              >
+                Перейти к оплате
+              </button>
             </form>
           </div>
         </div>
@@ -143,13 +149,64 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed, ref } from "vue";
+import axiosClient from "~/helper/axiosClient";
+import { useGlobalStoreRefs } from "~/stores/useGlobalStore";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const { currentUser } = useGlobalStoreRefs();
+const id = computed(() => currentUser?.value?.result?.id || 0);
+const email = ref(computed(() => currentUser?.value?.result?.email || null));
+const amount = ref<number | null>(null);
+
+async function submitRecharge(userId: number, amount: number) {
+  const data = {
+    userId: userId,
+    financialDataId: "",
+    balanceBefore: "0",
+    balanceAfter: "0",
+    amount: amount,
+    type: 0,
+    paymentType: 1,
+  };
+
+  try {
+    await axiosClient.post("/finance/transaction", data);
+    router.push("/account/success");
+  } catch (error) {
+    console.error(
+      "Error during recharge:",
+      error.response?.data || error.message,
+    );
+  }
+}
+function handleSubmit() {
+  if (amount.value !== null) {
+    submitRecharge(id.value, amount.value);
+  } else {
+    console.error("Please enter a valid amount");
+  }
+}
+</script>
 
 <style scoped lang="scss">
+.payment-wrapper {
+  max-width: 1200px;
+  width: 100%;
+  padding: 85px 30px;
+  margin: auto;
+  @include bp($point_3) {
+    padding: 40px 10px;
+  }
+}
 .payment {
   background: #1b1f5e;
   padding: 5rem 5rem 4rem 5rem;
   border-radius: 2.5rem;
+  @include bp($point_3) {
+    padding: 10px;
+  }
 }
 .payment-head {
   display: flex;
@@ -170,13 +227,19 @@
 }
 .payment-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 70px;
   @include bp($point_3) {
     flex-direction: column;
+    gap: 40px;
   }
 }
 .payment-regions {
-  width: 49.5rem;
+  max-width: 495px;
+  width: 100%;
+  @include bp($point_3) {
+    margin: auto;
+  }
 }
 .payment-regions__dropdown {
   padding: 2.2rem 2.5rem 2.2rem 2.5rem;
@@ -185,10 +248,14 @@
   height: 6rem;
 }
 .payment-methods {
-  width: 59.6rem;
+  max-width: 495px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
+  @include bp($point_3) {
+    margin: auto;
+  }
 }
 .payment-dropdown {
   display: flex;
@@ -209,7 +276,7 @@
 }
 .payment-dropdown__title {
   margin-right: 1rem;
-  font-family: "Exo2-medium";
+  font-family: $font_3;
 }
 .payment-dropdown__title span {
   color: #666999;
@@ -218,7 +285,7 @@
   display: flex;
   align-items: center;
   font-size: 1.6rem;
-  font-family: "Exo2-medium";
+  font-family: $font_3;
   color: #ffffff;
   text-transform: uppercase;
 }
@@ -233,29 +300,37 @@
 .payment-cards {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   column-gap: 1.5rem;
   row-gap: 2.2rem;
   margin-bottom: 3rem;
+  @include bp($point_3) {
+    column-gap: 10px;
+    row-gap: 10px;
+  }
 }
 .payment-card {
-  width: 15.4rem;
-  height: 9rem;
+  width: 154px;
+  height: 90px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #20256e;
   border-radius: 1.5rem;
   cursor: pointer;
+  @include bp($point_7) {
+    max-width: 95px;
+  }
 }
 .payment-regions__min {
   display: flex;
   font-size: 1.6rem;
   justify-content: center;
   color: #7d82cd;
-  font-family: "Exo2-regular";
+  font-family: $font_2;
 }
 .payment-regions__min span {
-  font-weight: "Exo2-medium";
+  font-weight: $font_3;
   color: #fff;
 }
 .payment-method {
@@ -267,9 +342,12 @@
   height: 12.2rem;
   border-radius: 1rem;
   margin-bottom: 2px;
+  @include bp($point_7) {
+    display: none;
+  }
 }
 .payment-method__title {
-  font-family: "Exo2-bold";
+  font-family: $font_5;
   font-size: 1.6rem;
   color: #7d82cd;
   margin-bottom: 1rem;
@@ -279,26 +357,40 @@
   font-size: 1.6rem;
   line-height: 1.6rem;
   text-transform: uppercase;
-  font-family: "Exo2-medium";
+  font-family: $font_3;
 }
 .payment-promo {
   background: #20256e;
   padding: 4rem 4.5rem 1.5rem 4.5rem;
   display: flex;
   flex-direction: column;
+  @include bp($point_3) {
+    padding: 10px;
+  }
 }
 .payment-promo form {
   display: flex;
   margin-bottom: 2rem;
+  @include bp($point_3) {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 .payment-promo input {
   width: 35.2rem;
   margin-right: 2.2rem;
+  @include bp($point_3) {
+    width: 100%;
+  }
 }
 .payment-promo button {
   margin-right: 0;
   height: auto;
   max-height: 5rem;
+  @include bp($point_3) {
+    width: 100%;
+    height: 50px;
+  }
 }
 .payment-banner {
   width: 100%;
@@ -320,13 +412,13 @@
   right: 0;
 }
 .payment-banner__title {
-  font-family: "Exo2-bold";
+  font-family: $font_5;
   font-size: 1.7rem;
   line-height: 1.7rem;
   margin-bottom: 1rem;
 }
 .payment-banner__description {
-  font-family: "Exo2-medium";
+  font-family: $font_3;
   font-size: 1.6rem;
   line-height: 1.6rem;
 }
@@ -337,6 +429,9 @@
   align-items: flex-start;
   flex-direction: column;
   margin-bottom: 3rem;
+  @include bp($point_3) {
+    padding: 10px;
+  }
 }
 .payment-form__content label {
   width: 100%;
@@ -354,18 +449,29 @@
   height: 6.5rem;
   font-size: 2rem;
   position: relative;
+  @include bp($point_3) {
+    height: 55px;
+    font-size: 18px;
+  }
 }
 .payment-form button:after {
   content: "›";
   position: absolute;
   font-size: 2rem;
   line-height: 2rem;
-  top: 3.5rem;
+  top: 54%;
   right: 19rem;
   transition: all 0.2s ease-in;
   margin-top: -1.4rem;
+  @include bp($point_3) {
+    font-size: 18px;
+    right: unset;
+  }
 }
 .payment-form button:hover:after {
   right: 18.5rem;
+  @include bp($point_3) {
+    right: 20%;
+  }
 }
 </style>
