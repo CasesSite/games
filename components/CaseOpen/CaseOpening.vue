@@ -6,14 +6,35 @@
     </div>
 
     <div class="slotContainer">
-      <div class="slot" :class="'slot-x' + boxCount" ref="slot1">
+      <div
+        class="slot"
+        :class="{['slot-x' + boxCount]: boxCount, 'overflowVisible': boxCount === 1 && isOneSlotGameActive }"
+        ref="slot1"
+      >
+        <img class="arrow-icon arrow-bottom" src="@/assets/icons/arrow-up.svg" alt="arrow-up" />
+        <img class="arrow-icon arrow-top" src="@/assets/icons/arrow-down.svg" alt="arrow-down" />
+
         <div v-if="fastOpenCaseData?.length" key="slot-card" class="fast-open-wrapper">
           <SlotCard
-              :name="fastOpenCaseData[0].name"
-              :game="fastOpenCaseData[0].game"
-              :rarity="fastOpenCaseData[0].rarity"
-              :img="fastOpenCaseData[0].image"
+            :name="fastOpenCaseData[0].name"
+            :game="fastOpenCaseData[0].game"
+            :rarity="fastOpenCaseData[0].rarity"
+            :img="fastOpenCaseData[0].image"
           />
+        </div>
+<!--        <div v-if="oneSlotWinItem">-->
+<!--          <SlotCard-->
+<!--            :name="oneSlotWinItem.name"-->
+<!--            :game="oneSlotWinItem.game"-->
+<!--            :rarity="oneSlotWinItem.rarity"-->
+<!--            :img="oneSlotWinItem.image"-->
+<!--          />-->
+<!--        </div>-->
+
+<!--        <div class="slot-x1-placeholder" v-if="boxCount === 1 && !isPlaying && !isOneSlotGameActive && !fastOpenCaseData?.length">-->
+        <div class="slot-x1-placeholder" v-if="shouldShow1xPlaceholder">
+          <EmptySlot key="empty-slot" :img="caseImg" />
+
         </div>
         <div class="symbols" :class="{ 'symbols-x': boxCount === 1 }">
           <EmptySlot key="empty-slot" :img="caseImg" />
@@ -23,10 +44,10 @@
       <div v-if="boxCount > 1" class="slot" :class="'slot-x' + boxCount" ref="slot2">
         <div v-if="fastOpenCaseData?.length > 1" key="slot-card" class="fast-open-wrapper">
           <SlotCard
-              :name="fastOpenCaseData[1].name"
-              :game="fastOpenCaseData[1].game"
-              :rarity="fastOpenCaseData[1].rarity"
-              :img="fastOpenCaseData[1].image"
+            :name="fastOpenCaseData[1].name"
+            :game="fastOpenCaseData[1].game"
+            :rarity="fastOpenCaseData[1].rarity"
+            :img="fastOpenCaseData[1].image"
           />
         </div>
         <div class="symbols">
@@ -95,10 +116,9 @@ import { ref, onMounted, defineProps } from "vue";
 import { CaseBaseDataType, type CaseType } from "~/common/commonTypes";
 import { createEmptyElement, createSlotElement } from "~/components/CaseOpen/helpers";
 import EmptySlot from "~/components/cards/EmptySlot.vue";
-import {useGlobalStoreRefs} from "~/stores/useGlobalStore";
+import {useGlobalStoreRefs, useGlobalStore} from "~/stores/useGlobalStore";
 import {openCase, openCases} from "~/services/cases";
 import SlotCard from "~/components/cards/SlotCard.vue";
-
 
 const props = defineProps<{
   data: CaseType;
@@ -108,6 +128,7 @@ const props = defineProps<{
 }>();
 
 const { currentUser } = useGlobalStoreRefs();
+const globalStore = useGlobalStore();
 
 const { isMobile } = useDevice();
 
@@ -120,10 +141,11 @@ const slot3 = ref<HTMLDivElement | null>(null);
 const slot4 = ref<HTMLDivElement | null>(null);
 const slot5 = ref<HTMLDivElement | null>(null);
 
-const spun = ref(false);
 const isPlaying = ref(false);
 const fastOpenCaseData = ref(null);
-const slotIsPlaying = ref(false);
+const oneSlotWinItem = ref(null);
+const shouldShow1xPlaceholder = ref(true);
+const isOneSlotGameActive = ref(false);
 
 const boxCount = ref(1);
 
@@ -136,67 +158,82 @@ const slotItems = ref([
 ]);
 
 const handleChangeSlotCount = (count: number) => {
-  fastOpenCaseData.value = null;
-  boxCount.value = count;
+  shouldShow1xPlaceholder.value = true;
+  reset(count);
   initSlots();
-  reset();
+  fastOpenCaseData.value = null;
+  isOneSlotGameActive.value = false;
+  boxCount.value = count;
 }
 
 async function spin() {
+
+  if (boxCount.value !== 1) {
+    shouldShow1xPlaceholder.value = true;
+  } else {
+    shouldShow1xPlaceholder.value = false;
+  }
+
+  isOneSlotGameActive.value = false;
   fastOpenCaseData.value = null;
   isPlaying.value = true;
-  // if (spun.value) {
-    reset();
-  // }
+  reset(boxCount.value);
+
 
   const winItemsIds = [];
 
-  if(boxCount.value === 1) {
-    const response = await openCase({ caseId: props.caseId, userId: currentUser?.value?.result?.id });
-    winItemsIds.push(response.result);
-  } else {
-    const response = await openCases({
-      caseId: props.caseId,
-      userId: currentUser?.value?.result?.id,
-      quantity: boxCount.value,
+  try {
+    if(boxCount.value === 1) {
+      isOneSlotGameActive.value = true;
+      const response = await openCase({ caseId: props.caseId, userId: currentUser?.value?.result?.id });
+      winItemsIds.push(response.result);
+
+      const winItem = caseItems.find(caseItem => caseItem.id === response.result);
+      oneSlotWinItem.value = winItem;
+    } else {
+      const response = await openCases({
+        caseId: props.caseId,
+        userId: currentUser?.value?.result?.id,
+        quantity: boxCount.value,
+      });
+      winItemsIds.push(...response.result);
+    }
+
+    const slots = [slot1.value, slot2.value, slot3.value, slot4.value, slot5.value];
+
+    let completedSlots = 0;
+
+    slots.filter(slot => !!slot).forEach((slot, index) => {
+      const symbols = slot!.querySelector(".symbols") as HTMLDivElement;
+      const symbolHeight = isMobile ? 210 : 310;
+      const symbolWidth = isMobile ? 250: 310;
+
+      if (boxCount.value === 1) {
+        const offset = -(caseItems.findIndex(caseItem => caseItem.id === winItemsIds[index]) + 3) * symbolWidth;
+        symbols.style.transition = "transform 2s ease";
+        symbols.style.transform = `translateX(${offset}px)`;
+      } else {
+        const offset = -(caseItems.findIndex(caseItem => caseItem.id === winItemsIds[index]) + 1) * symbolHeight;
+        symbols.style.transition = "top 2s ease";
+        symbols.style.top = `${offset}px`;
+      }
+
+
+      symbols.addEventListener(
+          "transitionend",
+          () => {
+            isPlaying.value = false;
+            completedSlots++;
+          },
+          { once: true }
+      );
     });
-    winItemsIds.push(...response.result);
+  } catch (error) {
+    globalStore.setAuthorized(false);
+  } finally {
+    shouldShow1xPlaceholder.value = false;
   }
 
-  const slots = [slot1.value, slot2.value, slot3.value, slot4.value, slot5.value];
-
-  let completedSlots = 0;
-
-  slots.filter(slot => !!slot).forEach((slot, index) => {
-    const symbols = slot!.querySelector(".symbols") as HTMLDivElement;
-    const symbolHeight = isMobile ? 210 : 310;
-    const symbolWidth = isMobile ? 250: 310;
-
-    if (boxCount.value === 1) {
-      const offset = -(caseItems.findIndex(caseItem => caseItem.id === winItemsIds[index]) + 1) * symbolWidth;
-      symbols.style.transition = "transform 2s ease";
-      symbols.style.transform = `translateX(${offset}px)`;
-    } else {
-      const offset = -(caseItems.findIndex(caseItem => caseItem.id === winItemsIds[index]) + 1) * symbolHeight;
-      symbols.style.transition = "top 2s ease";
-      symbols.style.top = `${offset}px`;
-    }
-    slotIsPlaying.value = true;
-
-
-    symbols.addEventListener(
-        "transitionend",
-        () => {
-          isPlaying.value = false;
-          slotIsPlaying.value = false;
-          completedSlots++;
-          if (completedSlots === boxCount.value) {
-            logDisplayedSymbols(slots);
-          }
-        },
-        { once: true }
-    );
-  });
 }
 
 function initSlots () {
@@ -206,75 +243,85 @@ function initSlots () {
     slots.filter(slot => !!slot).forEach((slot, index) => {
       const symbols = slot!.querySelector(".symbols") as HTMLDivElement;
       symbols.innerHTML = "";
-      symbols.appendChild(createEmptyElement(props.caseImg)); // Placeholder at start
+      if (boxCount.value === 1) {
+        for (let i = 0; i < 1; i++) {
+          slotItems.value[index].slice(0, 3).forEach((slotItem: CaseBaseDataType) => {
+            symbols.appendChild(createSlotElement(slotItem));
+          });
+        }
+
+        const symbolWidth = isMobile ? 250: 310;
+        const defaultOffset = - 3 * symbolWidth;
+        // symbols.style.transition = "transform 2s ease";
+        symbols.style.transform = `translateX(${defaultOffset}px)`;
+      }
+
+      if (boxCount.value !== 1) {
+        symbols.appendChild(createEmptyElement(props.caseImg)); // Placeholder at start
+      }
 
       for (let i = 0; i < 3; i++) {
         slotItems.value[index].forEach((slotItem: CaseBaseDataType) => {
           symbols.appendChild(createSlotElement(slotItem));
         });
       }
-
     });
-  }, 100)
+  }, 0)
 }
 
 async function fastOpen() {
-  reset();
-  isPlaying.value = true;
+  shouldShow1xPlaceholder.value = true;
   fastOpenCaseData.value = null;
+  reset(boxCount.value);
+  isPlaying.value = true;
+  isOneSlotGameActive.value = false;
 
-  if(boxCount.value === 1) {
-    const response = await openCase({ caseId: props.caseId, userId: currentUser?.value?.result?.id });
-    const openedItem = props.data.items.find(caseItem => caseItem.id === response.result)
-    fastOpenCaseData.value = [openedItem as CaseType];
-  } else {
-    const response = await openCases({
-      caseId: props.caseId,
-      userId: currentUser?.value?.result?.id,
-      quantity: boxCount.value,
-    });
+  try {
+    if(boxCount.value === 1) {
+      const response = await openCase({ caseId: props.caseId, userId: currentUser?.value?.result?.id });
+      const openedItem = props.data.items.find(caseItem => caseItem.id === response.result)
+      fastOpenCaseData.value = [openedItem as CaseType];
+    } else {
+      const response = await openCases({
+        caseId: props.caseId,
+        userId: currentUser?.value?.result?.id,
+        quantity: boxCount.value,
+      });
 
-    const openedItems = props.data.items.filter(caseItem => response.result.includes(caseItem.id))
-    fastOpenCaseData.value = openedItems as CaseType[];
+      const openedItems = props.data.items.filter(caseItem => response.result.includes(caseItem.id))
+      fastOpenCaseData.value = openedItems as CaseType[];
+    }
+  } catch (error) {
+    globalStore.setAuthorized(false);
+  } finally {
+    isPlaying.value = false;
+    shouldShow1xPlaceholder.value = false;
   }
-
-  isPlaying.value = false;
 }
 
-function reset() {
+function reset(count: number) {
   const slots = [slot1.value, slot2.value, slot3.value, slot4.value, slot5.value];
   slots.forEach(slot => {
     if (!slot) return;
     const symbols = slot.querySelector(".symbols") as HTMLDivElement;
     symbols.style.transition = "none";
     symbols.style.top = "0";
-    symbols.style.transform = "none";
+    if (count !== 1) {
+      symbols.style.transform = "none";
+    } else {
+      const symbolWidth = isMobile ? 250: 310;
+      const defaultOffset = - 3 * symbolWidth;
+      symbols.style.transform = `translateX(${defaultOffset}px)`;;
+    }
     symbols.offsetHeight; // Trigger reflow
     symbols.style.transition = "";
   });
 
 }
 
-function logDisplayedSymbols(slots: (HTMLDivElement | null)[]) {
-  const displayedSymbols: string[] = [];
-
-  slots.forEach((slot, index) => {
-    if (!slot) return;
-
-    const symbols = slot.querySelector(".symbols") as HTMLDivElement;
-    const topOffset = Math.abs(parseInt(symbols.style.top || "0", 10));
-    const symbolHeight = symbols.querySelector(".symbol")?.clientHeight || 50;
-
-    const symbolIndex =
-        Math.floor(topOffset / symbolHeight) % slotItems.value[index].length;
-
-    displayedSymbols.push(slotItems.value[index][symbolIndex]);
-  });
-
-  console.log(displayedSymbols); // Log the symbols
-}
-
 onMounted(async () => {
+
+  // const response = await axiosInstance.post("/auth/refresh");
   initSlots();
 });
 
@@ -352,6 +399,14 @@ onMounted(async () => {
   }
 }
 
+.slot-x1-placeholder {
+  position: absolute;
+  z-index: 4;
+  background: $dark-blue;
+  height: 100%;
+  width: 100%;
+}
+
 .fast-open-wrapper {
   position: absolute;
   width: 100%;
@@ -384,6 +439,10 @@ onMounted(async () => {
   @include bp($point_5) {
     max-width: 250px;
   }
+}
+
+.overflowVisible {
+  overflow: visible !important;
 }
 
 .slot-x2 {
@@ -474,33 +533,21 @@ button {
 
 .arrow-icon {
   position: absolute;
+  height: 28px;
+  width: 28px;
 }
 
 .arrow-top {
   left: 50%;
   transform: translateX(-50%);
-  top: -10px;
-  z-index: 2;
+  top: -30px;
+  z-index: 5;
 }
 
 .arrow-bottom {
   left: 50%;
-  z-index: 2;
+  z-index: 5;
   transform: translateX(-50%);
-  bottom: -10px;
-}
-
-.arrow-left {
-  left: 0;
-  z-index: 2;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.arrow-right {
-  z-index: 2;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: -30px;
 }
 </style>

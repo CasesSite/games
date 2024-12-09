@@ -6,13 +6,13 @@
         <p class="message-desc">Авторизируйтесь, чтобы открыть кейс</p>
       </div>
       <div class="hero_btn">
-        <NuxtLink to="/not-authorized"> ВОЙТИ </NuxtLink>
+        <button @click="openModal">ВОЙТИ</button>
       </div>
     </div>
     <!--    <div class="info" v-else-if="isNotEnoughMoney">-->
     <!--      <div class="case-info__message">-->
     <!--        <p class="message-title">-->
-    <!--          Не хватает  dsadas100 000 {{ amount }}-->
+    <!--          Не хватает {{ amount }}-->
     <!--          <img-->
     <!--              class="star-icon"-->
     <!--              src="@/assets/img/header/header-logo.svg"-->
@@ -51,13 +51,17 @@
         БЫСТРОЕ ОТКРЫТИЕ
       </button>
     </div>
+    <LoginModal v-if="isModalOpen" @close="closeModal" />
   </div>
 </template>
 
 <script setup lang="ts">
+
 import {computed, defineProps} from "vue";
-import { CaseType } from "~/common/commonTypes"
 import {useGlobalStoreRefs} from "~/stores/useGlobalStore";
+import LoginModal from "~/components/modals/LoginModal.vue";
+import { ref } from "vue";
+const isModalOpen = ref(false);
 
 const props = defineProps<{
   price: number;
@@ -70,6 +74,13 @@ const props = defineProps<{
 
 const { isAuthorizedUser, currentUser } = useGlobalStoreRefs();
 
+function openModal() {
+  isModalOpen.value = true;
+}
+
+function closeModal() {
+  isModalOpen.value = false;
+}
 
 const isNotEnoughMoney = computed(() => {
   return currentUser?.value?.result?.currentBalance < props.price;
@@ -110,9 +121,15 @@ const isNotEnoughMoney = computed(() => {
   font-size: 20px;
   font-family: $font_5;
   text-transform: uppercase;
-  a {
+  @include flex-center;
+
+  button {
+    color: $white;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
     padding: 1.6rem 3.6rem 1.8rem 3.6rem;
-    @include flex-center;
+    text-align: center;
   }
 
   @include bp($point_5) {

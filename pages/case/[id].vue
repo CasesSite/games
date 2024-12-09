@@ -13,11 +13,11 @@
 
     <div class="case-info">
       <CaseOpening
-          v-if="caseStore?.currentCase"
-          :data="caseStore?.currentCase"
-          :caseImg="caseStore?.currentCase.image"
-          :items="caseStore?.currentCase.items"
-          :caseId="caseStore?.currentCase.id"
+        v-if="caseStore?.currentCase"
+        :data="caseStore?.currentCase"
+        :caseImg="caseStore?.currentCase.image"
+        :items="caseStore?.currentCase.items"
+        :caseId="caseStore?.currentCase.id"
       />
     </div>
 
@@ -25,13 +25,13 @@
 
     <div class="case-content-grid">
       <CaseItem
-          v-if="caseStore.currentCase"
-          v-for="(caseItem) in caseStore.currentCase.items"
-          :key="caseItem.id"
-          :img="caseItem.image"
-          :name="caseItem.name"
-          :rarity="caseItem.rarity"
-          :game="caseItem.game"
+        v-if="itemsSorted"
+        v-for="(caseItem) in itemsSorted"
+        :key="caseItem.id"
+        :img="caseItem.image"
+        :name="caseItem.name"
+        :rarity="caseItem.rarity"
+        :game="caseItem.game"
       />
     </div>
   </div>
@@ -43,17 +43,28 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 import { useCurrentCaseStore } from "~/stores/useCurrentCaseStore";
 import CaseOpening from "~/components/CaseOpen/CaseOpening.vue";
-
+import {useGlobalStore, useGlobalStoreRefs} from "~/stores/useGlobalStore";
+import {computed} from "vue";
 
 const router = useRouter();
 const caseStore = useCurrentCaseStore();
+const globalStore = useGlobalStore();
+const { currentUser } = useGlobalStoreRefs();
 
+const itemsSorted = computed(() => {
+  const items: CaseItem[] = caseStore?.currentCase?.items?.length ? [...caseStore?.currentCase?.items] : [];
+
+  return items.sort((a, b) => b.rarity - a.rarity);
+});
 
 onMounted(async () => {
   try {
     const response = await axios.get(`https://dev.24cases.ru/v1/cases/get/${router.currentRoute.value.params.id}`)
-    console.log('response', response.data);
     caseStore.setCaseData(response.data as CaseItem);
+
+    if(!currentUser.value) { // TODO:
+      globalStore.setAuthorized(false);
+    }
   } catch (error) {
     await router.push('/')
   }
