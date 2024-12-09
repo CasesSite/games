@@ -154,6 +154,7 @@ import { computed, ref } from "vue";
 import axiosClient from "~/helper/axiosClient";
 import { useGlobalStoreRefs } from "~/stores/useGlobalStore";
 import { useRouter } from "vue-router";
+import { getCurrentUser } from "~/services/authService";
 const router = useRouter();
 const { currentUser } = useGlobalStoreRefs();
 const id = computed(() => currentUser?.value?.result?.id || 0);
@@ -173,6 +174,7 @@ async function submitRecharge(userId: number, amount: number) {
 
   try {
     await axiosClient.post("/finance/transaction", data);
+    await getCurrentUser();
     router.push("/account/success");
   } catch (error) {
     console.error(
