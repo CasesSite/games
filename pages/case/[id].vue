@@ -52,7 +52,7 @@ const globalStore = useGlobalStore();
 const { currentUser } = useGlobalStoreRefs();
 
 const itemsSorted = computed(() => {
-  const items: CaseItem[] = [...caseStore?.currentCase.items];
+  const items: CaseItem[] = caseStore?.currentCase?.items?.length ? [...caseStore?.currentCase?.items] : [];
 
   return items.sort((a, b) => b.rarity - a.rarity);
 });
