@@ -9,10 +9,9 @@ import axios from "axios";
 
 onMounted(async () => {
   try {
-    const response = await axios.get("https://dev.24cases.ru/v1/users/me", {
-      withCredentials: true,
-    });
-    console.log(currentUser.value, "1111");
+    // const response = await axios.get("https://dev.24cases.ru/v1/users/me", {
+    //   withCredentials: true,
+    // });
   } catch (error) {
     console.log("error", error);
   }
