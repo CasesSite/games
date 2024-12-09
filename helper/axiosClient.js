@@ -47,9 +47,11 @@ axiosInstance.interceptors.response.use(
           refreshToken: refreshTokenCookie.value,
         });
 
-        const { accessToken } = response.data;
+        const { accessToken, expiresIn } = response.data;
 
         accessTokenCookie.value = accessToken;
+
+        scheduleTokenRefresh(expiresIn * 1000);
 
         onRrefreshed(accessToken);
 
