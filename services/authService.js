@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useGlobalStore } from "@/stores/useGlobalStore";
 import { useCookie } from "#app";
 import axiosClient from "~/helper/axiosClient.js";
@@ -7,7 +6,7 @@ import axiosInstance from "~/helper/axiosClient.js";
 let refreshTimer;
 
 const scheduleTokenRefresh = (expiresIn) => {
-  clearTimeout(refreshTimer); // Clear existing timer
+  clearTimeout(refreshTimer);
   refreshTimer = setTimeout(async () => {
     try {
       const response = await axiosInstance.post("/auth/refresh", {
@@ -19,7 +18,7 @@ const scheduleTokenRefresh = (expiresIn) => {
     } catch (error) {
       console.error("Failed to refresh token:", error);
     }
-  }, expiresIn - 5000); // Refresh 5 seconds before expiry
+  }, expiresIn - 5000);
 };
 
 export const checkEmailExists = async (email) => {
@@ -76,8 +75,7 @@ export const login = async (email, password) => {
     accessTokenCookie.value = accessToken;
     refreshTokenCookie.value = refreshToken;
 
-    // Schedule token refresh
-    scheduleTokenRefresh(expiresIn * 1000); // Convert seconds to ms
+    scheduleTokenRefresh(expiresIn * 1000);
 
     globalStore.setAuthorized(true);
 

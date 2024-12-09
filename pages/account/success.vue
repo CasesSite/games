@@ -34,7 +34,7 @@
       <div class="page-success__buttons">
         <NuxtLink to="/" class="but-out">На главную</NuxtLink
         ><NuxtLink to="/account/inventory" class="but-sell"
-          >Перейти к ивенту</NuxtLink
+          >Перейти к ивентру</NuxtLink
         >
       </div>
     </div>
@@ -101,9 +101,10 @@
   justify-content: space-between;
   align-items: center;
 }
-.page-success__buttons button {
+.page-success__buttons a {
+  @include flex-center;
   width: 26rem;
-  height: 5rem;
+  height: 50px;
   position: relative;
   font-size: 2rem;
   font-family: "Exo2-medium";
@@ -113,7 +114,7 @@
   position: absolute;
   content: "‹";
   font-size: 2rem;
-  top: 1.2rem;
+  top: 28%;
   left: 6.3rem;
   transition: all 0.2s ease-in-out;
 }
@@ -124,8 +125,8 @@
   position: absolute;
   content: "›";
   font-size: 2rem;
-  top: 1.2rem;
-  right: 3.4rem;
+  top: 28%;
+  right: 2.5rem;
   transition: all 0.2s ease-in-out;
 }
 .page-success__buttons .but-sell:hover:after {
