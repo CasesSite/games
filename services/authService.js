@@ -2,6 +2,25 @@ import axios from "axios";
 import { useGlobalStore } from "@/stores/useGlobalStore";
 import { useCookie } from "#app";
 import axiosClient from "~/helper/axiosClient.js";
+import axiosInstance from "~/helper/axiosClient.js";
+
+let refreshTimer;
+
+const scheduleTokenRefresh = (expiresIn) => {
+  clearTimeout(refreshTimer); // Clear existing timer
+  refreshTimer = setTimeout(async () => {
+    try {
+      const response = await axiosInstance.post("/auth/refresh", {
+        refreshToken: useCookie("RefreshToken").value,
+      });
+      const { accessToken } = response.data;
+      useCookie("AccessToken").value = accessToken;
+      console.log("AccessToken refreshed");
+    } catch (error) {
+      console.error("Failed to refresh token:", error);
+    }
+  }, expiresIn - 5000); // Refresh 5 seconds before expiry
+};
 
 export const checkEmailExists = async (email) => {
   try {
@@ -24,10 +43,15 @@ export const createAccount = async (email, password) => {
       role: "User",
     });
 
-    const { token, user } = response.data;
+    const { token, user, expiresIn } = response.data;
+
     tokenCookie.value = token;
+
+    scheduleTokenRefresh(expiresIn * 1000);
+
     globalStore.setAuthorized(true);
     globalStore.setCurrentUser(user);
+
     return response.data;
   } catch (error) {
     console.error("Error creating account:", error);
@@ -47,10 +71,13 @@ export const login = async (email, password) => {
       { withCredentials: true },
     );
 
-    const { accessToken, refreshToken } = response.data;
+    const { accessToken, refreshToken, expiresIn } = response.data;
 
     accessTokenCookie.value = accessToken;
     refreshTokenCookie.value = refreshToken;
+
+    // Schedule token refresh
+    scheduleTokenRefresh(expiresIn * 1000); // Convert seconds to ms
 
     globalStore.setAuthorized(true);
 

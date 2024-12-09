@@ -121,6 +121,10 @@ input {
   position: relative;
   display: flex;
   align-items: center;
+  @include bp($point_2) {
+    display: block;
+  }
+
 }
 .label-policy span {
   display: inline-block;

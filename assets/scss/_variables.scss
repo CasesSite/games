@@ -26,7 +26,10 @@ $color_text_base: $white;
 $body_bg: $dark-blue;
 $linear: linear-gradient(180deg, rgb(54, 88, 247), rgb(85, 65, 194) 100%);
 $lrose: linear-gradient(180deg, #F18D72 0%, #C744A3 100%);
-;
+$drum-gradient: linear-gradient(153.27deg, #8596E0 12%, #6F82D4 87.11%);
+$drum-card-gradient: linear-gradient(0deg, #2760D6 0%, #373F98 100%);
+$drum-card-gradient-top: linear-gradient(90deg, rgba(9, 13, 49, 0) 0%, rgba(9, 13, 49, 0.83) 50.5%, #090D31 100%);
+
 $blue: #387be6;
 $light: #9bc8ff;
 $rose: #b24892;
